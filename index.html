@@ -2552,6 +2552,12 @@ async function goiDrive(url){
   if(!r.ok){ let msg='', ly=''; try{ const j=await r.json(); const e=j.error||{}; msg=e.message||''; ly=((e.details||[]).find(d=>d&&d.reason)||{}).reason||((e.errors||[])[0]||{}).reason||e.status||''; }catch(e){} throw new Error(giaiThichLoi(r.status,msg,ly)); }
   return r;
 }
+/* Tải nội dung file: dùng đường /download/… (trình duyệt cho đọc); đường /files/…?alt=media bị chặn ở trình duyệt nên chỉ dùng dự phòng */
+async function taiNoiDung(id,khoa){
+  const k=encodeURIComponent(khoa);
+  try{ return await goiDrive(`https://www.googleapis.com/download/drive/v3/files/${id}?alt=media&supportsAllDrives=true&key=${k}`); }
+  catch(e){ try{ return await goiDrive(`${GAPI}/${id}?alt=media&supportsAllDrives=true&key=${k}`); }catch(e2){ throw e; } }
+}
 async function timFileMoiNhat(ch){
   const m=maTuLink(ch.link); if(!m) throw new Error('Link Google Drive không đúng.'); const k=encodeURIComponent(ch.khoa);
   let thuMuc=m.loai==='thuMuc'?m.id:null;
@@ -2578,7 +2584,7 @@ async function taiTuDrive(baoLoi){
   try{
     const f=await timFileMoiNhat(TT.cauHinh); TT.kiemTra=new Date().toISOString(); TT.loi=null;
     if(!TT.st||!TT.file||f.id!==TT.file.id||f.modifiedTime!==TT.file.modifiedTime){
-      const r=await goiDrive(`${GAPI}/${f.id}?alt=media&supportsAllDrives=true&key=${encodeURIComponent(TT.cauHinh.khoa)}`);
+      const r=await taiNoiDung(f.id, TT.cauHinh.khoa);
       let o; try{ o=await r.json(); }catch(e){ throw new Error('File “'+f.name+'” không đọc được (không phải JSON).'); }
       if(o&&o.tuan&&!o.data) o=chuyenTuBanCu(o);
       if(!o||!o.data) throw new Error('File “'+f.name+'” không phải file sao lưu của công cụ.');
