@@ -1,5 +1,9 @@
 {
-  "link": "https://drive.google.com/open?id=1zeFwUjv5ZeyEN2FpKWtd4gi_hWsDJZr2&usp=drive_fs",
-  "khoa": "AIzaSyBsqgXm37066jhVwv1hMQzQqHIXiNtk4TQ",
-  "phut": 5
+  "maHoa": "AES-GCM",
+  "kdf": "PBKDF2-SHA256",
+  "lap": 250000,
+  "salt": "z557O1tYmVAgwPJ0aDB3Aw==",
+  "iv": "2oRjFlSIu5TLRXI8",
+  "du": "/XUFBmJb60IZ3R+EIz3MPs5upIlYLUlesaBYDEykwRcr/iGsaJu93GIYX/opAnT6U4w+ptAht3BJ/YtUk+7r/mxTf3c3EQRjewp8ahax9t5gMgT8dvV3ru/fFliATqlYahZuWh00g3DW4iEFR8mMZGhOZCjZ/ZLTJLjqId5VnIuUW2cN8EUfx38w0l5rEmtaVm4tH8Yexet5In4FyCj0aMLu8RBg7GhQLTodAjnqCAbCSuTuzggHfIiYh3UIA+P5hLQglYJACLez+dQ1uxPhAmmhVWvqTtAf9r15NKaBHak7isRI/YcVXMBykwyZacJQRo1ZWeEv9EsMK0rg6im622NfSw==",
+  "ghiChu": "Số liệu đã khóa bằng mật khẩu – chỉ mở được bằng app Báo cáo điều hành"
 }
