@@ -2,8 +2,8 @@
   "maHoa": "AES-GCM",
   "kdf": "PBKDF2-SHA256",
   "lap": 250000,
-  "salt": "z557O1tYmVAgwPJ0aDB3Aw==",
-  "iv": "2oRjFlSIu5TLRXI8",
-  "du": "/XUFBmJb60IZ3R+EIz3MPs5upIlYLUlesaBYDEykwRcr/iGsaJu93GIYX/opAnT6U4w+ptAht3BJ/YtUk+7r/mxTf3c3EQRjewp8ahax9t5gMgT8dvV3ru/fFliATqlYahZuWh00g3DW4iEFR8mMZGhOZCjZ/ZLTJLjqId5VnIuUW2cN8EUfx38w0l5rEmtaVm4tH8Yexet5In4FyCj0aMLu8RBg7GhQLTodAjnqCAbCSuTuzggHfIiYh3UIA+P5hLQglYJACLez+dQ1uxPhAmmhVWvqTtAf9r15NKaBHak7isRI/YcVXMBykwyZacJQRo1ZWeEv9EsMK0rg6im622NfSw==",
+  "salt": "uwBW9pKbRZ9UeiiycJ/O+g==",
+  "iv": "clNjRos23hvL0wQK",
+  "du": "mEhiFzgnRErL6cHt2vA2aIdKRKh7GgHybsp1MVUE2grAK3VKbCRRc9oPzy3FWKoxw6fZ2nb+oh4vdKi0jOCqeLJPeNwcMDOFm2xyrZhcDXBAFadnjrUNFTNhrAvoBmm+iXzoi92P7Nar9RHdnSE6qHVyhKzA18z68rldK1R5b5ut8AnbfdZm+YoZDEKtYJ3magG19apdgtZjzZqOWxQ+xZ/c41k/4dwMSeqoSHxzlNI70iVE35lFj9SsbvYxvUugMOWfjuTxuHA4wv0jlvkf5/d3v8jTPXfkZ+hHcXPM95IGlEExFH8OkCftofoRu0RJRgSCT4/R4dIjqUiKoZoPGEhiBA==",
   "ghiChu": "Số liệu đã khóa bằng mật khẩu – chỉ mở được bằng app Báo cáo điều hành"
 }
