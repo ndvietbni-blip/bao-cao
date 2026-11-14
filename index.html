@@ -2534,24 +2534,36 @@ async function docCauHinh(){
   if(/^https?:$/.test(location.protocol)){ try{ const r=await fetch('cau_hinh.json',{cache:'no-store'}); if(r.ok){ const o=await r.json(); if(o&&o.link&&o.khoa){ TT.tu='file cau_hinh.json của trang'; return o; } } }catch(e){} }
   return null;
 }
-function giaiThichLoi(st,msg){
-  if(/referer|referrer/i.test(msg)) return 'Khóa API không cho phép địa chỉ trang này (xem mục “Hạn chế ứng dụng” của khóa).';
-  if(/has not been used|is disabled|not enabled/i.test(msg)) return 'Chưa bật “Google Drive API” cho dự án Google Cloud.';
-  if(/API key not valid|keyInvalid/i.test(msg)) return 'Khóa API không đúng.';
-  if(st===404||/File not found/i.test(msg)) return 'Không thấy thư mục/file – kiểm tra link và quyền chia sẻ “Bất kỳ ai có đường liên kết”.';
-  return 'Lỗi '+st+': '+msg;
+/* Giải thích lỗi Google bằng tiếng Việt; luôn kèm mã lỗi gốc để tra cứu */
+function giaiThichLoi(st,msg,ly){
+  const m=String(msg||''), r=String(ly||''); const ma=` (mã: ${st}${r?' '+r:''})`;
+  if(r==='API_KEY_HTTP_REFERRER_BLOCKED'||/referer|referrer/i.test(m)) return 'Khóa API không cho phép địa chỉ trang này. Vào khóa → Application restrictions → Websites: phải có đúng https://TÊN.github.io/* ; nếu đang thử bằng file trên máy thì hãy thử trên trang GitHub.'+ma;
+  if(r==='API_KEY_SERVICE_BLOCKED'||/are blocked/i.test(m)) return 'Khóa API chưa được phép dùng Google Drive API (có thể đang dùng nhầm khóa Gemini). Vào khóa → API restrictions → tích “Google Drive API” → Save.'+ma;
+  if(/ANDROID|IOS/.test(r)) return 'Khóa đang giới hạn cho ứng dụng Android/iOS. Vào khóa → Application restrictions → chọn “Websites”.'+ma;
+  if(r==='SERVICE_DISABLED'||r==='accessNotConfigured'||/has not been used|is disabled|not enabled/i.test(m)) return 'Chưa bật “Google Drive API” trong đúng dự án chứa khóa này (kiểm tra tên dự án ở thanh trên cùng của Google Cloud).'+ma;
+  if(r==='API_KEY_INVALID'||/API key not valid|keyInvalid/i.test(m)) return 'Khóa API không đúng (sao chép lại, không thừa dấu cách).'+ma;
+  if(st===404||r==='notFound'||/File not found/i.test(m)) return 'Không thấy thư mục/file – kiểm tra link và quyền chia sẻ “Bất kỳ ai có đường liên kết”.'+ma;
+  if(/insufficientFilePermissions|forbidden/i.test(r)) return 'Thư mục/file chưa chia sẻ “Bất kỳ ai có đường liên kết – Người xem”.'+ma;
+  if(st===403&&/Permission denied on the service/i.test(m)) return 'Google từ chối khóa này. Thường do: (1) dùng nhầm khóa Gemini/khóa của dự án khác; (2) khi tạo khóa có tích “Authenticate API calls through a service account”. Hãy tạo khóa MỚI trong đúng dự án đã bật Google Drive API, KHÔNG tích ô đó.'+ma;
+  return 'Lỗi '+st+': '+m+ma;
 }
 async function goiDrive(url){
   let r; try{ r=await fetch(url,{cache:'no-store'}); }catch(e){ throw new Error('Không kết nối được Google Drive (mất mạng hoặc bị chặn).'); }
-  if(!r.ok){ let msg=''; try{ const j=await r.json(); msg=(j.error&&j.error.message)||''; }catch(e){} throw new Error(giaiThichLoi(r.status,msg)); }
+  if(!r.ok){ let msg='', ly=''; try{ const j=await r.json(); const e=j.error||{}; msg=e.message||''; ly=((e.details||[]).find(d=>d&&d.reason)||{}).reason||((e.errors||[])[0]||{}).reason||e.status||''; }catch(e){} throw new Error(giaiThichLoi(r.status,msg,ly)); }
   return r;
 }
 async function timFileMoiNhat(ch){
   const m=maTuLink(ch.link); if(!m) throw new Error('Link Google Drive không đúng.'); const k=encodeURIComponent(ch.khoa);
-  if(m.loai==='file'){ const r=await goiDrive(`${GAPI}/${m.id}?fields=id,name,modifiedTime,size&supportsAllDrives=true&key=${k}`); return await r.json(); }
-  const q=encodeURIComponent(`'${m.id}' in parents and trashed=false`);
-  const r=await goiDrive(`${GAPI}?q=${q}&orderBy=modifiedTime%20desc&pageSize=50&fields=files(id,name,modifiedTime,size)&supportsAllDrives=true&includeItemsFromAllDrives=true&key=${k}`);
-  const ds=((await r.json()).files||[]).filter(f=>/\.json$/i.test(f.name));
+  let thuMuc=m.loai==='thuMuc'?m.id:null;
+  if(!thuMuc){   // link dạng file/d/… hoặc open?id=… (Google Drive cho máy tính): hỏi Drive xem là thư mục hay file
+    const r=await goiDrive(`${GAPI}/${m.id}?fields=id,name,modifiedTime,size,mimeType&supportsAllDrives=true&key=${k}`); const f=await r.json();
+    if(f.mimeType==='application/vnd.google-apps.folder') thuMuc=f.id;
+    else if(/^application\/vnd\.google-apps\./.test(f.mimeType||'')) throw new Error(`Link đang trỏ tới “${f.name}” là tệp Google Docs/Sheets, không phải file .json. Hãy dùng link của THƯ MỤC chứa file Sao_luu_bao_cao_dieu_hanh.json.`);
+    else return f;
+  }
+  const q=encodeURIComponent(`'${thuMuc}' in parents and trashed=false`);
+  const r=await goiDrive(`${GAPI}?q=${q}&orderBy=modifiedTime%20desc&pageSize=50&fields=files(id,name,modifiedTime,size,mimeType)&supportsAllDrives=true&includeItemsFromAllDrives=true&key=${k}`);
+  const ds=((await r.json()).files||[]).filter(f=>/\.json$/i.test(f.name)&&!/^application\/vnd\.google-apps\./.test(f.mimeType||''));
   if(!ds.length) throw new Error('Thư mục Drive chưa có file .json.');
   ds.sort((a,b)=>a.modifiedTime<b.modifiedTime?1:-1); return ds[0];
 }
