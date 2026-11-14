@@ -355,9 +355,9 @@ body.exporting .no-export{display:none!important}
 </header>
 
 <nav class="parts" id="parts">
-  <button class="part-btn" data-phan="hl" style="--pc:var(--p1)"><span class="pn">1</span><span><b>Sự hài lòng của NNT</b><small>A. Tiến độ cỡ mẫu (Mẫu 01) · B. Theo dõi điều hành (Mẫu 02–05)</small></span></button>
-  <button class="part-btn" data-phan="ns" style="--pc:var(--p2)"><span class="pn">2</span><span><b>Tiến độ thu NSNN</b><small>Theo khoản thu và theo đơn vị · so dự toán, cùng kỳ, tiến độ thời gian</small></span></button>
-  <button class="part-btn" data-phan="cd" style="--pc:var(--p3)"><span class="pn">3</span><span><b>Chiến dịch làm sạch MST (03, 06)</b><small>Tiến độ DS1, DS2, DS3 và kiểm tra DN, tổ chức 03</small></span></button>
+  <button class="part-btn" data-phan="ns" style="--pc:var(--p2)"><span class="pn">1</span><span><b>Tiến độ thu NSNN</b><small>Theo khoản thu và theo đơn vị · so dự toán, cùng kỳ, tiến độ thời gian</small></span></button>
+  <button class="part-btn" data-phan="cd" style="--pc:var(--p3)"><span class="pn">2</span><span><b>Chiến dịch làm sạch MST (03, 06)</b><small>Tiến độ DS1, DS2, DS3 và kiểm tra DN, tổ chức 03</small></span></button>
+  <button class="part-btn" data-phan="hl" style="--pc:var(--p1)"><span class="pn">3</span><span><b>Sự hài lòng của NNT</b><small>A. Tiến độ cỡ mẫu (Mẫu 01) · B. Theo dõi điều hành (Mẫu 02–05)</small></span></button>
 </nav>
 
 <main class="container">
@@ -935,11 +935,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    PHẦN 1. DANH MỤC CỐ ĐỊNH
    ===================================================================== */
 const TCS = Array.from({length:10},(_,i)=>'TCS'+(i+1));
-const DV_A  = ['QLDN1','QLDN2','QLDN3',...TCS];          // Phần 1A – cỡ mẫu Mẫu 01
-const DV_B  = ['TP',...TCS];                              // Phần 1B – biểu Tổng quan Mẫu 02–05
-const DV_NS = ['QLDN1','QLDN2','QLDN3','CNTK',...TCS];    // Phần 2 – thu NSNN theo đơn vị
-const DV_DS = ['QLDN1','QLDN2','QLDN3',...TCS];          // Phần 3 – DS1, DS2, DS3
-const DV_KT = ['KT1','KT2',...TCS];                       // Phần 3 – kiểm tra DN, TC 03
+const DV_A  = ['QLDN1','QLDN2','QLDN3',...TCS];          // Phần 3A – cỡ mẫu Mẫu 01
+const DV_B  = ['TP',...TCS];                              // Phần 3B – biểu Tổng quan Mẫu 02–05
+const DV_NS = ['QLDN1','QLDN2','QLDN3','CNTK',...TCS];    // Phần 1 – thu NSNN theo đơn vị
+const DV_DS = ['QLDN1','QLDN2','QLDN3',...TCS];          // Phần 2 – DS1, DS2, DS3
+const DV_KT = ['KT1','KT2',...TCS];                       // Phần 2 – kiểm tra DN, TC 03
 const TEN_DAY = {
   QLDN1:'Phòng Quản lý, hỗ trợ doanh nghiệp số 1', QLDN2:'Phòng Quản lý, hỗ trợ doanh nghiệp số 2', QLDN3:'Phòng Quản lý, hỗ trợ doanh nghiệp số 3',
   CNTK:'Phòng CNTK', KT1:'Phòng Kiểm tra 1', KT2:'Phòng Kiểm tra 2', TP:'Thuế TP – đánh giá riêng (khối phòng)',
@@ -990,9 +990,9 @@ const STATUS = {
   na:     {ten:'Chưa cập nhật',       icon:'⚪', v:'--na',   s:'--grid'},
 };
 const PHAN = {
-  hl:{so:1, ten:'Sự hài lòng của người nộp thuế', mau:'--p1'},
-  ns:{so:2, ten:'Tiến độ thu ngân sách nhà nước', mau:'--p2'},
-  cd:{so:3, ten:'Chiến dịch làm sạch MST (03, 06)', mau:'--p3'},
+  ns:{so:1, ten:'Tiến độ thu ngân sách nhà nước', mau:'--p2'},
+  cd:{so:2, ten:'Chiến dịch làm sạch MST (03, 06)', mau:'--p3'},
+  hl:{so:3, ten:'Sự hài lòng của người nộp thuế', mau:'--p1'},
 };
 const STORE_KEY = 'dashboardDieuHanhBacNinh2026_v3';
 const OLD_KEY   = 'dashboardKhaoSatHaiLong2026_v1';
@@ -1064,7 +1064,7 @@ function maDonVi(s){
    ===================================================================== */
 function moiTrangThai(){
   return {v:PHIEN_BAN, plan:clone(PLAN_GOC), nguonPlan:'Phụ lục 01 giao chỉ tiêu (bản chốt 14/11/2026)', caiDat:clone(CAI_DAT_GOC),
-    data:{hl:{},ns:{},cd:{}}, ui:{phan:'hl', tab:'A', mauB:'ALL', ds:'DS1', qgA:'so', heatB:'khl', ky:{}, ss:{}, anCot:{}}};
+    data:{hl:{},ns:{},cd:{}}, ui:{phan:'ns', tab:'A', mauB:'ALL', ds:'DS1', qgA:'so', heatB:'khl', ky:{}, ss:{}, anCot:{}}};
 }
 function chuanHoaTrangThai(st){
   const base=moiTrangThai(); const o=Object.assign(base, st||{});
@@ -1755,7 +1755,7 @@ function renderA(){
   dong(M.KT,'II','grp','Khối Thuế cơ sở'); M.rows.filter(r=>r.id.startsWith('TCS')).forEach((r,i)=>dong(r,i+1));
   dong(T,'','total','TOÀN THUẾ THÀNH PHỐ');
   const kh=M.cur.khac; const khT=(kh.q12||0)+(kh.q3||0);
-  datXL('hlA',{phan:'hl', ten:'1A_Tien_do_co_mau', tieuDe:`TIẾN ĐỘ KHẢO SÁT MẪU 01 SO VỚI CỠ MẪU GIAO – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr, rows:xlRows, fmt:['','','#,##0','#,##0','0.0%','#,##0','#,##0','0.0%','#,##0','#,##0','#,##0','#,##0.0','']});
+  datXL('hlA',{phan:'hl', ten:'3A_Tien_do_co_mau', tieuDe:`TIẾN ĐỘ KHẢO SÁT MẪU 01 SO VỚI CỠ MẪU GIAO – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr, rows:xlRows, fmt:['','','#,##0','#,##0','0.0%','#,##0','#,##0','0.0%','#,##0','#,##0','#,##0','#,##0.0','']});
   h+=the({id:'k-a-tbl', tieu:'Biểu tiến độ khảo sát Mẫu 01 so với cỡ mẫu giao', phu:`Số NNT tham gia (lũy kế) · QLDN1 = DNNN + DN FDI, QLDN2 = DN, tổ chức khác (biểu QLDN1-2, mục [2]); QLDN3 = mục [2.1] biểu QLDN3; TCS = cột “Tổng số người đánh giá”`, xl:'hlA', cot:'hlA',
     body:`${bangHTML('hlA',cA,tr)}
     <p class="muted" style="font-size:12px;margin:8px 0 0">Ngoài cỡ mẫu: khối QLDN còn có <b>${fmtNum(khT)}</b> NNT là hộ kinh doanh, cá nhân (mục [2.2]: QLDN1-2 ${fmtNum(kh.q12)}, QLDN3 ${fmtNum(kh.q3)}) – không tính vào cỡ mẫu của phòng nào. “Chưa cập nhật” = chưa có biểu (không ghi 0). <span class="kt">KT</span> = biểu chưa cập nhật kỳ này, dùng số kỳ trước. Rê chuột vào số của QLDN để xem chi tiết nhóm DN.</p>`});
@@ -1860,7 +1860,7 @@ function renderB(){
     xq.push([MAU_TEN[t.ma].tenDay, bn?bn.so:(t.c?t.c.so:null), Q&&bn?Q.hangSo:null, cs, Q?Q.tq.cs:null, Q&&cs!=null?cs-Q.tq.cs:null, Q&&bn?Q.hangCS:null, bn?bn.khl:(t.c?t.c.khl:null), Q?Q.tq.khl:null, Q&&bn?Q.hangKhl:null, Q?Q.n:null]);
     const lech=Q&&cs!=null?cs-Q.tq.cs:null; const bkhl=bn?bn.khl:(t.c?t.c.khl:null);
     trq.push({o:[tdDV(MAU_TEN[t.ma].tenDay), tdR(fmtNum(bn?bn.so:(t.c?t.c.so:null))), `<td class="c">${Q&&bn?`${Q.hangSo}/${Q.n}`:'–'}</td>`, tdR('<b>'+fmtPct(cs)+'</b>'), tdR(Q?fmtPct(Q.tq.cs):'–'), tdR(lech==null?'–':fmtSigned(lech*100,1), lech==null?'':lech>=0?'x-good':'x-bad'), `<td class="c"><b>${Q&&bn?`${Q.hangCS}/${Q.n}`:'–'}</b></td>`, tdR(fmtPct(bkhl,2), Q&&bkhl!=null&&bkhl>Q.tq.khl?'x-warn':''), tdR(Q?fmtPct(Q.tq.khl,2):'–'), `<td class="c">${Q&&bn?`${Q.hangKhl}/${Q.n}`:'–'}</td>`]}); }
-  datXL('hlBqg',{phan:'hl', ten:'1B_So_sanh_toan_quoc', tieuDe:`MẪU 02–05: BẮC NINH SO VỚI TOÀN QUỐC – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hq, rows:xq, fmt:['','#,##0','','0.0%','0.0%','0.0%','','0.00%','0.00%','','']});
+  datXL('hlBqg',{phan:'hl', ten:'3B_So_sanh_toan_quoc', tieuDe:`MẪU 02–05: BẮC NINH SO VỚI TOÀN QUỐC – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hq, rows:xq, fmt:['','#,##0','','0.0%','0.0%','0.0%','','0.00%','0.00%','','']});
   h+=`<div class="grid">`+the({id:'k-b-qgt', tieu:'Bắc Ninh so với toàn quốc theo từng mẫu', phu:'Xếp hạng trong tổng số cơ quan thuế trên biểu toàn quốc (34 tỉnh, thành phố + 2 Chi cục)', xl:'hlBqg', cot:'hlBqg', body:bangHTML('hlBqg',cQ,trq)})+`</div>`;
   h+=`<div class="grid g-11">`+the({id:'k-b-qg', tieu:'Xếp hạng toàn quốc – '+tenChon, phu:q?'Bắc Ninh tô màu':'Chưa nhập biểu toàn quốc', tools:`<div class="seg" data-seg="qgB"><button data-v="cs" class="${(D().ui.qgB||'cs')==='cs'?'on':''}">Chỉ số HL</button><button data-v="khl" class="${D().ui.qgB==='khl'?'on':''}">% KHL+RKHL</button><button data-v="so" class="${D().ui.qgB==='so'?'on':''}">Số lượt</button></div>`, body:'<div id="cBQG" class="chart"></div>'})+
     the({id:'k-b-trend', tieu:'Diễn biến chỉ số hài lòng qua các kỳ – '+tenChon, phu:'Bắc Ninh so với toàn quốc', body:'<div id="cBTrend" class="chart"></div>'})+`</div>`;
@@ -1881,13 +1881,13 @@ function renderB(){
   for(const r of M.rows) dongB(tenDV(r.id),r.c,r.p,r.dg,'',TEN_DAY[r.id]);
   dongB('BẮC NINH (cộng các đơn vị)',B,P,null,'total');
   if(q) dongB('TOÀN QUỐC',dongHL(q.tq),M.qgB?dongHL(M.qgB.tq):null,null,'grp');
-  datXL('hlB',{phan:'hl', ten:'1B_Hai_long_don_vi', tieuDe:`MỨC ĐỘ HÀI LÒNG THEO ĐƠN VỊ – ${tenChon.toUpperCase()} – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hd, rows:xd, fmt:['','#,##0','#,##0','0.0%','0.0%','0.0%','#,##0','0.00%','#,##0','0.00%','0.00%','','0.0%','0.0%','','']});
+  datXL('hlB',{phan:'hl', ten:'3B_Hai_long_don_vi', tieuDe:`MỨC ĐỘ HÀI LÒNG THEO ĐƠN VỊ – ${tenChon.toUpperCase()} – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hd, rows:xd, fmt:['','#,##0','#,##0','0.0%','0.0%','0.0%','#,##0','0.00%','#,##0','0.00%','0.00%','','0.0%','0.0%','','']});
   h+=the({id:'k-b-tbl', tieu:'Biểu mức độ hài lòng theo đơn vị – '+tenChon, phu:'Tỷ lệ tính trên tổng số lựa chọn tiêu chí đánh giá (cột [4]–[8] của biểu). Chỉ số HL = cột [14] của biểu; khi cộng nhiều đơn vị/mẫu: (5×RHL + 4×HL + 3×BT + 2×KHL + 1×RKHL) ÷ (5 × tổng lựa chọn) – cùng cách tính với biểu.', xl:'hlB', cot:'hlB',
     body:`${bangHTML('hlB',cD,trd)}<p class="muted" style="font-size:12px;margin:8px 0 0">“Thuế TP (riêng)” = dòng “Thuế thành phố Bắc Ninh (Đánh giá riêng)” trên biểu TCS – là kết quả của khối phòng (QLDN1, QLDN2, QLDN3…), biểu không tách riêng từng phòng.</p>`});
   // số lượt theo phòng QLDN + xu hướng
   const hl2=['Mẫu','QLDN1 (DNNN + FDI)','QLDN2 (DN, TC khác)','QLDN3 (DN, TC)','Hộ, cá nhân (QLDN)'];
   const xl2=M.qldn.map(x=>[MAU_TEN[x.ma].tenDay,x.QLDN1,x.QLDN2,x.QLDN3,x.khac]);
-  datXL('hlBq',{phan:'hl', ten:'1B_Luot_QLDN', tieuDe:`SỐ LƯỢT ĐÁNH GIÁ MẪU 02–05 THEO PHÒNG QLDN (MỤC [3]) – ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hl2, rows:xl2, fmt:['','#,##0','#,##0','#,##0','#,##0']});
+  datXL('hlBq',{phan:'hl', ten:'3B_Luot_QLDN', tieuDe:`SỐ LƯỢT ĐÁNH GIÁ MẪU 02–05 THEO PHÒNG QLDN (MỤC [3]) – ĐẾN NGÀY ${fmtDate(M.ngay)}`, hdr:hl2, rows:xl2, fmt:['','#,##0','#,##0','#,##0','#,##0']});
   h+=`<div class="grid">`+the({id:'k-b-qldn', tieu:'Số lượt đánh giá theo phòng QLDN', phu:'Từ biểu QLDN1-2 và QLDN3 (mục [3] – số lượt). Biểu không có mức độ hài lòng riêng từng phòng.', xl:'hlBq', body:bangHTML('hlBq',[{id:'mau',ten:'Mẫu',co:1,dv:1},...hl2.slice(1).map((t,i)=>({id:'c'+i,nhom:'Số lượt đánh giá (mục [3])',ten:t,co:1}))],xl2.map(r=>({o:[tdDV(r[0]),...r.slice(1).map(v=>tdR(v==null?'<span class="muted">–</span>':fmtNum(v)))]})))})+`</div>`;
   body.innerHTML=h;
   veB(M);
@@ -2000,7 +2000,7 @@ function renderNS(){
         return tdR(tyDong(x[c.k])); })});
     }
     const hdr=cK.map(c=>c.nhom?`${c.nhom} – ${c.ten}`:c.ten);
-    datXL('nsKh',{phan:'ns', ten:'2_Thu_NSNN_khoan_thu', tieuDe:`KẾT QUẢ THU NSNN THEO KHOẢN THU – SỐ LIỆU ĐẾN NGÀY ${fmtDate(st.ngay)} (TỶ ĐỒNG)`, hdr, rows, fmt:cK.map(c=>c.f==='p'?'0.0%':c.f==='t'?'#,##0.0':'')});
+    datXL('nsKh',{phan:'ns', ten:'1_Thu_NSNN_khoan_thu', tieuDe:`KẾT QUẢ THU NSNN THEO KHOẢN THU – SỐ LIỆU ĐẾN NGÀY ${fmtDate(st.ngay)} (TỶ ĐỒNG)`, hdr, rows, fmt:cK.map(c=>c.f==='p'?'0.0%':c.f==='t'?'#,##0.0':'')});
     h+=the({id:'k-ns-tbl', tieu:'Biểu kết quả thu NSNN theo khoản thu', phu:`Số liệu đến ${fmtDate(st.ngay)}${st.kt?' (biểu chưa cập nhật tại ngày đang xem)':''} · nguồn: ${st.loai==='ngay'?'báo cáo thu NSNN theo ngày':'Biểu 1 – lũy kế tháng'} · tỷ đồng · bấm “☰ Cột” để ẩn/hiện cột`, xl:'nsKh', cot:'nsKh',
       body:`${bangHTML('nsKh',cK,trk)}<p class="muted" style="font-size:12px;margin:8px 0 0">Mục “Các doanh nghiệp trọng điểm” (danh sách tên doanh nghiệp) của biểu gốc <b>không đưa vào công cụ</b> để bảo mật thông tin người nộp thuế.</p>`});
   }
@@ -2022,7 +2022,7 @@ function renderNS(){
     dong(dv.I,'I','grp','Khối phòng (QLDN, CNTK)'); ['QLDN1','QLDN2','QLDN3','CNTK'].forEach((id,i)=>dong(dv.rows.find(r=>r.id===id),i+1));
     dong(dv.II,'II','grp','Khối Thuế cơ sở'); TCS.forEach((id,i)=>dong(dv.rows.find(r=>r.id===id),i+1));
     dong(dv.TONG,'','total','TOÀN THUẾ THÀNH PHỐ');
-    datXL('nsDv',{phan:'ns', ten:'2_Thu_NSNN_don_vi', tieuDe:`KẾT QUẢ THU NSNN THEO ĐƠN VỊ – SỐ LIỆU ĐẾN NGÀY ${fmtDate(dv.ngay)} (TỶ ĐỒNG)`, hdr, rows:rows.map(r=>r.map((v,i)=>i>=2&&typeof v==='number'&&![8,9,10].includes(i)?v/1000:v)), fmt:['','','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.0%','0.0%','#,##0.0','#,##0.0','']});
+    datXL('nsDv',{phan:'ns', ten:'1_Thu_NSNN_don_vi', tieuDe:`KẾT QUẢ THU NSNN THEO ĐƠN VỊ – SỐ LIỆU ĐẾN NGÀY ${fmtDate(dv.ngay)} (TỶ ĐỒNG)`, hdr, rows:rows.map(r=>r.map((v,i)=>i>=2&&typeof v==='number'&&![8,9,10].includes(i)?v/1000:v)), fmt:['','','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.0%','0.0%','#,##0.0','#,##0.0','']});
     h+=the({id:'k-ns-dvt', tieu:'Biểu kết quả thu NSNN theo đơn vị', phu:`Số liệu đến ${fmtDate(dv.ngay)} · tỷ đồng · đánh giá theo tỷ lệ thuế, phí so với tiến độ thời gian ${fmtPct(dv.tg)}`, xl:'nsDv', cot:'nsDv', body:bangHTML('nsDv',cV,trv)});
   }
   if(M.lich.length>=2) h+=the({id:'k-ns-trend', tieu:'Lũy kế thu nội địa qua các kỳ so với dự toán', phu:'Đường đứt: dự toán × tiến độ thời gian', body:'<div id="cNsTrend" class="chart short"></div>'});
@@ -2105,7 +2105,7 @@ function renderCD(){
     const dong=(id,stt,ten,trCls)=>{ const xs=ds.map(d=>id==='TP'?M.ds.ds[d].T:M.ds.ds[d].rows.find(r=>r.id===id)); rows.push([stt,ten||id,...xs.flatMap(x=>x&&!x.na?[x.giao,x.phai,x.ht,x.diem,x.ty,x.dTy,x.ton]:[null,null,null,null,null,null,null])]);
       trs.push({cls:trCls, o:[`<td class="c">${stt}</td>`,tdDV(ten||id,TEN_DAY[id]),...xs.flatMap(x=>x&&!x.na?[tdR(fmtNum(x.giao)),tdR(fmtNum(x.phai)),tdR(fmtNum(x.ht)),tdR(fmtNum(x.diem,1)),tdR('<b>'+fmtPct(x.ty)+'</b>',id==='TP'?'':cls(x.mau)),tdR(muiTen(x.dTy==null?null:x.dTy*100,1)),tdR(fmtNum(x.ton))]:tdNA(7))]}); };
     DV_DS.forEach((id,i)=>dong(id,i+1)); dong('TP','','TOÀN THUẾ THÀNH PHỐ','total');
-    datXL('cdDs',{phan:'cd', ten:'3_Chien_dich_DS', tieuDe:`KẾT QUẢ CHIẾN DỊCH 03, 06 THEO 3 DANH SÁCH – ĐẾN NGÀY ${fmtDate(M.ds.ngay)}`, hdr, rows, fmt:['','',...ds.flatMap(()=>['#,##0','#,##0','#,##0','#,##0.0','0.0%','0.0%','#,##0'])]});
+    datXL('cdDs',{phan:'cd', ten:'2_Chien_dich_DS', tieuDe:`KẾT QUẢ CHIẾN DỊCH 03, 06 THEO 3 DANH SÁCH – ĐẾN NGÀY ${fmtDate(M.ds.ngay)}`, hdr, rows, fmt:['','',...ds.flatMap(()=>['#,##0','#,##0','#,##0','#,##0.0','0.0%','0.0%','#,##0'])]});
     h+=the({id:'k-cd-tbl', tieu:'Biểu kết quả Chiến dịch 03, 06 theo 3 danh sách', phu:`Đến ${fmtDate(M.ds.ngay)}${M.ds.kt?' (chưa cập nhật tại ngày đang xem)':''} · DS1: DN/TC trạng thái 03; DS2: trạng thái 06 – lý do 03; DS3: trạng thái 06`, xl:'cdDs', cot:'cdDs', body:bangHTML('cdDs',cS,trs)});
   }
   if(M.kt){ const kt=M.kt; const nbl=kt.ngayB?fmtDM(kt.ngayB):'kỳ trước';
@@ -2120,7 +2120,7 @@ function renderCD(){
       rows.push([stt,ten||r.id,r.phai,r.ht,r.ty,r.dHT,r.dTy,r.ton,r.qd,r.chuaQD,r.id==='TP'?'':MAU_CD[r.mau]]);
       trk.push({cls:trCls, o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id,TEN_DAY[r.id]),tdR(fmtNum(r.phai)),tdR(fmtNum(r.ht)),tdR('<b>'+fmtPct(r.ty)+'</b>',r.id==='TP'?'':cls(r.mau)),tdR(kt.ngayB?muiTen(r.dHT):'–'),tdR(muiTen(r.dTy==null?null:r.dTy*100,1)),tdR(fmtNum(r.ton)),tdR(fmtNum(r.qd)),tdR(fmtNum(r.chuaQD),r.chuaQD>0?'x-warn':''),`<td>${r.id==='TP'?'':tag(r.mau==='done'?'good':r.mau,MAU_CD[r.mau])}</td>`]}); };
     kt.rows.forEach((r,i)=>dong(r,i+1)); dong(kt.T,'','TOÀN THUẾ THÀNH PHỐ','total');
-    datXL('cdKt',{phan:'cd', ten:'3_Kiem_tra_DN_03', tieuDe:`KẾT QUẢ KIỂM TRA DN, TỔ CHỨC 03 – ĐẾN NGÀY ${fmtDate(kt.ngay)}`, hdr, rows, fmt:['','','#,##0','#,##0','0.0%','#,##0','0.0%','#,##0','#,##0','#,##0','']});
+    datXL('cdKt',{phan:'cd', ten:'2_Kiem_tra_DN_03', tieuDe:`KẾT QUẢ KIỂM TRA DN, TỔ CHỨC 03 – ĐẾN NGÀY ${fmtDate(kt.ngay)}`, hdr, rows, fmt:['','','#,##0','#,##0','0.0%','#,##0','0.0%','#,##0','#,##0','#,##0','']});
     h+=`<div class="grid g-12">`+the({id:'k-cd-ktc', tieu:'Tỷ lệ hoàn thành kiểm tra DN, TC 03', phu:`Đến ${fmtDate(kt.ngay)} · vạch: bình quân toàn TP ${fmtPct(kt.T.ty)}`, body:'<div id="cCdKt" class="chart tall"></div>'})+
       the({id:'k-cd-ktt', tieu:'Biểu kết quả kiểm tra DN, tổ chức 03', phu:`Số liệu đến ${fmtDate(kt.ngay)}`, xl:'cdKt', cot:'cdKt', body:bangHTML('cdKt',cT,trk)})+`</div>`;
   }
@@ -2241,20 +2241,22 @@ function renderNhap(){
   const st=khoNhap(); const P=PEND; let h='';     // số liệu thật của máy này, hoặc bản trực tuyến đang xem
   const xoa=(p,ng,k)=>P.xoa.has(`${p}|${ng}|${k}`);
   const nutXoa=(p,ng,k)=>xoa(p,ng,k)?`<button class="btn sm" data-xoa="${p}|${ng}|${k}">↶ Hoàn tác</button>`:`<button class="btn sm danger" data-xoa="${p}|${ng}|${k}">🗑 Xóa</button>`;
-  // ---------- Phần 1 ----------
+  // ---------- Sự hài lòng (đặt sau cùng) ----------
+  const vtHL=h.length;
   const hl=P.files.filter(k=>k.phan==='hl');
   const dsHL=Object.keys(st.data.hl).sort();
   const ngay=P.ngayHL||dsHL[dsHL.length-1]||todayIso(); const snap=st.data.hl[ngay]; const co=(snap||{b:{}}).b;
   const truoc=k=>{ const ds=dsHL.filter(d=>d<ngay&&st.data.hl[d].b[k]); return ds.length?ds[ds.length-1]:null; };
-  h+=`<div class="imp-grp"><h4><span>Phần 1. Sự hài lòng của NNT – kỳ số liệu đến ngày</span><input type="date" id="iNgayHL" value="${ngay}"><input type="text" id="iGhiChuHL" value="${esc(P.ghiChuHL||(snap&&snap.ghiChu)||'')}" placeholder="Ghi chú kỳ (VD: số liệu đến 15h)" style="flex:1;min-width:180px">
-    ${snap?`<button class="btn sm danger" data-xoaky="hl|${ngay}">🗑 Xóa cả kỳ ${fmtDM(ngay)}</button>`:''}${dsHL.length?`<button class="btn sm danger" data-xoaphan="hl">🗑 Xóa toàn bộ Phần 1</button>`:''}</h4><div class="in">
+  h+=`<div class="imp-grp"><h4><span>Phần ${PHAN.hl.so}. Sự hài lòng của NNT – kỳ số liệu đến ngày</span><input type="date" id="iNgayHL" value="${ngay}"><input type="text" id="iGhiChuHL" value="${esc(P.ghiChuHL||(snap&&snap.ghiChu)||'')}" placeholder="Ghi chú kỳ (VD: số liệu đến 15h)" style="flex:1;min-width:180px">
+    ${snap?`<button class="btn sm danger" data-xoaky="hl|${ngay}">🗑 Xóa cả kỳ ${fmtDM(ngay)}</button>`:''}${dsHL.length?`<button class="btn sm danger" data-xoaphan="hl">🗑 Xóa toàn bộ Phần ${PHAN.hl.so}</button>`:''}</h4><div class="in">
     ${dsHL.length?`<div style="margin:0 0 8px;font-size:12.5px">Các kỳ đã lưu (bấm để xem/sửa): ${dsHL.map(d=>`<button class="chipk ${d===ngay?'on':''}" data-kyhl="${d}">${fmtDate(d)} · ${Object.keys(st.data.hl[d].b).length} biểu</button>`).join(' ')}</div>`:''}
     <p class="muted" style="margin:0 0 6px;font-size:12px">Biểu khảo sát không ghi ngày nên ngày lấy theo tên thư mục (VD <i>14112026</i>) – hãy kiểm tra. 🆕 = file mới chờ lưu (bấm <b>Bỏ</b> để không nhập) · ✔ = đã lưu ở kỳ này (bấm <b>Xóa</b> để bỏ khỏi kỳ) · ô trống = dùng số kỳ trước.</p>
     <div class="table-wrap" style="border:0"><table class="slotgrid"><tr><th class="rowh"></th>${PHAM.map(p=>`<th>${p.ten}</th>`).join('')}</tr>${MAU.map(m=>`<tr><th class="rowh">${m.tenDay}${m.ma==='01'?' <span class="tag" style="background:var(--primary-soft);color:var(--primary)">Phần A</span>':''}</th>${PHAM.map(p=>{ const key=m.ma+'.'+p.id; const f=hl.find(k=>k.key===key); const c=co[key]; const x=c&&xoa('hl',ngay,key); const t=!f&&!c?truoc(key):null;
       if(f) return `<td class="slot new"><div class="st">🆕 Mới${c?' (thay biểu đã có)':''}</div><div class="fn">${esc(f.tenFile)}</div><div class="fn">${tomTatKhoi(f)}</div><div class="acts"><button class="btn sm" data-bo="${P.files.indexOf(f)}">✕ Bỏ</button></div></td>`;
       if(c) return `<td class="slot ${x?'del':'have'}"><div class="st">${x?'🗑 Sẽ xóa':'✔ Đã lưu'}</div><div class="fn">${esc(c.tenFile||'')}</div><div class="fn">${tomTatKhoi({phan:'hl',key,data:c})}</div><div class="acts">${nutXoa('hl',ngay,key)}</div></td>`;
       return `<td class="slot"><div class="st muted">—</div>${t?`<div class="fn">dùng số kỳ ${fmtDM(t)}</div>`:''}</td>`; }).join('')}</tr>`).join('')}</table></div></div></div>`;
-  // ---------- Phần 2, 3 ----------
+  const hHL=h.slice(vtHL); h=h.slice(0,vtHL);
+  // ---------- Thu NSNN, Chiến dịch ----------
   for(const ph of ['ns','cd']){
     const moi=P.files.filter(k=>k.phan===ph);
     const da=[]; for(const d of Object.keys(st.data[ph]).sort().reverse()) for(const k of Object.keys(st.data[ph][d].b)) da.push({ngay:d,key:k,data:st.data[ph][d].b[k]});
@@ -2267,6 +2269,7 @@ function renderNhap(){
       h+=`<tr class="${del?'xoa':''}"><td>${del?tag('bad','🗑 Sẽ xóa'):tag('good','✔ Đã lưu')}</td><td><b>${nhanKhoi(kk)}</b></td><td style="white-space:normal">${esc(x.data.tenFile||'')}</td><td class="c">${fmtDate(x.ngay)}</td><td style="white-space:normal;font-size:12px">${tomTatKhoi(kk)}</td><td>${nutXoa(ph,x.ngay,x.key)}</td></tr>`; }
     h+=`</tbody></table></div></div></div>`;
   }
+  h+=hHL;
   const pl=P.files.find(k=>k.phan==='plan');
   if(pl){ h+=`<div class="imp-grp"><h4>Phụ lục giao chỉ tiêu cỡ mẫu – ${esc(pl.tenFile)} <button class="btn sm" data-bo="${P.files.indexOf(pl)}" style="margin-left:auto">✕ Bỏ</button></h4><div class="in">${pl.doi.length?`<div class="alert warn"><span>⚠</span><div>File khác cỡ mẫu đang dùng ở: ${pl.doi.map(id=>`<b>${id}</b> ${fmtNum(st.plan[id].tong)} → ${fmtNum(pl.data[id].tong)}`).join(', ')}. <label style="display:inline-flex;gap:6px;align-items:center;margin-left:8px"><input type="checkbox" id="iPlanOk" ${pl.chon?'checked':''}> Cập nhật cỡ mẫu theo file này</label></div></div>`:'<div class="alert good"><span>✔</span><div>Cỡ mẫu trong file trùng với cỡ mẫu đang dùng.</div></div>'}</div></div>`; }
   $('#iBody').innerHTML=h;
@@ -2291,7 +2294,7 @@ function luuNhap(){
   const pl=P.files.find(k=>k.phan==='plan');
   const K=khoNhap(); const doiGhiChu=!!(ngHL&&K.data.hl[ngHL]&&gcHL!==(K.data.hl[ngHL].ghiChu||''));
   if(!list.length&&!(pl&&pl.chon)&&!P.xoa.size&&!doiGhiChu){ toast('Chưa có thay đổi nào để lưu.','warn'); return; }
-  if(list.some(k=>k.phan==='hl')&&!ngHL){ toast('Hãy chọn ngày số liệu của Phần 1.','warn'); return; }
+  if(list.some(k=>k.phan==='hl')&&!ngHL){ toast(`Hãy chọn ngày số liệu của Phần ${PHAN.hl.so} (Sự hài lòng).`,'warn'); return; }
   if(P.xoa.size&&!confirm(`Xóa hẳn ${P.xoa.size} biểu đã lưu? Không khôi phục được (trừ khi đã “Sao lưu”).`)) return;
   if(SAMPLE&&SAMPLE===TT.st){ if(!confirm('Số liệu mới sẽ được gộp vào bản đang xem từ Google Drive.\nSau khi lưu, hãy bấm “⬇ Xuất → ☁ Xuất file cho Google Drive” và chép đè lên file trên Drive để mọi người thấy. Tiếp tục?')) return;
     S=chuanHoaTrangThai(clone(TT.st)); delete S.trucTuyen; SAMPLE=null; TT.roi=true; TT.canXuat=true; }
@@ -2309,10 +2312,10 @@ function luuNhap(){
   if(ngHL&&S.data.hl[ngHL]) S.data.hl[ngHL].ghiChu=gcHL;
   if(pl&&pl.chon){ S.plan=clone(pl.data); S.nguonPlan='File '+pl.tenFile+' (nhập ngày '+fmtDate(todayIso())+')'; }
   for(const p of Object.keys(ngayMoi)) S.ui.ky[p]=null;   // sau khi lưu: xem kỳ mới nhất của phần
-  const ph=['hl','ns','cd'].find(p=>dem[p]); if(ph) S.ui.phan=ph;
+  const ph=['ns','cd','hl'].find(p=>dem[p]); if(ph) S.ui.phan=ph;
   luu(); P.files=[]; P.warn=[]; P.ngayHL=null; P.ghiChuHL=''; P.xoa.clear();
   $('#mImport').classList.add('hidden'); render();
-  const tt=['hl','ns','cd'].filter(p=>dem[p]).map(p=>`Phần ${PHAN[p].so}: ${dem[p]} biểu`);
+  const tt=['ns','cd','hl'].filter(p=>dem[p]).map(p=>`Phần ${PHAN[p].so}: ${dem[p]} biểu`);
   if(daXoa) tt.push(`đã xóa ${daXoa} biểu`); if(pl&&pl.chon) tt.push('đã cập nhật cỡ mẫu'); if(!tt.length) tt.push('đã cập nhật ghi chú');
   toast('Đã lưu: '+tt.join(' · ')+'.','ok',6000);
   if(TT.canXuat) setTimeout(()=>toast('☁ Nhớ bấm “⬇ Xuất → ☁ Xuất file cho Google Drive” rồi chép đè lên file trên Drive để các điện thoại nhận số mới.','warn',12000),600);
@@ -2325,12 +2328,12 @@ function moCaiDat(){
   const st=D(); const c=st.caiDat;
   const dsKy=p=>ngayCo(p).map(k=>{ const n=Object.keys(st.data[p][k].b).length; return `<span class="tag" style="background:var(--grid);color:var(--text);margin:2px">${fmtDate(k)} (${n} biểu) <button class="btn sm ghost" data-delky="${p}|${k}" title="Xóa kỳ này" style="min-height:20px;padding:0 4px">✕</button></span>`; }).join('')||'<span class="muted">Chưa có</span>';
   $('#sBody').innerHTML=`
-    <h4 style="margin-top:0">Phần 1A – Lộ trình cỡ mẫu</h4>
+    <h4 style="margin-top:0">Phần 3A – Lộ trình cỡ mẫu (Sự hài lòng)</h4>
     <div class="form-grid"><label>Bắt đầu khảo sát<input type="date" id="sBatDau" value="${c.batDau}"></label><label>Mốc đạt 50% cỡ mẫu<input type="date" id="sMoc50" value="${c.moc50}"></label><label>Mốc đạt 100% cỡ mẫu<input type="date" id="sMoc100" value="${c.moc100}"></label><label>Kết thúc khảo sát<input type="date" id="sKetThuc" value="${c.ketThuc}"></label>
     <label>Đúng tiến độ khi SPI ≥<input type="number" step="0.05" id="sSpiTot" value="${c.spiTot}"></label><label>Chậm khi SPI ≥ (dưới là chậm nghiêm trọng)<input type="number" step="0.05" id="sSpiCham" value="${c.spiCham}"></label></div>
-    <h4>Phần 1B – Ngưỡng cảnh báo mức độ hài lòng</h4>
+    <h4>Phần 3B – Ngưỡng cảnh báo mức độ hài lòng</h4>
     <div class="form-grid"><label>Chỉ số hài lòng tối thiểu (%)<input type="number" step="0.5" id="sNgCS" value="${+(c.nguongChiSo*100).toFixed(2)}"></label><label>Cảnh báo khi KHL + RKHL ≥ (%)<input type="number" step="0.1" id="sNgKhl" value="${+(c.nguongKhl*100).toFixed(2)}"></label><label>Cảnh báo đỏ khi Rất không HL ≥ (%)<input type="number" step="0.1" id="sNgRkhl" value="${+(c.nguongRkhl*100).toFixed(2)}"></label><label>Chỉ xét đơn vị có ≥ (lượt)<input type="number" step="1" id="sLuotMin" value="${c.luotMin}"></label></div>
-    <h4>Phần 2, 3 – Ngưỡng tô màu</h4>
+    <h4>Phần 1, 2 – Ngưỡng tô màu (Thu NSNN, Chiến dịch)</h4>
     <div class="form-grid"><label>Thu NSNN: đỏ khi thấp hơn tiến độ thời gian quá (điểm %)<input type="number" step="1" id="sNsCham" value="${+(c.nsCham*100).toFixed(1)}"></label><label>Chiến dịch: đỏ khi thấp hơn BQ toàn TP quá (điểm %)<input type="number" step="1" id="sCdCham" value="${+(c.cdCham*100).toFixed(1)}"></label></div>
     <h4>Cỡ mẫu giao (Phụ lục 01) <span class="muted" style="font-weight:400;font-size:12px">${esc(st.nguonPlan||'')}</span></h4>
     <div class="table-wrap"><table class="rpt plan-tbl"><thead><tr><th>Đơn vị</th><th>Tổng cỡ mẫu</th><th>DNNN</th><th>DN FDI</th><th>DN, TC khác</th><th>Hộ, CNKD</th></tr></thead><tbody>${DV_A.map(id=>`<tr><td><b>${id}</b></td>${['tong','dnnn','fdi','dnk','ho'].map(k=>`<td><input type="number" data-plan="${id}|${k}" value="${st.plan[id][k]}"></td>`).join('')}</tr>`).join('')}<tr class="total"><td>Tổng</td><td class="r" id="sPlanSum">${fmtNum(sum(DV_A.map(id=>st.plan[id].tong)))}</td><td colspan="4"></td></tr></tbody></table></div>
@@ -2345,7 +2348,7 @@ function moCaiDat(){
     <div class="form-grid"><label style="grid-column:span 2">Link thư mục (hoặc file) Google Drive<input type="text" id="sDriveLink" value="${esc((cauHinhCucBo()||TT.cauHinh||{}).link||'')}" placeholder="https://drive.google.com/drive/folders/..."></label><label style="grid-column:span 2">Khóa API Google<input type="text" id="sDriveKhoa" value="${esc((cauHinhCucBo()||TT.cauHinh||{}).khoa||'')}" placeholder="AIza..."></label></div>
     <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="sDriveThu">🔌 Thử kết nối</button><button class="btn sm" id="sDriveFile">📄 Tạo file cau_hinh.json (để đưa lên trang web)</button><button class="btn sm" id="sDriveLuu">💾 Dùng cho máy này</button><button class="btn sm danger" id="sDriveXoa">Bỏ cấu hình trên máy này</button></div>
     <h4>Số liệu đã nhập (bấm ✕ để xóa 1 kỳ)</h4>
-    <p style="margin:4px 0"><b>Phần 1:</b> ${dsKy('hl')}</p><p style="margin:4px 0"><b>Phần 2:</b> ${dsKy('ns')}</p><p style="margin:4px 0"><b>Phần 3:</b> ${dsKy('cd')}</p>
+    <p style="margin:4px 0"><b>Phần 1 (Thu NSNN):</b> ${dsKy('ns')}</p><p style="margin:4px 0"><b>Phần 2 (Chiến dịch):</b> ${dsKy('cd')}</p><p style="margin:4px 0"><b>Phần 3 (Sự hài lòng):</b> ${dsKy('hl')}</p>
     <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act2="backup">💾 Sao lưu (.json)</button><button class="btn sm" data-act2="restore">♻ Khôi phục</button><button class="btn sm danger" id="sClear">🗑 Xóa toàn bộ dữ liệu</button></div>`;
   $('#mSettings').classList.remove('hidden');
 }
@@ -2360,29 +2363,29 @@ function luuCaiDat(){
 }
 function noiDungCanCu(){
   return `<h4 style="margin-top:0">Bố cục 3 phần</h4>
-  <ol><li><b>Phần 1. Sự hài lòng của NNT</b>: <b>A</b> – tiến độ cỡ mẫu (Mẫu 01, số NNT); <b>B</b> – theo dõi điều hành (Mẫu 02–05, mức độ hài lòng).</li><li><b>Phần 2. Tiến độ thu NSNN</b>: theo khoản thu và theo đơn vị.</li><li><b>Phần 3. Chiến dịch làm sạch MST 03, 06</b>: DS1, DS2, DS3 và kiểm tra DN, tổ chức 03.</li></ol>
+  <ol><li><b>Phần 1. Tiến độ thu NSNN</b>: theo khoản thu và theo đơn vị.</li><li><b>Phần 2. Chiến dịch làm sạch MST 03, 06</b>: DS1, DS2, DS3 và kiểm tra DN, tổ chức 03.</li><li><b>Phần 3. Sự hài lòng của NNT</b>: <b>A</b> – tiến độ cỡ mẫu (Mẫu 01, số NNT); <b>B</b> – theo dõi điều hành (Mẫu 02–05, mức độ hài lòng).</li></ol>
   <p>Mỗi lần nhập là một <b>kỳ số liệu</b> (ngày số liệu). Ô “So sánh với” trên cùng chọn kỳ để so: <i>tuần trước</i> (kỳ cách ≥ 6 ngày), <i>kỳ liền trước</i>, <i>cuối tháng trước</i> hoặc 1 ngày bất kỳ. Biểu nào chưa nhập lại ở kỳ mới thì dùng số kỳ trước (ghi <span class="kt">KT</span>).</p>
-  <h4>Phần 1A – Tiến độ cỡ mẫu (Mẫu 01)</h4>
+  <h4>Phần 1 – Thu NSNN</h4>
+  <ul><li>Nhận 3 loại biểu: theo khoản thu – theo ngày (có cùng kỳ, dự toán, chỉ tiêu phấn đấu, thu trong tháng, lũy kế); Biểu 1 lũy kế tháng; Biểu 2 theo đơn vị (dự toán, thực hiện: tổng, SDĐ, thuế phí).</li>
+  <li>Tiến độ thời gian = số ngày đã qua của năm ÷ số ngày cả năm. Khoản thu/đơn vị có % dự toán thấp hơn tiến độ thời gian là chậm; thấp hơn quá ngưỡng (mặc định 10 điểm %) là chậm nhiều.</li>
+  <li>“Thu thêm so với kỳ trước” = lũy kế kỳ này − lũy kế kỳ so sánh. Đơn vị hiển thị tỷ đồng.</li>
+  <li>Mục “Các doanh nghiệp trọng điểm” (tên doanh nghiệp) <b>không</b> nhập vào công cụ để bảo mật thông tin NNT.</li></ul>
+  <h4>Phần 2 – Chiến dịch 03, 06</h4>
+  <ul><li>Bảng DS1, DS2, DS3: được giao, phải xử lý, hoàn thành, điểm quy đổi, tồn. Tỷ lệ quy đổi = điểm quy đổi ÷ phải xử lý.</li>
+  <li>Bảng kiểm tra DN, TC 03: phải kiểm tra lũy kế, đã hoàn thành, tồn, đã ban hành QĐ. Tỷ lệ = hoàn thành ÷ phải kiểm tra.</li>
+  <li>Màu so với bình quân toàn Thuế TP (chưa có chỉ tiêu riêng từng đơn vị).</li></ul>
+  <h4>Phần 3A – Tiến độ cỡ mẫu (Mẫu 01)</h4>
   <ul><li>Căn cứ: QĐ 1345/QĐ-CT (Mẫu 01 định kỳ 1 năm/lần; Mẫu 02–05 thường xuyên theo giao dịch); CV 4555/CT-VP (cỡ mẫu = số NNT tối thiểu tham gia khảo sát); CV 8044/CT-VP (2026 lấy tổng cỡ mẫu 2025 làm mục tiêu, mỗi NNT chỉ đánh giá Mẫu 01 một lần).</li>
   <li>Chỉ dùng <b>số NNT</b> của Mẫu 01, <b>không</b> dùng số lượt, <b>không</b> cộng Mẫu 02–05.</li></ul>
   <table><tr><th>Đơn vị</th><th>Lấy từ</th></tr><tr><td>TCS1 … TCS10</td><td>Biểu Tổng quan Mẫu 01 (01_TCS…): cột [3] “Tổng số người đánh giá” của dòng “Thuế cơ sở N”.</td></tr><tr><td>QLDN1</td><td>Biểu 01-1/DLKS-TH “Cơ quan thuế: Thành phố Bắc Ninh”: [2.1.1] DNNN + [2.1.2] DN FDI.</td></tr><tr><td>QLDN2</td><td>Cùng biểu: [2.1.3] DN, tổ chức khác.</td></tr><tr><td>QLDN3</td><td>Biểu 01-1/DLKS-TH “Cơ quan thuế: Tỉnh Bắc Giang”: [2.1] Doanh nghiệp, tổ chức.</td></tr><tr><td><i>Ngoài cỡ mẫu</i></td><td>[2.2] Hộ, cá nhân của 2 biểu QLDN – ghi riêng, không tính cho phòng nào.</td></tr></table>
   <ul><li>% đạt = NNT lũy kế ÷ cỡ mẫu giao (tổng 8.028). Khối và toàn TP = tổng ÷ tổng (không lấy bình quân tỷ lệ).</li>
   <li>Lộ trình: 0% (25/10) → 50% (30/11) → 100% (15/12/2026). SPI = % đạt ÷ % lộ trình: ≥ 1 đúng tiến độ; 0,8–1 chậm; &lt; 0,8 chậm nghiêm trọng.</li>
   <li>Toàn quốc (01_TOANQUOC): xếp hạng Bắc Ninh theo số NNT tham gia và chỉ số hài lòng trong tổng số cơ quan thuế trên biểu.</li></ul>
-  <h4>Phần 1B – Theo dõi điều hành (Mẫu 02–05)</h4>
+  <h4>Phần 3B – Theo dõi điều hành (Mẫu 02–05)</h4>
   <ul><li>Biểu Tổng quan (0X_TCS…): mỗi đơn vị có số lượt, số lựa chọn 5 mức (Rất hài lòng … Rất không hài lòng) và chỉ số hài lòng chung [14]. Dòng “Thuế TP (đánh giá riêng)” là khối phòng.</li>
   <li>Tỷ lệ mỗi mức = số lựa chọn mức đó ÷ tổng số lựa chọn. Khi cộng nhiều đơn vị/mẫu, chỉ số = (5×RHL + 4×HL + 3×BT + 2×KHL + 1×RKHL) ÷ (5 × tổng lựa chọn) – trùng với cột [14] của biểu.</li>
   <li>Cảnh báo (sửa ngưỡng trong ⚙): chỉ số dưới ngưỡng, tỷ lệ rất không hài lòng cao, KHL + RKHL cao, thấp hơn bình quân toàn quốc; bỏ qua đơn vị có quá ít lượt.</li>
   <li>Toàn quốc (0X_TOANQUOC): xếp hạng Bắc Ninh theo chỉ số hài lòng, tỷ lệ không hài lòng, số lượt.</li></ul>
-  <h4>Phần 2 – Thu NSNN</h4>
-  <ul><li>Nhận 3 loại biểu: theo khoản thu – theo ngày (có cùng kỳ, dự toán, chỉ tiêu phấn đấu, thu trong tháng, lũy kế); Biểu 1 lũy kế tháng; Biểu 2 theo đơn vị (dự toán, thực hiện: tổng, SDĐ, thuế phí).</li>
-  <li>Tiến độ thời gian = số ngày đã qua của năm ÷ số ngày cả năm. Khoản thu/đơn vị có % dự toán thấp hơn tiến độ thời gian là chậm; thấp hơn quá ngưỡng (mặc định 10 điểm %) là chậm nhiều.</li>
-  <li>“Thu thêm so với kỳ trước” = lũy kế kỳ này − lũy kế kỳ so sánh. Đơn vị hiển thị tỷ đồng.</li>
-  <li>Mục “Các doanh nghiệp trọng điểm” (tên doanh nghiệp) <b>không</b> nhập vào công cụ để bảo mật thông tin NNT.</li></ul>
-  <h4>Phần 3 – Chiến dịch 03, 06</h4>
-  <ul><li>Bảng DS1, DS2, DS3: được giao, phải xử lý, hoàn thành, điểm quy đổi, tồn. Tỷ lệ quy đổi = điểm quy đổi ÷ phải xử lý.</li>
-  <li>Bảng kiểm tra DN, TC 03: phải kiểm tra lũy kế, đã hoàn thành, tồn, đã ban hành QĐ. Tỷ lệ = hoàn thành ÷ phải kiểm tra.</li>
-  <li>Màu so với bình quân toàn Thuế TP (chưa có chỉ tiêu riêng từng đơn vị).</li></ul>
   <h4>Nhận diện file (không phụ thuộc tên file)</h4>
   <ul><li>Khảo sát: biểu có “Tên cơ quan thuế” (Tổng quan TCS hoặc Toàn quốc – có dòng “Toàn quốc”), biểu có mục [1]…[3.2.2] (QLDN). Mẫu nhận theo dòng “Mẫu số: 0X-1/DLKS-TH” hoặc tiêu đề (“sự phục vụ”, “hỗ trợ”, “thủ tục hành chính”, “kiểm tra thuế”, “khiếu nại”). Nhóm QLDN theo dòng “Cơ quan thuế: Thành phố Bắc Ninh” (QLDN1-2) / “Tỉnh Bắc Giang” (QLDN3).</li>
   <li>Tên gợi ý (dự phòng): <code>01_TCS</code>, <code>01_QLDN12</code>, <code>01_QLDN3</code>, <code>01_TOANQUOC</code> … <code>05_TOANQUOC</code>.</li>
@@ -2660,7 +2663,7 @@ function capNhatBannerTT(){
   $('#sampleText').innerHTML=`🌐 <b>Số liệu trực tuyến</b> (Google Drive) – file cập nhật lúc <b>${gioDrive(TT.file&&TT.file.modifiedTime)}</b>${TT.kiemTra?` · kiểm tra lúc ${new Date(TT.kiemTra).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}`:' · đang kiểm tra…'}${TT.loi?` · <span style="color:var(--bad)">⚠ ${esc(TT.loi)} – đang hiện bản đã lưu</span>`:''}`;
   $('#btnExitSample').textContent='Dùng số liệu riêng của máy này';
 }
-function vaoTrucTuyen(st){ const ui=SAMPLE&&SAMPLE.ui; SAMPLE=st; if(ui) SAMPLE.ui=ui; TT.roi=false; }
+function vaoTrucTuyen(st){ const ui=SAMPLE&&SAMPLE.ui; SAMPLE=st; if(ui) SAMPLE.ui=ui; else SAMPLE.ui.phan='ns'; TT.roi=false; }
 async function taiTuDrive(baoLoi){
   if(!TT.cauHinh||TT.dangTai) return; TT.dangTai=true;
   try{
@@ -2692,22 +2695,36 @@ async function batDauTrucTuyen(baoLoi){
   const phut=Math.max(1,Number(TT.cauHinh.phut)||5);
   TT.hen=setInterval(()=>{ if(document.visibilityState==='visible') taiTuDrive(false); }, phut*60000);
 }
+/* So mật khẩu xem với file cau_hinh.json đang có trên trang web: true = khớp, false = khác, null = không kiểm được */
+async function kiemMkXem(mk){
+  if(!/^https?:$/.test(location.protocol)) return null;
+  try{ const r=await fetch('cau_hinh.json',{cache:'no-store'}); if(!r.ok) return null; const o=await r.json(); if(!o||!o.maHoa) return null;
+    try{ await giaiMa(o,mk); return true; }catch(e){ return false; } }catch(e){ return null; }
+}
 async function xuatChoDrive(){
   const st=D(); if(!['hl','ns','cd'].some(p=>ngayCo(p).length)){ toast('Chưa có số liệu để xuất.','warn'); return; }
   if(SAMPLE&&SAMPLE!==TT.st&&SAMPLE!==CHIA_SE&&!confirm('Đang xem DỮ LIỆU GIẢ LẬP. Vẫn xuất file với dữ liệu giả lập?')) return;
   const o=clone(st); delete o.chiaSe; delete o.trucTuyen; o.xuatLuc=new Date().toISOString();
-  const mk=BM().mkXem||TT.mkXem; let txt;
-  if(mk){ loading(true,'Đang khóa số liệu…'); try{ txt=JSON.stringify(await maHoa(JSON.stringify(o),mk)); }catch(e){ loading(false); toast(esc(e.message),'err'); return; } loading(false); }
-  else { if(!confirm('Chưa đặt MẬT KHẨU XEM nên file sẽ KHÔNG được khóa – ai có link Drive đều đọc được.\n(Đặt ở ⚙ Cài đặt → Bảo mật.)\n\nVẫn xuất file không khóa?')) return; txt=JSON.stringify(o); }
+  let mk=BM().mkXem||TT.mkXem; let txt;
+  if(!mk){   // chưa có mật khẩu xem trên máy này → hỏi, không tự xuất bản không khóa
+    const r=await hoiMatKhau('🔒 Khóa file số liệu','Nhập <b>mật khẩu xem</b> (mật khẩu đã dùng khi tạo file cau_hinh.json) để khóa file trước khi đưa lên Drive.',true,'');
+    if(r){ mk=r.mk; if(r.nho){ const bm=BM(); bm.mkXem=mk; ghiLS(BM_KEY,JSON.stringify(bm)); } TT.mkXem=mk; }
+    else if(!confirm('⚠ Bạn chưa nhập mật khẩu nên file sẽ KHÔNG được khóa – ai có link Drive đều đọc được số liệu.\n\nBấm OK để vẫn xuất file KHÔNG khóa, bấm Hủy để dừng.')) return;
+  }
+  if(mk){
+    const khop=await kiemMkXem(mk);
+    if(khop===false&&!confirm('⚠ Mật khẩu xem trên máy này KHÁC mật khẩu của file cau_hinh.json đang có trên trang web – người xem sẽ không mở được file này.\n\nVẫn khóa bằng mật khẩu trên máy này?')) return;
+    loading(true,'Đang khóa số liệu…'); try{ txt=JSON.stringify(await maHoa(JSON.stringify(o),mk)); }catch(e){ loading(false); toast(esc(e.message),'err'); return; } loading(false);
+  } else txt=JSON.stringify(o);
   const ten='Sao_luu_bao_cao_dieu_hanh.json';
   if(window.showSaveFilePicker){
     try{ const h=await showSaveFilePicker({suggestedName:ten, types:[{description:'File số liệu báo cáo',accept:{'application/json':['.json']}}]});
       const w=await h.createWritable(); await w.write(txt); await w.close(); TT.canXuat=false;
-      toast(`Đã lưu file${mk?' (🔒 đã khóa bằng mật khẩu xem)':''}. Nếu chọn thư mục Google Drive trên máy (Google Drive cho máy tính), file sẽ tự đồng bộ lên Drive.`,'ok',8000); return;
+      toast(`Đã lưu file ${mk?'<b>🔒 ĐÃ KHÓA</b> bằng mật khẩu xem':'<b style="color:var(--bad)">⚠ KHÔNG KHÓA</b>'}. Nếu chọn thư mục Google Drive trên máy (Google Drive cho máy tính), file sẽ tự đồng bộ lên Drive.`,'ok',8000); return;
     }catch(e){ if(e&&e.name==='AbortError') return; }
   }
   taiXuong(new Blob([txt],{type:'application/json'}),ten); TT.canXuat=false;
-  toast(`Đã tải file <b>${ten}</b>${mk?' (🔒 đã khóa)':''}. Hãy chép đè vào thư mục chia sẻ trên Google Drive (xóa file cũ nếu Drive tạo thêm bản mới).`,'ok',9000);
+  toast(`Đã tải file <b>${ten}</b> ${mk?'<b>🔒 ĐÃ KHÓA</b>':'<b style="color:var(--bad)">⚠ KHÔNG KHÓA</b>'}. Hãy chép đè vào thư mục chia sẻ trên Google Drive (xóa file cũ nếu Drive tạo thêm bản mới).`,'ok',9000);
 }
 function cauHinhTuO(){ const link=$('#sDriveLink').value.trim(), khoa=$('#sDriveKhoa').value.trim(); if(!link||!khoa){ toast('Hãy nhập đủ link thư mục Drive và khóa API.','warn'); return null; } if(!maTuLink(link)){ toast('Link Google Drive không đúng.','err'); return null; } return {link,khoa,phut:5}; }
 
@@ -2788,7 +2805,8 @@ function ganSuKien(){
         if(mkXem){ if(mkXem.length<8){ toast('Mật khẩu xem cần ít nhất 8 ký tự.','warn'); return; } loading(true,'Đang khóa cấu hình…'); try{ out=await maHoa(JSON.stringify(o),mkXem); }finally{ loading(false); } }
         else { if(!confirm('Chưa có MẬT KHẨU XEM – file cau_hinh.json sẽ KHÔNG khóa, ai cũng đọc được link Drive và khóa API. Vẫn tạo file?')) return; out=o; }
         taiXuong(new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),'cau_hinh.json');
-        toast(`Đã tạo file cau_hinh.json${mkXem?' (🔒 đã khóa)':''} – tải file này lên GitHub thay file cũ.`,'ok',9000); })(); }
+        { const bm=BM(); if(mkXem){ bm.mkXem=mkXem; TT.mkXem=mkXem; } if(qt) bm.qt=qt; ghiLS(BM_KEY,JSON.stringify(bm)); }   // để “Xuất file cho Google Drive” tự khóa bằng đúng mật khẩu này
+        toast(`Đã tạo file cau_hinh.json${mkXem?' (🔒 đã khóa)':''} – tải file này lên GitHub thay file cũ. Mật khẩu đã được lưu trên máy này: từ nay “Xuất file cho Google Drive” sẽ tự khóa.`,'ok',10000); })(); }
     else if(b.id==='sMkHien'){ ['#sMkXem','#sMkQT'].forEach(x=>{ const i=$(x); i.type=i.type==='password'?'text':'password'; }); }
     else if(b.id==='sMkLuu'){ (async()=>{ const bm=BM(); const mkXem=$('#sMkXem').value, mkQT=$('#sMkQT').value;
         if(mkXem&&mkXem.length<8){ toast('Mật khẩu xem cần ít nhất 8 ký tự.','warn'); return; }
@@ -2807,6 +2825,7 @@ function ganSuKien(){
 window.addEventListener('error',e=>{ try{ loading(false); toast('Có lỗi: '+esc(e.message),'err'); }catch(_){} });
 document.addEventListener('DOMContentLoaded',()=>{
   HTML_GOC='<!DOCTYPE html>\n'+document.documentElement.outerHTML;   // chụp trước khi vẽ giao diện (dùng tạo bản chia sẻ)
+  S.ui.phan='ns'; if(CHIA_SE) CHIA_SE.ui.phan='ns';   // mở app: hiện Phần 1 – Tiến độ thu NSNN
   let th='light'; try{ th=localStorage.getItem(THEME_KEY)||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); }catch(e){}
   setTheme(th); ganSuKien();
   try{ render(); }catch(e){ console.error(e); toast('Lỗi hiển thị: '+esc(e.message),'err'); }
