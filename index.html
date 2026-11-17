@@ -70,13 +70,16 @@ select:focus,input:focus,textarea:focus{border-color:var(--primary);box-shadow:0
 .menu hr{border:0;border-top:1px solid var(--border);margin:4px 0}
 
 /* ================= 3. CHỌN PHẦN ================= */
-.parts{max-width:1600px;margin:0 auto;padding:14px 20px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.part-btn{display:flex;gap:12px;align-items:center;padding:11px 15px;border-radius:14px;border:1px solid var(--border);background:var(--card);cursor:pointer;text-align:left;box-shadow:var(--shadow);transition:.15s}
-.part-btn:hover{border-color:var(--pc)}
-.part-btn .pn{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-weight:700;color:#fff;background:var(--pc);flex:none;font-size:17px}
-.part-btn b{display:block;font-size:14.5px}
-.part-btn small{color:var(--muted);font-size:12px;display:block;line-height:1.35}
-.part-btn.on{border-color:var(--pc);box-shadow:inset 0 0 0 2px var(--pc),var(--shadow)}
+.parts{max-width:1600px;margin:0 auto;padding:14px 20px 0}
+/* Thanh Tab chọn phần (mỗi phần một màu; tab đang mở tô đậm, nối với vạch màu bên dưới) */
+.tabbar{display:flex;gap:4px;align-items:flex-end;border-bottom:3px solid var(--tabc,var(--p2));overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabbar::-webkit-scrollbar{display:none}
+.part-btn{flex:1 1 0;min-width:max-content;display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px 8px;border:1px solid var(--border);border-bottom:0;border-radius:12px 12px 0 0;background:var(--card-solid);background:color-mix(in srgb,var(--pc) 12%,var(--card-solid));color:var(--pc);font:inherit;font-weight:600;font-size:13.5px;white-space:nowrap;cursor:pointer;transition:background .15s,padding .15s}
+.part-btn:hover{background:color-mix(in srgb,var(--pc) 22%,var(--card-solid))}
+.part-btn .pn{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--pc);color:#fff;font-size:12px;font-weight:700}
+.part-btn.on{background:var(--pc);border-color:var(--pc);color:#fff;padding-top:12px;box-shadow:0 -3px 12px rgba(0,0,0,.12)}
+.part-btn.on .pn{background:#fff;color:var(--pc)}
+.part-btn .tngan{display:none}
 .subtabs{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap;align-items:center}
 .subtab{border:1px solid var(--border);background:var(--card-solid);border-radius:999px;padding:7px 16px;font-weight:600;cursor:pointer}
 .subtab.on{background:var(--tc,var(--primary));border-color:var(--tc,var(--primary));color:#fff}
@@ -99,6 +102,17 @@ select:focus,input:focus,textarea:focus{border-color:var(--primary);box-shadow:0
 .chart.bando{height:620px;background:var(--grid);border-radius:12px}
 .chuthich{display:inline-flex;flex-wrap:wrap;gap:10px;margin-left:6px}
 .chuthich i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.locbar{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin:0 0 14px}
+.locbar label{font-weight:600;color:var(--muted);font-size:13px}
+.locbar select{padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:var(--card-solid);color:var(--text);font:inherit;font-weight:600;max-width:100%}
+.locbar .gian{flex:1}
+.timxa{margin:0 0 12px}
+.timxa input{width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card-solid);color:var(--text);font:inherit;font-size:14px}
+.timxa input:focus{outline:2px solid var(--primary);outline-offset:-1px}
+.goiy{margin-top:4px;max-height:280px;overflow:auto;background:var(--card-solid);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);-webkit-overflow-scrolling:touch}
+.goiy button{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:9px 12px;border:0;border-bottom:1px solid var(--grid);background:transparent;color:var(--text);font:inherit;font-size:13.5px;text-align:left;cursor:pointer}
+.goiy button:hover,.goiy button:focus{background:var(--primary-soft)}
+.goiy small{color:var(--muted);white-space:nowrap}
 .lnk{border:0;background:none;color:var(--primary);cursor:pointer;padding:0;font:inherit;font-weight:600;text-align:left}
 .lnk:hover{text-decoration:underline}
 .xa-ct .rpt td,.xa-ct .rpt th{font-size:12.5px}
@@ -248,20 +262,19 @@ tr.xoa td{opacity:.55;text-decoration:line-through}
 @keyframes sp{to{transform:rotate(360deg)}}
 
 /* ================= 11. MÀN HÌNH NHỎ ================= */
-@media (max-width:1100px){.g-21,.g-12,.g-11{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr 1fr}.parts{grid-template-columns:1fr}}
+@media (max-width:1100px){.g-21,.g-12,.g-11{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:720px){.steps{grid-template-columns:1fr}.container{padding:12px}.topbar-in,.parts{padding-left:12px;padding-right:12px}}
 /* ===== 11b. ĐIỆN THOẠI, MÁY TÍNH BẢNG (màn hẹp hoặc màn cảm ứng): không cố định thanh trên, gọn chỗ ===== */
 @media (max-width:1100px), (pointer:coarse){
   .topbar{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--card-solid)}
   body{background-attachment:scroll}
-  .card,.modal,.part-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card,.modal{backdrop-filter:none;-webkit-backdrop-filter:none}
   .card{background:var(--card-solid)}
   .alerts{max-height:none;overflow:visible}
-  .parts{grid-template-columns:repeat(3,1fr);gap:8px;padding-top:10px}
-  .part-btn{padding:8px 10px;gap:8px}
-  .part-btn small{display:none}
-  .part-btn b{font-size:13px}
-  .part-btn .pn{width:28px;height:28px;font-size:14px;border-radius:8px}
+  .parts{padding-top:10px}
+  .part-btn{flex:none;padding:8px 11px 7px;gap:6px;font-size:13px}
+  .part-btn.on{padding-top:10px}
+  .part-btn .tdai{display:none}.part-btn .tngan{display:inline}
   .card-h{flex-wrap:wrap}
   .card-tools{justify-content:flex-start}
   .subtabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
@@ -275,6 +288,7 @@ tr.xoa td{opacity:.55;text-decoration:line-through}
   .btn.icon{width:34px}
   .cotmenu{left:8px!important;right:8px!important;max-width:none}
   #iPickDir{display:none}
+  .timxa input{font-size:16px}   /* tránh iPhone tự phóng to khi gõ */
 }
 @media (max-width:720px){
   .topbar-in{gap:8px;padding-top:8px;padding-bottom:8px}
@@ -285,8 +299,8 @@ tr.xoa td{opacity:.55;text-decoration:line-through}
   .tb-group{width:100%}
   .tb-field{flex:1;min-width:0}
   .tb-field select{width:100%}
-  .part-btn{flex-direction:column;text-align:center;gap:4px;padding:8px 4px}
-  .part-btn b{font-size:12px;line-height:1.25}
+  .part-btn{padding:7px 9px 6px;font-size:12.5px}
+  .part-btn .pn{width:19px;height:19px;font-size:11px}
   .part-head h2{font-size:16px}
   .chart{height:300px}.chart.tall{height:420px}.chart.short{height:260px}.chart.bando{height:460px}
   .kpi .val{font-size:22px}
@@ -360,14 +374,14 @@ body.exporting .no-export{display:none!important}
   </div>
 </header>
 
-<nav class="parts" id="parts">
-  <button class="part-btn" data-phan="ns" style="--pc:var(--p2)"><span class="pn">1</span><span><b>Tiến độ thu NSNN</b><small>Theo khoản thu và theo đơn vị · so dự toán, cùng kỳ, tiến độ thời gian</small></span></button>
-  <button class="part-btn" data-phan="cd" style="--pc:var(--p3)"><span class="pn">2</span><span><b>Chiến dịch làm sạch MST (03, 06)</b><small>Tiến độ DS1, DS2, DS3 và kiểm tra DN, tổ chức 03</small></span></button>
-  <button class="part-btn" data-phan="hl" style="--pc:var(--p1)"><span class="pn">3</span><span><b>Sự hài lòng của NNT</b><small>A. Tiến độ cỡ mẫu (Mẫu 01) · B. Theo dõi điều hành (Mẫu 02–05)</small></span></button>
-  <button class="part-btn" data-phan="ktn" style="--pc:var(--p4)"><span class="pn">4</span><span><b>Kiểm tra tại trụ sở NNT</b><small>Nhiệm vụ, kế hoạch, số tiền xử lý, đã nộp NSNN – lũy kế và trong tháng</small></span></button>
-  <button class="part-btn" data-phan="ktc" style="--pc:var(--p5)"><span class="pn">5</span><span><b>Kiểm tra tại trụ sở CQT</b><small>DN đã kiểm tra theo kế hoạch, kết quả xử lý hồ sơ, số thuế tăng thêm</small></span></button>
-  <button class="part-btn" data-phan="no" style="--pc:var(--p6)"><span class="pn">6</span><span><b>Công tác nợ thuế</b><small>Tổng nợ so chỉ tiêu, nợ có khả năng thu, thu hồi nợ năm trước</small></span></button>
-</nav>
+<nav class="parts" id="parts"><div class="tabbar" id="tabbar" role="tablist">
+  <button class="part-btn" role="tab" data-phan="ns" style="--pc:var(--p2)" title="Theo khoản thu, đơn vị và dự toán 99 xã, phường"><span class="pn">1</span><span class="tdai">Tiến độ thu NSNN</span><span class="tngan">Thu NSNN</span></button>
+  <button class="part-btn" role="tab" data-phan="cd" style="--pc:var(--p3)" title="Tiến độ DS1, DS2, DS3 và kiểm tra DN, tổ chức 03"><span class="pn">2</span><span class="tdai">Chiến dịch làm sạch MST 03, 06</span><span class="tngan">Chiến dịch 03, 06</span></button>
+  <button class="part-btn" role="tab" data-phan="hl" style="--pc:var(--p1)" title="A. Tiến độ cỡ mẫu (Mẫu 01) · B. Theo dõi điều hành (Mẫu 02–05)"><span class="pn">3</span><span class="tdai">Sự hài lòng của NNT</span><span class="tngan">Hài lòng NNT</span></button>
+  <button class="part-btn" role="tab" data-phan="ktn" style="--pc:var(--p4)" title="Nhiệm vụ, kế hoạch phê duyệt, số tiền xử lý, đã nộp NSNN"><span class="pn">4</span><span class="tdai">Kiểm tra tại trụ sở NNT</span><span class="tngan">KT trụ sở NNT</span></button>
+  <button class="part-btn" role="tab" data-phan="ktc" style="--pc:var(--p5)" title="DN đã kiểm tra theo kế hoạch, xử lý hồ sơ, thuế tăng thêm"><span class="pn">5</span><span class="tdai">Kiểm tra tại trụ sở CQT</span><span class="tngan">KT trụ sở CQT</span></button>
+  <button class="part-btn" role="tab" data-phan="no" style="--pc:var(--p6)" title="Tổng nợ so chỉ tiêu, nợ/tổng thu so mục tiêu Cục Thuế, thu hồi nợ"><span class="pn">6</span><span class="tdai">Công tác nợ thuế</span><span class="tngan">Nợ thuế</span></button>
+</div></nav>
 
 <main class="container">
   <div id="sampleBanner" class="banner sample hidden"><span id="sampleText"></span> <button class="btn sm hidden" id="btnLamMoi">↻ Lấy số mới</button> <button class="btn sm" id="btnExitSample">Thoát</button></div>
@@ -992,6 +1006,7 @@ const CAI_DAT_GOC = {
   batDau:'2026-10-25', moc50:'2026-11-30', moc100:'2026-12-15', ketThuc:'2026-12-31',
   spiTot:1, spiCham:0.8,
   nguongChiSo:0.90, nguongKhl:0.02, nguongRkhl:0.01, luotMin:5,     // Phần 1B
+  cucNoTT:0.08, cucNoTP:0.05,                                        // Phần 6: mục tiêu Cục Thuế giao – tổng nợ/tổng thu ≤ 8%, nợ thuế, phí/tổng thu ≤ 5%
   nsCham:0.10,                                                       // Phần 2: thấp hơn tiến độ thời gian quá 10 điểm % → đỏ
   cdCham:0.15,                                                       // Phần 3: thấp hơn bình quân TP quá 15 điểm % → đỏ
 };
@@ -1082,7 +1097,7 @@ function maDonVi(s){
    ===================================================================== */
 function moiTrangThai(){
   return {v:PHIEN_BAN, plan:clone(PLAN_GOC), nguonPlan:'Phụ lục 01 giao chỉ tiêu (bản chốt 14/11/2026)', caiDat:clone(CAI_DAT_GOC),
-    data:{hl:{},ns:{},cd:{},ktn:{},ktc:{},no:{}}, ui:{phan:'ns', tabNS:'A', ktLoai:{}, xaCT:'T', tab:'A', mauB:'ALL', ds:'DS1', qgA:'so', heatB:'khl', ky:{}, ss:{}, anCot:{}}};
+    data:{hl:{},ns:{},cd:{},ktn:{},ktc:{},no:{}}, ui:{phan:'ns', tabNS:'A', ktLoai:{}, xaCT:'T', xaTCS:'', tab:'A', mauB:'ALL', ds:'DS1', qgA:'so', heatB:'khl', ky:{}, ss:{}, anCot:{}}};
 }
 function chuanHoaTrangThai(st){
   const base=moiTrangThai(); const o=Object.assign(base, st||{});
@@ -2211,6 +2226,11 @@ function veCD(M,dsChon){
 const DV_KTN = ['KT1','KT2',...TCS];
 const DV_KTC = ['QLDN1','QLDN2','QLDN3',...TCS];
 const DV_NO  = ['QLDN1','QLDN2','QLDN3','CNTK',...TCS];
+/* Danh mục 99 xã, phường theo Thuế cơ sở quản lý (theo cột “Thuế cơ sở” của Mẫu BC Phần 1); dùng khi biểu nhập không có cột này */
+const XA_TCS_GOC = {TCS1:["Phường Bắc Giang", "Phường Cảnh Thụy", "Phường Tiền Phong", "Phường Tân An", "Phường Tân Tiến", "Phường Yên Dũng", "Phường Đa Mai", "Xã Đồng Việt"], TCS2:["Phường Hiệp Hòa", "Phường Nếnh", "Phường Tự Lạn", "Phường Việt Yên", "Phường Vân Hà", "Xã Hoàng Vân", "Xã Hợp Thịnh", "Xã Xuân Cẩm"], TCS3:["Phường Bố Hạ", "Xã Ngọc Thiện", "Xã Nhã Nam", "Xã Phúc Hoà", "Xã Quang Trung", "Xã Tam Tiến", "Xã Tân Yên", "Xã Xuân Lương", "Xã Yên Thế", "Xã Đồng Kỳ"], TCS4:["Phường Kép", "Phường Lạng Giang", "Phường Lục Nam", "Xã Bảo Đài", "Xã Bắc Lũng", "Xã Cẩm Lý", "Xã Lục Sơn", "Xã Mỹ Thái", "Xã Nghĩa Phương", "Xã Tiên Lục", "Xã Trường Sơn", "Xã Tân Dĩnh", "Xã Đông Phú"], TCS5:["Phường Chũ", "Phường Phượng Sơn", "Xã An Lạc", "Xã Biên Sơn", "Xã Biển Động", "Xã Dương Hưu", "Xã Kiên Lao", "Xã Lục Ngạn", "Xã Nam Dương", "Xã Sa Lý", "Xã Sơn Hải", "Xã Sơn Động", "Xã Tuấn Đạo", "Xã Tân Sơn", "Xã Tây Yên Tử", "Xã Vân Sơn", "Xã Yên Định", "Xã Đèo Gia", "Xã Đại Sơn"], TCS6:["Phường Bồng Lai", "Phường Chi Lăng", "Phường Nhân Hòa", "Phường Phù Lãng", "Phường Phương Liễu", "Phường Quế Võ", "Phường Tiên Du", "Phường Đào Viên", "Xã Liên Bão", "Xã Phật Tích", "Xã Tân Chi", "Xã Đại Đồng"], TCS7:["Phường Hạp Lĩnh", "Phường Kinh Bắc", "Phường Nam Sơn", "Phường Võ Cường", "Phường Vũ Ninh"], TCS8:["Phường Phù Khê", "Phường Tam Sơn", "Phường Từ Sơn", "Phường Yên Phong", "Phường Đồng Nguyên", "Xã Tam Giang", "Xã Tam Đa", "Xã Văn Môn", "Xã Yên Trung"], TCS9:["Phường Mão Điền", "Phường Ninh Xá", "Phường Song Liễu", "Phường Thuận Thành", "Phường Trí Quả", "Phường Trạm Lộ"], TCS10:["Phường Gia Bình", "Phường Lương Tài", "Phường Nhân Thắng", "Xã Cao Đức", "Xã Lâm Thao", "Xã Trung Chính", "Xã Trung Kênh", "Xã Đông Cứu", "Xã Đại Lai"]};
+const XA_TCS = {}; for(const [t,ds] of Object.entries(XA_TCS_GOC)) ds.forEach(x=>XA_TCS[norm(x)]=t);
+function tcsCuaXa(ten){ return XA_TCS[norm(ten)]||null; }
+function tenTCS(id){ return id? String(id).replace(/^TCS(\d+)$/,'Thuế cơ sở $1') : '–'; }
 const mauTD = m=> m==='done'?cssv('--done'):m==='good'?cssv('--good'):m==='warn'?cssv('--warn'):m==='bad'?cssv('--bad'):cssv('--na');
 const clsTD = m=> m==='bad'?'x-bad':m==='warn'?'x-warn':(m==='good'||m==='done')?'x-good':'';
 const TEN_TD = {done:'Đạt/vượt chỉ tiêu', good:'Đạt tiến độ', warn:'Chậm tiến độ', bad:'Chậm nhiều', na:'Chưa có'};
@@ -2238,9 +2258,10 @@ function docXa(rows){
   sub.forEach((c,j)=>{ if(c==='tong so') ts.push(j); else if(/^thue,? phi$/.test(c)) tp.push(j); else if(/sdd/.test(c)) sd.push(j); });
   if(ts.length<2) throw new Error('Không thấy các cột “Tổng số / Thuế, phí / Tiền SDĐ”.');
   const cTen=rows[hr].findIndex(c=>/ten xa/.test(norm(c)));
+  const cTcs=rows[hr].findIndex(c=>/^(thue co so|tcs|don vi quan ly)/.test(norm(c)));   // cột “Thuế cơ sở” (mẫu mới)
   const ds=[];
   for(let i=hr+2;i<rows.length;i++){ const r=rows[i]||[]; const ten=String(r[cTen]??'').trim(); if(!ten||!/^(xa|phuong|thi tran)\b/.test(norm(ten))) continue;
-    const v=j=>j==null?null:num(r[j]); ds.push({ten, dtT:v(ts[0]),dtP:v(tp[0]),dtS:v(sd[0]),thT:v(ts[1]),thP:v(tp[1]),thS:v(sd[1])}); }
+    const v=j=>j==null?null:num(r[j]); ds.push({ten, tcs:cTcs>=0?maDonVi(r[cTcs]):null, dtT:v(ts[0]),dtP:v(tp[0]),dtS:v(sd[0]),thT:v(ts[1]),thP:v(tp[1]),thS:v(sd[1])}); }
   if(!ds.length) throw new Error('Không đọc được dòng xã, phường nào.');
   const t=norm(vanBan(rows,hr+1)); const tong=sum(ds.map(x=>x.dtT));
   const heSo=/trieu dong/.test(t)?1:(/ty dong/.test(t)?1000:(tong>2e6?1:1000));     // biểu mẫu ghi tỷ đồng → đổi về triệu đồng
@@ -2279,7 +2300,7 @@ function docNo(rows){
   const F={TT:'tongThu',1:'khThuHoi',2:'daThuHoi',4:'thuThang',6:'ctNop',7:'dcGiam',8:'ctTongNo',10:'ctNoKN',12:'ctNoTP',14:'tongNo',16:'noKN',18:'noTP'};
   const t=norm(vanBan(rows,mc.dong)); const heSo=/ty dong/.test(t)?1000:1;
   const rec=r=>{ const o={}; for(const [k,f] of Object.entries(F)){ const j=mc.map[k]; const v=j==null?null:num(r[j]); o[f]=v==null?null:v*heSo; }
-    for(const [k,f] of Object.entries({9:'ctTTp',15:'noTTp'})){ const j=mc.map[k]; o[f]=j==null?null:num(r[j]); }   // tỷ lệ % ghi sẵn trong biểu (giữ nguyên)
+    for(const [k,f] of Object.entries({9:'ctTTp',15:'noTTp',17:'knTTp',19:'tpTTp'})){ const j=mc.map[k]; o[f]=j==null?null:num(r[j]); }   // tỷ lệ % ghi sẵn trong biểu (giữ nguyên)
     return o; };
   const rowsDV={}, nhom={};
   for(let i=mc.dong+1;i<rows.length;i++){ const r=rows[i]||[]; const stt=String(r[0]??'').trim(), ten=String(r[1]??'').trim(); if(!ten) continue; const o=rec(r);
@@ -2290,11 +2311,12 @@ function docNo(rows){
 }
 
 /* ---------- Bản đồ 99 xã, phường (gói sẵn trong file) ---------- */
-let BAN_DO=null, BD_TEN=null;
+let BAN_DO=null, BD_TEN=null, BD_BOX=null;
+function hopBao(geo){ const a=[1e9,1e9,-1e9,-1e9]; const di=c=>{ if(typeof c[0]==='number'){ if(c[0]<a[0])a[0]=c[0]; if(c[1]<a[1])a[1]=c[1]; if(c[0]>a[2])a[2]=c[0]; if(c[1]>a[3])a[3]=c[1]; } else c.forEach(di); }; di(geo.coordinates); return a; }
 function banDo(){
   if(BAN_DO!==null) return BAN_DO;
   try{ const el=document.getElementById('banDoXa'); const o=el?JSON.parse(el.textContent):null;
-    if(o&&o.features&&window.echarts){ echarts.registerMap('bn99',o); BAN_DO=o; BD_TEN={}; o.features.forEach(f=>BD_TEN[norm(f.properties.name)]=f.properties.name); } else BAN_DO=false;
+    if(o&&o.features&&window.echarts){ echarts.registerMap('bn99',o); BAN_DO=o; BD_TEN={}; BD_BOX={}; const all=[1e9,1e9,-1e9,-1e9]; o.features.forEach(f=>{ BD_TEN[norm(f.properties.name)]=f.properties.name; try{ const b=hopBao(f.geometry); BD_BOX[f.properties.name]=b; for(let i=0;i<2;i++){ all[i]=Math.min(all[i],b[i]); all[i+2]=Math.max(all[i+2],b[i+2]); } }catch(e){} }); BD_BOX.__all=all; } else BAN_DO=false;
   }catch(e){ BAN_DO=false; }
   return BAN_DO;
 }
@@ -2305,12 +2327,20 @@ function moHinhXa(){
   const n0=v.xa.ngay, tg=tienDoTG(n0); const nb=kySoSanh('ns',ngay,cheSS('ns')); const vb=nb?xem('ns',nb):null; const B=vb&&vb.xa&&vb.xa.ngay<n0?vb.xa:null;
   banDo(); const k=D().ui.xaCT||'T';
   const rows=v.xa.data.rows.map(x=>{ const b=B?B.data.rows.find(y=>norm(y.ten)===norm(x.ten)):null;
-    const r=Object.assign({},x,{geo:BD_TEN?BD_TEN[norm(x.ten)]||null:null, pT:chia(x.thT,x.dtT), pP:chia(x.thP,x.dtP), pS:chia(x.thS,x.dtS), conT:x.dtT!=null&&x.thT!=null?Math.max(0,x.dtT-x.thT):null, conP:x.dtP!=null&&x.thP!=null?Math.max(0,x.dtP-x.thP):null, dB:b?hieu(x.thT,b.thT):null});
+    const r=Object.assign({},x,{geo:BD_TEN?BD_TEN[norm(x.ten)]||null:null, pT:chia(x.thT,x.dtT), pP:chia(x.thP,x.dtP), pS:chia(x.thS,x.dtS), conT:x.dtT!=null&&x.thT!=null?Math.max(0,x.dtT-x.thT):null, conP:x.dtP!=null&&x.thP!=null?Math.max(0,x.dtP-x.thP):null, conS:x.dtS!=null&&x.thS!=null?Math.max(0,x.dtS-x.thS):null, tcs:x.tcs||tcsCuaXa(x.ten), dB:b?hieu(x.thT,b.thT):null});
     r.mT=danhGiaTD(r.pT,tg); r.mP=danhGiaTD(r.pP,tg); r.mS=danhGiaTD(r.pS,tg); r.p=r['p'+k]; r.m=r['m'+k]; return r; });
   [...rows].sort((a,b)=>(b.p??-1)-(a.p??-1)).forEach((r,i)=>r.hang=i+1);
   const T={dtT:sum(rows.map(r=>r.dtT)),dtP:sum(rows.map(r=>r.dtP)),dtS:sum(rows.map(r=>r.dtS)),thT:sum(rows.map(r=>r.thT)),thP:sum(rows.map(r=>r.thP)),thS:sum(rows.map(r=>r.thS))};
-  T.pT=chia(T.thT,T.dtT); T.pP=chia(T.thP,T.dtP); T.pS=chia(T.thS,T.dtS); T.conT=sum(rows.map(r=>r.conT));
-  return {ngay, nb, n0, tg, k, rows, T, ngayB:B?B.ngay:null, kt:n0<ngay};
+  T.pT=chia(T.thT,T.dtT); T.pP=chia(T.thP,T.dtP); T.pS=chia(T.thS,T.dtS); T.conT=sum(rows.map(r=>r.conT)); T.conP=sum(rows.map(r=>r.conP)); T.conS=sum(rows.map(r=>r.conS));
+  // tổng hợp theo Thuế cơ sở; hạng của xã trong Thuế cơ sở
+  const tcs=TCS.map(id=>{ const ds=rows.filter(r=>r.tcs===id); const o={id, so:ds.length};
+    for(const f of ['dtT','dtP','dtS','thT','thP','thS']) o[f]=sum(ds.map(r=>r[f]));
+    for(const x of ['T','P','S']) o['con'+x]=Math.max(0,o['dt'+x]-o['th'+x]);   // còn phải thu của Thuế cơ sở = tổng dự toán – tổng thực hiện (người dùng chốt 17/11/2026)
+    o.pT=chia(o.thT,o.dtT); o.pP=chia(o.thP,o.dtP); o.pS=chia(o.thS,o.dtS); o.p=o['p'+k]; o.m=danhGiaTD(o.p,tg);
+    o.dat=ds.filter(r=>r.m==='done'||r.m==='good').length; o.cham=ds.filter(r=>r.m==='bad').length;
+    [...ds].sort((a,b)=>(b.p??-1)-(a.p??-1)).forEach((r,i)=>{ r.hangTCS=i+1; r.soTCS=ds.length; }); return o; }).filter(o=>o.so);
+  const coTCS=tcs.length>0; const loc=D().ui.xaTCS||'';
+  return {ngay, nb, n0, tg, k, rows, T, tcs, coTCS, loc:coTCS&&tcs.some(t=>t.id===loc)?loc:'', ngayB:B?B.ngay:null, kt:n0<ngay};
 }
 /* ---------- Mô hình: Kiểm tra tại trụ sở NNT / CQT (báo cáo tháng: lũy kế hoặc trong tháng) ---------- */
 function moHinhKT(phan){
@@ -2321,7 +2351,9 @@ function moHinhKT(phan){
   const tinh=(id,x,xb)=>{ if(!x) return {id,na:true}; const r=Object.assign({id},x);
     if(phan==='ktn'){ r.pB=xb?chia(xb.daTH,xb.chiTieu):null; r.p=chia(x.daTH,x.chiTieu); r.pKH=chia(x.khTH,x.khPD); r.pNop=chia(x.daNop,x.tongTien); r.bq=chia(x.tongTien,x.daTH); r.dTH=xb?hieu(x.daTH,xb.daTH):null; r.dTien=xb?hieu(x.tongTien,xb.tongTien):null; }
     else { r.pB=xb?chia(xb.dnDa,xb.dnPhai):null; r.p=chia(x.dnDa,x.dnPhai); r.pCN=chia(x.chapNhan,x.hs); r.dHS=xb?hieu(x.hs,xb.hs):null; r.dThue=xb?hieu(x.thueTang,xb.thueTang):null; r.tienTang=sum([x.thueTang,x.chamNop,x.phat]); }
-    r.m=loai==='luyke'?danhGiaTD(r.p,tg):(r.p==null?'na':'good'); return r; };
+    r.m=loai==='luyke'?danhGiaTD(r.p,tg):(r.p==null?'na':'good');
+    if(phan==='ktn'){ r.pKHB=xb?chia(xb.khTH,xb.khPD):null; r.mKH=loai==='luyke'?danhGiaTD(r.pKH,tg):(r.pKH==null?'na':'good'); }
+    return r; };
   const rows=DV.map(id=>tinh(id,blk.data.rows[id],B?B.data.rows[id]:null));
   let tong=blk.data.tong; if(!tong){ tong={}; const c=rows.filter(r=>!r.na); for(const k of Object.keys(c[0]||{})) if(typeof (c[0]||{})[k]==='number') tong[k]=sum(c.map(r=>r[k])); }
   const T=tinh('TP',tong,B?B.data.tong:null);
@@ -2331,7 +2363,8 @@ function moHinhKT(phan){
 function moHinhNo(){
   const ngay=kyChon('no'); if(!ngay) return null; const v=xem('no',ngay); if(!v.no) return {ngay, khong:true};
   const n0=v.no.ngay, tg=tgThang(n0); const nb=kySoSanh('no',ngay,cheSS('no')); const vb=nb?xem('no',nb):null; const B=vb&&vb.no&&vb.no.ngay<n0?vb.no:null;
-  const tinh=(id,x,xb)=>{ if(!x) return {id,na:true}; const r=Object.assign({id},x,{pThuHoi:chia(x.daThuHoi,x.khThuHoi), rNo:chia(x.tongNo,x.ctTongNo), rKN:chia(x.noKN,x.ctNoKN), rTP:chia(x.noTP,x.ctNoTP), noTT:x.noTTp!=null?x.noTTp:chia(x.tongNo,x.tongThu), ctTT:x.ctTTp!=null?x.ctTTp:chia(x.ctTongNo,x.tongThu)});
+  const tinh=(id,x,xb)=>{ if(!x) return {id,na:true}; const r=Object.assign({id},x,{pThuHoi:chia(x.daThuHoi,x.khThuHoi), rNo:chia(x.tongNo,x.ctTongNo), rKN:chia(x.noKN,x.ctNoKN), rTP:chia(x.noTP,x.ctNoTP), noTT:x.noTTp!=null?x.noTTp:chia(x.tongNo,x.tongThu), ctTT:x.ctTTp!=null?x.ctTTp:chia(x.ctTongNo,x.tongThu), knTT:x.knTTp!=null?x.knTTp:chia(x.noKN,x.tongThu), tpTT:x.tpTTp!=null?x.tpTTp:chia(x.noTP,x.tongThu)});
+    const cd=D().caiDat; r.mCucTT=r.noTT==null?'na':r.noTT<=cd.cucNoTT+1e-9?'good':'bad'; r.mCucTP=r.tpTT==null?'na':r.tpTT<=cd.cucNoTP+1e-9?'good':'bad';
     r.dNo=xb?hieu(x.tongNo,xb.tongNo):null; r.dThuHoi=xb?hieu(x.daThuHoi,xb.daThuHoi):null;
     r.mThuHoi=danhGiaTD(r.pThuHoi,tg); r.mNo=r.rNo==null?'na':r.rNo<=1?'good':r.rNo<=1.1?'warn':'bad'; return r; };
   const rows=DV_NO.map(id=>tinh(id,v.no.data.rows[id],B?B.data.rows[id]:null));
@@ -2346,21 +2379,68 @@ function tabNS(chon){ return `<div class="subtabs no-export"><button class="subt
 function chuThichMau(){ return `<span class="chuthich">${['done','good','warn','bad'].map(m=>`<i style="background:${mauTD(m)}"></i>${TEN_TD[m]}`).join('')}</span>`; }
 
 /* ---------- Phần 1B: Dự toán 99 xã, phường ---------- */
+const TEN_K = k=> k==='P'?'thuế, phí':k==='S'?'tiền SDĐ':'tổng thu';
+const tenXaNgan = t=> String(t).replace(/^(Xã|Phường)\s+/,'');
 function chiTietXa(M, ten){
-  const r=M.rows.find(x=>x.ten===ten||x.geo===ten); if(!r) return '<p class="muted">Bấm vào một xã, phường trên bản đồ (hoặc tên trong bảng) để xem chi tiết.</p>';
+  const r=M.rows.find(x=>x.ten===ten||x.geo===ten); if(!r) return '<p class="muted">Bấm vào một xã, phường trên bản đồ, chọn trong ô tìm kiếm phía trên hoặc bấm tên trong bảng để xem chi tiết.</p>';
   const dong=(nhan,dt,th,p,con,m)=>`<tr><td><b>${nhan}</b></td><td class="r">${tyDong(dt)}</td><td class="r"><b>${tyDong(th)}</b></td><td class="r ${clsTD(m)}">${fmtPct(p)}</td><td class="r">${con==null?'–':tyDong(con)}</td></tr>`;
-  return `<div class="xa-ct"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap"><h3 style="margin:0">${esc(r.ten)}</h3><span class="tag" style="background:var(--primary-soft);color:var(--primary)">Xếp thứ ${r.hang}/${M.rows.length} (theo % ${M.k==='P'?'thuế, phí':M.k==='S'?'tiền SDĐ':'tổng thu'})</span></div>
+  return `<div class="xa-ct"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap"><h3 style="margin:0">${esc(r.ten)}</h3><span class="tag" style="background:var(--primary-soft);color:var(--primary)">Xếp thứ ${r.hang}/${M.rows.length} (theo % ${TEN_K(M.k)})</span></div>
+    ${r.tcs?`<div class="muted" style="font-size:12.5px;margin-top:4px">Thuộc <b style="color:var(--text)">${tenTCS(r.tcs)}</b> · xếp thứ ${r.hangTCS}/${r.soTCS} xã, phường của ${r.tcs}</div>`:''}
     <div style="margin:8px 0">${tagTD(r.mT)} <span class="muted" style="font-size:12.5px">Tiến độ thời gian ${fmtPct(M.tg)} · chênh lệch ${fmtDiem(r.pT==null?null:r.pT-M.tg)}</span></div>
     ${mini(r.pT,mauTD(r.mT),M.tg)}
     <div class="table-wrap" style="margin-top:10px"><table class="rpt ke"><thead><tr><th>Chỉ tiêu</th><th>Dự toán</th><th>Thực hiện</th><th>% DT</th><th>Còn phải thu</th></tr></thead><tbody>
-      ${dong('Tổng số',r.dtT,r.thT,r.pT,r.conT,r.mT)}${dong('Thuế, phí',r.dtP,r.thP,r.pP,r.conP,r.mP)}${dong('Tiền SDĐ',r.dtS,r.thS,r.pS,r.dtS!=null&&r.thS!=null?Math.max(0,r.dtS-r.thS):null,r.mS)}</tbody></table></div>
+      ${dong('Tổng số',r.dtT,r.thT,r.pT,r.conT,r.mT)}${dong('Thuế, phí',r.dtP,r.thP,r.pP,r.conP,r.mP)}${dong('Tiền SDĐ',r.dtS,r.thS,r.pS,r.conS,r.mS)}</tbody></table></div>
     <p class="muted" style="font-size:12px;margin:8px 0 0">Đơn vị: tỷ đồng · số liệu đến ${fmtDate(M.n0)}${M.ngayB?` · thu thêm so với ${fmtDM(M.ngayB)}: <b>${tyDong(r.dB)}</b> tỷ`:''}</p></div>`;
+}
+/* Ô chọn xã, phường: danh sách xổ xuống, gõ tên (có dấu hoặc không dấu) hoặc mã Thuế cơ sở để lọc gợi ý */
+function goiYXa(q){
+  const M=TT_XA, box=$('#xaGoiY'); if(!M||!box) return;
+  const n=norm(q).replace(/^(xa|phuong)\s+/,'');
+  let ds=[...M.rows].sort((a,b)=>tenXaNgan(a.ten).localeCompare(tenXaNgan(b.ten),'vi'));
+  if(n) ds=ds.filter(r=>{ const s=norm(r.ten+' '+(r.tcs?tenTCS(r.tcs)+' '+r.tcs+' tcs '+r.tcs.slice(3):'')); return s.includes(n)||s.replace(/\s/g,'').includes(n.replace(/\s/g,'')); });
+  box.innerHTML=ds.length?ds.map(r=>`<button type="button" data-xa="${esc(r.ten)}"><span>${esc(r.ten)}</span><small>${r.tcs||''} · <b style="color:${mauTD(r.m)}">${fmtPct(r.p)}</b></small></button>`).join('')
+    :'<div class="muted" style="padding:8px 12px">Không thấy xã, phường phù hợp.</div>';
+  box.classList.remove('hidden');
+}
+function ganTimXa(){
+  const ip=$('#xaTim'), box=$('#xaGoiY'); if(!ip||!box) return;
+  ip.addEventListener('focus',()=>goiYXa(ip.value));
+  ip.addEventListener('input',()=>goiYXa(ip.value));
+  ip.addEventListener('keydown',e=>{ if(e.key==='Enter'){ const b=box.querySelector('button'); if(b){ e.preventDefault(); b.click(); } } else if(e.key==='Escape'){ box.classList.add('hidden'); ip.blur(); } });
+  ip.addEventListener('blur',()=>setTimeout(()=>box.classList.add('hidden'),250));
+  box.addEventListener('mousedown',e=>e.preventDefault());
+}
+/* Mẫu biểu nhập thống nhất: TT | Tên xã phường | Thuế cơ sở | Dự toán (3 cột) | Thực hiện (3 cột) | Tỷ lệ % (3 cột) */
+function taiMauXa(){
+  const ds=[]; for(const [t,xs] of Object.entries(XA_TCS_GOC)) xs.forEach(x=>ds.push([x,t]));
+  ds.sort((a,b)=>tenXaNgan(a[0]).localeCompare(tenXaNgan(b[0]),'vi'));
+  const aoa=[['KẾT QUẢ THỰC HIỆN DỰ TOÁN THU NSNN CỦA 99 XÃ, PHƯỜNG NĂM 2026'],
+    ['Số liệu đến ngày: ..../..../2026','','','','','','','','','','','Đơn vị: tỷ đồng'],
+    ['TT','Tên xã phường','Thuế cơ sở','Dự toán giao 2026','','','Thực hiện năm 2026','','','Tỷ lệ % thực hiện / DT','',''],
+    ['','','','Tổng số','Thuế, phí','Tiền SDĐ','Tổng số','Thuế, phí','Tiền SDĐ','Tổng số','Thuế, phí','Tiền SDĐ']];
+  ds.forEach(([ten,t],i)=>aoa.push([i+1,ten,'TCS '+t.slice(3),null,null,null,null,null,null,null,null,null]));
+  const ws=XLSX.utils.aoa_to_sheet(aoa);
+  for(let i=0;i<ds.length;i++){ const r=i+5;
+    ws['D'+r]={t:'n',f:`E${r}+F${r}`,z:'#,##0.0'}; ws['G'+r]={t:'n',f:`H${r}+I${r}`,z:'#,##0.0'};
+    ['J','K','L'].forEach((c,j)=>{ ws[c+r]={t:'n',f:`IFERROR(${'GHI'[j]}${r}/${'DEF'[j]}${r},"")`,z:'0%'}; }); }
+  ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:11}},{s:{r:2,c:0},e:{r:3,c:0}},{s:{r:2,c:1},e:{r:3,c:1}},{s:{r:2,c:2},e:{r:3,c:2}},{s:{r:2,c:3},e:{r:2,c:5}},{s:{r:2,c:6},e:{r:2,c:8}},{s:{r:2,c:9},e:{r:2,c:11}}];
+  ws['!cols']=[{wch:5},{wch:24},{wch:11},...Array(9).fill({wch:11})];
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Du toan 99 xa');
+  const hd=[['HƯỚNG DẪN NHẬP'],['1. Ghi ngày số liệu ở ô A2 (VD: Số liệu đến ngày: 17/11/2026). Nếu để trống thì chọn ngày ở màn hình Nhập số liệu.'],
+    ['2. Nhập số Thuế, phí (cột E, H) và Tiền SDĐ (cột F, I) theo tỷ đồng. Cột Tổng số và Tỷ lệ % tự tính (có thể ghi đè số Tổng số nếu cần).'],
+    ['3. Không đổi tên cột, không xóa cột “Thuế cơ sở”. Ghi Thuế cơ sở dạng “TCS 5” hoặc “Thuế cơ sở 5”.'],
+    ['4. Có thể sắp xếp lại dòng, thêm/bớt xã, phường; tên xã, phường ghi đầy đủ “Xã …” / “Phường …”.'],['5. Lưu file rồi bấm ⬆ Nhập số liệu trên app, kéo thả file vào.']];
+  const w2=XLSX.utils.aoa_to_sheet(hd); w2['!cols']=[{wch:120}]; XLSX.utils.book_append_sheet(wb,w2,'Huong dan');
+  XLSX.writeFile(wb,'Mau_BC_Phan1_Du_toan_99_xa_phuong.xlsx'); toast('Đã tải mẫu biểu nhập dự toán 99 xã, phường (có cột Thuế cơ sở).','ok');
 }
 function renderXa(){
   const el=$('#p-ns'); const M=moHinhXa(); const ngay=kyChon('ns');
   let h=dauPhan('ns',ngay,kySoSanh('ns',ngay,cheSS('ns')))+tabNS('X');
-  if(!M||M.khong){ el.innerHTML=h+`<div class="banner warn">⚠ Chưa có biểu dự toán 99 xã, phường. Bấm <b>⬆ Nhập</b> và kéo thả file <i>Mẫu BC_Phần 1_Dự toán 99 xã phường.xlsx</i>.</div>`; return; }
-  const T=M.T; const dem=m=>M.rows.filter(r=>r.mT===m).length; const coBD=!!banDo();
+  const nutMau='<button class="btn sm" data-mauxa>📄 Tải mẫu biểu nhập</button>';
+  if(!M||M.khong){ el.innerHTML=h+`<div class="banner warn">⚠ Chưa có biểu dự toán 99 xã, phường. Bấm <b>⬆ Nhập</b> và kéo thả file <i>Mẫu BC_Phần 1_Dự toán 99 xã phường.xlsx</i>. ${nutMau}</div>`; return; }
+  const T=M.T, k=M.k, tk=TEN_K(k); const dem=m=>M.rows.filter(r=>r.mT===m).length; const coBD=!!banDo();
+  const th=r=>r['th'+k], dt=r=>r['dt'+k], con=r=>r['con'+k];
+  h+=`<div class="locbar no-export">${M.coTCS?`<label for="selXaTCS">Lọc theo Thuế cơ sở</label><select id="selXaTCS">${['',...TCS].filter(id=>!id||M.tcs.some(t=>t.id===id)).map(id=>`<option value="${id}" ${M.loc===id?'selected':''}>${id?`${tenTCS(id)} (${M.tcs.find(t=>t.id===id).so} xã, phường)`:`Tất cả ${M.rows.length} xã, phường`}</option>`).join('')}</select>${M.loc?'<button class="btn sm" data-xatcs="">✕ Bỏ lọc</button>':''}`:'<span class="muted">Biểu chưa có cột Thuế cơ sở</span>'}<span class="gian"></span>${nutMau}</div>`;
   h+=`<div class="banner info no-export">📌 Đơn vị tính: <b>tỷ đồng</b>. Màu theo tỷ lệ thực hiện dự toán so với tiến độ thời gian ${fmtPct(M.tg)} (đến ${fmtDate(M.n0)}): xanh đậm đạt/vượt dự toán, xanh đạt tiến độ, vàng chậm, đỏ chậm hơn ${fmtNum(D().caiDat.nsCham*100)} điểm %. Bản đồ địa giới: tinhthanhpho.com (CC BY 4.0).</div>`;
   h+=khungKPI('k-xa-kpi','Dự toán 99 xã, phường – chỉ số chính',[
     kpi('Tổng thu 99 xã, phường / dự toán', `${fmtPct(T.pT)} <small>${tyDong(T.thT)} / ${tyDong(T.dtT)} tỷ</small>`, `Tiến độ thời gian ${fmtPct(M.tg)}`, T.pT, M.tg),
@@ -2369,57 +2449,129 @@ function renderXa(){
     kpi('Phân loại 99 xã, phường (tổng thu)', `${dem('done')+dem('good')}<small>/${M.rows.length} đạt tiến độ</small>`, `${tag('good',dem('done')+' đạt DT')} ${tag('warn',dem('warn')+' chậm')} ${tag('bad',dem('bad')+' chậm nhiều')}`),
     kpi('Còn phải thu (các xã chưa đạt DT)', `${tyDong(T.conT)} <small>tỷ</small>`, `${M.rows.filter(r=>r.conT>0).length} xã, phường chưa đạt dự toán`),
   ].join(''));
-  const xau=[...M.rows].filter(r=>r.pT!=null).sort((a,b)=>a.pT-b.pT);
+  // xếp hạng theo chỉ tiêu đang chọn (Tổng số / Thuế, phí / Tiền SDĐ)
+  const tot=M.rows.filter(r=>r.p!=null).sort((a,b)=>b.p-a.p); const cao=tot.slice(0,10), thap=[...tot].reverse().slice(0,10);
+  const demTCS=ds=>{ const c={}; ds.forEach(r=>{ if(r.tcs) c[r.tcs]=(c[r.tcs]||0)+1; }); return Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`${t} (${n})`).join(', '); };
+  const nxCao=cao.length?[`Cao nhất: <b>${esc(cao[0].ten)}</b> đạt <b>${fmtPct(cao[0].p)}</b> dự toán ${tk} (${tyDong(th(cao[0]))}/${tyDong(dt(cao[0]))} tỷ).`,
+    `${cao.length} xã, phường dẫn đầu đạt từ ${fmtPct(cao[cao.length-1].p)} đến ${fmtPct(cao[0].p)}; cùng thu ${tyDong(sum(cao.map(th)))} tỷ, vượt dự toán ${tyDong(sum(cao.map(r=>Math.max(0,(th(r)||0)-(dt(r)||0)))))} tỷ, chiếm ${fmtPct(chia(sum(cao.map(th)),T['th'+k]))} số thu ${tk} của 99 xã, phường.`,
+    M.coTCS?`Thuộc: ${demTCS(cao)}.`:''].filter(Boolean):[];
+  const nCham=thap.filter(r=>r.m==='bad'||r.m==='warn').length;
+  const nxThap=thap.length?[`Thấp nhất: <b>${esc(thap[0].ten)}</b> mới đạt <b>${fmtPct(thap[0].p)}</b> dự toán ${tk} (còn phải thu ${tyDong(con(thap[0]))} tỷ).`,
+    `${thap.length} xã, phường thấp nhất đạt từ ${fmtPct(thap[0].p)} đến ${fmtPct(thap[thap.length-1].p)}; ${nCham}/${thap.length} xã chậm so với tiến độ thời gian ${fmtPct(M.tg)}; tổng còn phải thu ${tyDong(sum(thap.map(con)))} tỷ.`,
+    M.coTCS?`Thuộc: ${demTCS(thap)}.`:''].filter(Boolean):[];
+  // nhận xét chung
+  const tcsSX=[...M.tcs].filter(t=>t.p!=null).sort((a,b)=>b.p-a.p);
   const nx=[`Đến ngày <b>${fmtDate(M.n0)}</b>, 99 xã, phường thu <b>${tyDong(T.thT)}</b>/${tyDong(T.dtT)} tỷ đồng, đạt <b>${fmtPct(T.pT)}</b> dự toán (tiến độ thời gian ${fmtPct(M.tg)}); thuế, phí ${fmtPct(T.pP)}, tiền SDĐ ${fmtPct(T.pS)}.`,
     `${dem('done')} xã, phường đã đạt/vượt dự toán; ${dem('good')} đạt tiến độ; ${dem('warn')} chậm; <b>${dem('bad')}</b> chậm nhiều.`,
-    `Thấp nhất: ${xau.slice(0,5).map(r=>`${esc(r.ten)} (${fmtPct(r.pT)})`).join(', ')}.`];
-  const cb=xau.filter(r=>r.mT==='bad').map(r=>({lv:'bad',t:`<b>${esc(r.ten)}</b>: đạt ${fmtPct(r.pT)} dự toán (còn phải thu ${tyDong(r.conT)} tỷ), thấp hơn tiến độ thời gian ${fmtNum((M.tg-r.pT)*100,1)} điểm %.`}));
+    `Cao nhất (${tk}): ${cao.slice(0,5).map(r=>`${esc(r.ten)} (${fmtPct(r.p)})`).join(', ')}.`,
+    `Thấp nhất (${tk}): ${thap.slice(0,5).map(r=>`${esc(r.ten)} (${fmtPct(r.p)})`).join(', ')}.`];
+  if(tcsSX.length>1) nx.push(`Theo Thuế cơ sở (${tk}): cao nhất <b>${tcsSX[0].id}</b> (${fmtPct(tcsSX[0].p)}), thấp nhất <b>${tcsSX[tcsSX.length-1].id}</b> (${fmtPct(tcsSX[tcsSX.length-1].p)}); ${tcsSX.filter(t=>t.m==='bad'||t.m==='warn').length}/${tcsSX.length} Thuế cơ sở chậm so với tiến độ thời gian.`);
+  const xau=[...M.rows].filter(r=>r.pT!=null).sort((a,b)=>a.pT-b.pT);
+  const cb=xau.filter(r=>r.mT==='bad').map(r=>({lv:'bad',t:`<b>${esc(r.ten)}</b>${r.tcs?` (${r.tcs})`:''}: đạt ${fmtPct(r.pT)} dự toán (còn phải thu ${tyDong(r.conT)} tỷ), thấp hơn tiến độ thời gian ${fmtNum((M.tg-r.pT)*100,1)} điểm %.`}));
   NX.ns=[...nx.map(s=>s.replace(/<[^>]+>/g,'')),'Cảnh báo:',...cb.map(a=>'- '+a.t.replace(/<[^>]+>/g,''))].join('\n');
-  const k=M.k; const ten=D().ui.xaChon||(xau[0]&&xau[0].ten);
-  h+=`<div class="grid g-21">`+the({id:'k-xa-map', tieu:'Bản đồ kết quả thực hiện dự toán 99 xã, phường', phu:`${M.rows.length} xã, phường · bấm vào xã, phường để xem chi tiết · cuộn/kéo để phóng to, di chuyển ${chuThichMau()}`,
-      tools:`<div class="seg" data-seg="xaCT"><button data-v="T" class="${k==='T'?'on':''}">Tổng số</button><button data-v="P" class="${k==='P'?'on':''}">Thuế, phí</button><button data-v="S" class="${k==='S'?'on':''}">Tiền SDĐ</button></div><button class="btn sm" data-bd="in">＋</button><button class="btn sm" data-bd="out">－</button><button class="btn sm" data-bd="reset">↺</button>`,
+  NX.xaCao=[`10 xã, phường có tỷ lệ thực hiện dự toán ${tk} cao nhất:`,...cao.map((r,i)=>`${i+1}. ${r.ten}${r.tcs?` (${r.tcs})`:''}: ${fmtPct(r.p)}`),...nxCao.map(s=>s.replace(/<[^>]+>/g,''))].join('\n');
+  NX.xaThap=[`10 xã, phường có tỷ lệ thực hiện dự toán ${tk} thấp nhất:`,...thap.map((r,i)=>`${i+1}. ${r.ten}${r.tcs?` (${r.tcs})`:''}: ${fmtPct(r.p)}`),...nxThap.map(s=>s.replace(/<[^>]+>/g,''))].join('\n');
+  const ten=D().ui.xaChon||(xau[0]&&xau[0].ten);
+  // bản đồ + chi tiết
+  h+=`<div class="grid g-21">`+the({id:'k-xa-map', tieu:'Bản đồ kết quả thực hiện dự toán 99 xã, phường'+(M.loc?` – ${tenTCS(M.loc)}`:''), phu:`${M.loc?`Đang lọc ${M.loc}: ${M.rows.filter(r=>r.tcs===M.loc).length} xã, phường (tô đậm) · `:`${M.rows.length} xã, phường · `}bấm vào xã, phường để xem chi tiết · cuộn/kéo để phóng to, di chuyển ${chuThichMau()}`,
+      tools:`<div class="seg" data-seg="xaCT"><button data-v="T" class="${k==='T'?'on':''}">Tổng số</button><button data-v="P" class="${k==='P'?'on':''}">Thuế, phí</button><button data-v="S" class="${k==='S'?'on':''}">Tiền SDĐ</button></div><button class="btn sm" data-bd="in">＋</button><button class="btn sm" data-bd="out">－</button><button class="btn sm" data-bd="reset" title="Xem toàn bộ bản đồ">↺</button>`,
       body:coBD?'<div id="cXaMap" class="chart bando"></div>':'<div class="banner warn">Bản này chưa có bản đồ gói kèm.</div>'})+
-    the({id:'k-xa-ct', tieu:'Chi tiết xã, phường', phu:'Bấm vào bản đồ hoặc tên xã, phường trong bảng', body:`<div id="xaChiTiet">${chiTietXa(M,ten)}</div>`})+`</div>`;
-  h+=`<div class="grid g-11">`+the({id:'k-xa-thap', tieu:'10 xã, phường có tỷ lệ thực hiện thấp nhất', phu:`Theo ${k==='P'?'thuế, phí':k==='S'?'tiền SDĐ':'tổng thu'} · vạch: tiến độ thời gian`, body:'<div id="cXaThap" class="chart"></div>'})+
-    the({id:'k-xa-nx', tieu:'📝 Nhận xét & 🚨 cảnh báo', phu:'Tự động từ số liệu', tools:'<button class="btn sm" data-copy="ns">Sao chép</button>', body:`<div class="comment">${nx.map(s=>`<p>${s}</p>`).join('')}</div><div class="alerts">${canhBaoHTML(cb)}</div>`})+`</div>`;
-  // bảng 99 xã
+    the({id:'k-xa-ct', tieu:'Chi tiết xã, phường', phu:'Chọn trong danh sách (gõ tên để tìm nhanh, có dấu hoặc không dấu), bấm vào bản đồ hoặc tên trong bảng',
+      body:`<div class="timxa no-export"><input id="xaTim" type="search" autocomplete="off" placeholder="🔍 Chọn hoặc gõ tên xã, phường…" aria-label="Chọn xã, phường"><div id="xaGoiY" class="goiy hidden"></div></div><div id="xaChiTiet">${chiTietXa(M,ten)}</div>`})+`</div>`;
+  // 10 cao nhất – 10 thấp nhất
+  const binhLuan=ds=>ds.length?`<div class="comment" style="margin-top:8px">${ds.map(s=>`<p>${s}</p>`).join('')}</div>`:'';
+  h+=`<div class="grid g-11">`+the({id:'k-xa-cao', tieu:'10 xã, phường có tỷ lệ thực hiện cao nhất', phu:`Theo ${tk} · vạch: tiến độ thời gian`, tools:'<button class="btn sm" data-copy="xaCao">Sao chép</button>', body:'<div id="cXaCao" class="chart"></div>'+binhLuan(nxCao)})+
+    the({id:'k-xa-thap', tieu:'10 xã, phường có tỷ lệ thực hiện thấp nhất', phu:`Theo ${tk} · vạch: tiến độ thời gian`, tools:'<button class="btn sm" data-copy="xaThap">Sao chép</button>', body:'<div id="cXaThap" class="chart"></div>'+binhLuan(nxThap)})+`</div>`;
+  // theo Thuế cơ sở
+  if(M.coTCS){
+    let ben;
+    if(M.loc){ const t=M.tcs.find(x=>x.id===M.loc); const ds=M.rows.filter(r=>r.tcs===M.loc).sort((a,b)=>(b.p??-1)-(a.p??-1));
+      const bc=(t.so-t.dat);
+      ben=the({id:'k-xa-loc', tieu:`Xã, phường thuộc ${tenTCS(M.loc)}`, phu:`${t.so} xã, phường · theo ${tk} · xếp từ cao đến thấp · bấm tên để xem chi tiết`, tools:'<button class="btn sm" data-xatcs="">✕ Bỏ lọc</button>',
+        body:`<div class="comment"><p>${tenTCS(M.loc)} quản lý <b>${t.so}</b> xã, phường: thu <b>${tyDong(t['th'+k])}</b>/${tyDong(t['dt'+k])} tỷ, đạt <b>${fmtPct(t.p)}</b> dự toán ${tk} (tiến độ thời gian ${fmtPct(M.tg)}). ${t.dat} xã, phường đạt tiến độ${bc?`, ${bc} chậm (trong đó ${t.cham} chậm nhiều)`:''}; còn phải thu ${tyDong(t['con'+k])} tỷ.</p></div>
+        <div class="table-wrap"><table class="rpt ke"><thead><tr><th>#</th><th class="dv">Xã, phường</th><th>Dự toán</th><th>Thực hiện</th><th>% dự toán</th><th>Còn phải thu</th></tr></thead><tbody>${ds.map((r,i)=>`<tr><td class="c">${i+1}</td><td class="dv"><button class="lnk" data-xa="${esc(r.ten)}">${esc(r.ten)}</button></td><td class="r">${tyDong(dt(r))}</td><td class="r"><b>${tyDong(th(r))}</b></td><td style="min-width:150px">${mini(r.p,mauTD(r.m),M.tg)}</td><td class="r">${tyDong(con(r))}</td></tr>`).join('')}
+        <tr class="total"><td></td><td class="dv">Cộng ${M.loc}</td><td class="r">${tyDong(t['dt'+k])}</td><td class="r">${tyDong(t['th'+k])}</td><td>${mini(t.p,mauTD(t.m),M.tg)}</td><td class="r">${tyDong(t['con'+k])}</td></tr></tbody></table></div>`});
+    } else {
+      ben=the({id:'k-xa-tcsb', tieu:'Tổng hợp dự toán 99 xã, phường theo Thuế cơ sở', phu:`Theo ${tk} · bấm tên Thuế cơ sở để xem danh sách xã, phường`,
+        body:`<div class="table-wrap"><table class="rpt ke"><thead><tr><th class="dv">Thuế cơ sở</th><th>Số xã, phường</th><th>Dự toán</th><th>Thực hiện</th><th>% dự toán</th><th>Đạt tiến độ</th><th>Chậm nhiều</th></tr></thead><tbody>${M.tcs.map(t=>`<tr><td class="dv"><button class="lnk" data-xatcs="${t.id}">${tenTCS(t.id)}</button></td><td class="c">${t.so}</td><td class="r">${tyDong(t['dt'+k])}</td><td class="r"><b>${tyDong(t['th'+k])}</b></td><td style="min-width:150px">${mini(t.p,mauTD(t.m),M.tg)}</td><td class="c">${t.dat}</td><td class="c ${t.cham?'x-bad':''}">${t.cham||'–'}</td></tr>`).join('')}</tbody></table></div>`});
+    }
+    h+=`<div class="grid g-11">`+the({id:'k-xa-tcs', tieu:'Kết quả thực hiện dự toán theo Thuế cơ sở', phu:`Theo ${tk} · vạch: tiến độ thời gian ${fmtPct(M.tg)} · bấm vào thanh để lọc xã, phường`, body:'<div id="cXaTCS" class="chart tall"></div>'})+ben+`</div>`;
+  }
+  h+=the({id:'k-xa-nx', tieu:'📝 Nhận xét & 🚨 cảnh báo', phu:'Tự động từ số liệu', tools:'<button class="btn sm" data-copy="ns">Sao chép</button>', body:`<div class="comment">${nx.map(s=>`<p>${s}</p>`).join('')}</div><div class="alerts">${canhBaoHTML(cb)}</div>`});
+  // bảng 99 xã (hoặc các xã của Thuế cơ sở đang lọc)
   const nDT='Dự toán 2026', nTH='Thực hiện', nPT='% thực hiện dự toán';
-  const cX=[{id:'hang',ten:'Hạng',co:1},{id:'ten',ten:'Xã, phường',co:1,dv:1},{id:'dtT',nhom:nDT,ten:'Tổng số'},{id:'dtP',nhom:nDT,ten:'Thuế, phí',an:1},{id:'dtS',nhom:nDT,ten:'Tiền SDĐ',an:1},
+  const cX=[{id:'hang',ten:'Hạng',co:1},{id:'ten',ten:'Xã, phường',co:1,dv:1},{id:'tcs',ten:'Thuế cơ sở'},{id:'dtT',nhom:nDT,ten:'Tổng số'},{id:'dtP',nhom:nDT,ten:'Thuế, phí',an:1},{id:'dtS',nhom:nDT,ten:'Tiền SDĐ',an:1},
     {id:'thT',nhom:nTH,ten:'Tổng số'},{id:'thP',nhom:nTH,ten:'Thuế, phí',an:1},{id:'thS',nhom:nTH,ten:'Tiền SDĐ',an:1},{id:'pT',nhom:nPT,ten:'Tổng số'},{id:'pP',nhom:nPT,ten:'Thuế, phí'},{id:'pS',nhom:nPT,ten:'Tiền SDĐ'},
     {id:'con',ten:'Còn phải thu (tổng)'},{id:'dB',ten:`Thu thêm so với ${M.ngayB?fmtDM(M.ngayB):'kỳ trước'}`,an:1},{id:'dg',ten:'Đánh giá'}];
-  const sx=[...M.rows].sort((a,b)=>a.hang-b.hang); const xr=[];
-  const tr=sx.map(r=>{ xr.push([r.hang,r.ten,r.dtT/1000,r.dtP/1000,r.dtS/1000,r.thT/1000,r.thP/1000,r.thS/1000,r.pT,r.pP,r.pS,r.conT/1000,r.dB==null?null:r.dB/1000,TEN_TD[r.mT]]);
-    return {o:[`<td class="c">${r.hang}</td>`,`<td class="dv"><button class="lnk" data-xa="${esc(r.ten)}">${esc(r.ten)}</button></td>`,tdR(tyDong(r.dtT)),tdR(tyDong(r.dtP)),tdR(tyDong(r.dtS)),tdR('<b>'+tyDong(r.thT)+'</b>'),tdR(tyDong(r.thP)),tdR(tyDong(r.thS)),tdR(fmtPct(r.pT),clsTD(r.mT)),tdR(fmtPct(r.pP),clsTD(r.mP)),tdR(fmtPct(r.pS),clsTD(r.mS)),tdR(tyDong(r.conT)),tdR(M.ngayB?tyDong(r.dB):'–'),`<td>${tagTD(r.mT)}</td>`]}; });
-  tr.push({cls:'total',o:['<td></td>',tdDV('TỔNG 99 XÃ, PHƯỜNG'),tdR(tyDong(T.dtT)),tdR(tyDong(T.dtP)),tdR(tyDong(T.dtS)),tdR(tyDong(T.thT)),tdR(tyDong(T.thP)),tdR(tyDong(T.thS)),tdR(fmtPct(T.pT)),tdR(fmtPct(T.pP)),tdR(fmtPct(T.pS)),tdR(tyDong(T.conT)),'<td></td>','<td></td>']});
-  datXL('nsXa',{phan:'ns', ten:'1B_Du_toan_99_xa_phuong', tieuDe:`KẾT QUẢ THỰC HIỆN DỰ TOÁN 99 XÃ, PHƯỜNG – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.n0)} (TỶ ĐỒNG)`, hdr:cX.map(c=>c.nhom?`${c.nhom} – ${c.ten}`:c.ten), rows:xr, fmt:['','','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.0%','0.0%','#,##0.0','#,##0.0','']});
-  h+=the({id:'k-xa-tbl', tieu:'Biểu kết quả thực hiện dự toán 99 xã, phường', phu:`Số liệu đến ${fmtDate(M.n0)} · tỷ đồng · xếp theo % ${k==='P'?'thuế, phí':k==='S'?'tiền SDĐ':'tổng thu'} · bấm tên để xem chi tiết`, xl:'nsXa', cot:'nsXa', body:bangHTML('nsXa',cX,tr)});
+  const dsB=M.rows.filter(r=>!M.loc||r.tcs===M.loc);
+  const sx=[...dsB].sort((a,b)=>a.hang-b.hang); const xr=[];
+  const tr=sx.map(r=>{ xr.push([r.hang,r.ten,r.tcs||'',r.dtT/1000,r.dtP/1000,r.dtS/1000,r.thT/1000,r.thP/1000,r.thS/1000,r.pT,r.pP,r.pS,r.conT/1000,r.dB==null?null:r.dB/1000,TEN_TD[r.mT]]);
+    return {o:[`<td class="c">${r.hang}</td>`,`<td class="dv"><button class="lnk" data-xa="${esc(r.ten)}">${esc(r.ten)}</button></td>`,`<td class="c">${r.tcs||'–'}</td>`,tdR(tyDong(r.dtT)),tdR(tyDong(r.dtP)),tdR(tyDong(r.dtS)),tdR('<b>'+tyDong(r.thT)+'</b>'),tdR(tyDong(r.thP)),tdR(tyDong(r.thS)),tdR(fmtPct(r.pT),clsTD(r.mT)),tdR(fmtPct(r.pP),clsTD(r.mP)),tdR(fmtPct(r.pS),clsTD(r.mS)),tdR(tyDong(r.conT)),tdR(M.ngayB?tyDong(r.dB):'–'),`<td>${tagTD(r.mT)}</td>`]}; });
+  const TB=M.loc?M.tcs.find(t=>t.id===M.loc):T;
+  tr.push({cls:'total',o:['<td></td>',tdDV(M.loc?'CỘNG '+tenTCS(M.loc).toUpperCase():'TỔNG 99 XÃ, PHƯỜNG'),'<td></td>',tdR(tyDong(TB.dtT)),tdR(tyDong(TB.dtP)),tdR(tyDong(TB.dtS)),tdR(tyDong(TB.thT)),tdR(tyDong(TB.thP)),tdR(tyDong(TB.thS)),tdR(fmtPct(TB.pT)),tdR(fmtPct(TB.pP)),tdR(fmtPct(TB.pS)),tdR(tyDong(TB.conT)),'<td></td>','<td></td>']});
+  datXL('nsXa',{phan:'ns', ten:'1B_Du_toan_99_xa_phuong'+(M.loc?'_'+M.loc:''), tieuDe:`KẾT QUẢ THỰC HIỆN DỰ TOÁN ${M.loc?'CÁC XÃ, PHƯỜNG THUỘC '+tenTCS(M.loc).toUpperCase():'99 XÃ, PHƯỜNG'} – SỐ LIỆU ĐẾN NGÀY ${fmtDate(M.n0)} (TỶ ĐỒNG)`, hdr:cX.map(c=>c.nhom?`${c.nhom} – ${c.ten}`:c.ten), rows:xr, fmt:['','','','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.0%','0.0%','#,##0.0','#,##0.0','']});
+  h+=the({id:'k-xa-tbl', tieu:M.loc?`Biểu kết quả thực hiện dự toán các xã, phường thuộc ${tenTCS(M.loc)}`:'Biểu kết quả thực hiện dự toán 99 xã, phường', phu:`Số liệu đến ${fmtDate(M.n0)} · tỷ đồng · hạng theo % ${tk} trong 99 xã, phường · bấm tên để xem chi tiết`, xl:'nsXa', cot:'nsXa', body:bangHTML('nsXa',cX,tr)});
   el.innerHTML=h; TT_XA=M;
+  ganTimXa();
   veXa(M);
 }
-let TT_XA=null, ZOOM_XA=1.15;
+let TT_XA=null, ZOOM_XA=1.15, XA_VIEW=null, XA_LOC=null;
+/* Khung nhìn bản đồ vừa với các xã, phường của Thuế cơ sở đang lọc */
+function khungNhinTCS(M){
+  if(!M.loc||!BD_BOX) return null; let a=[1e9,1e9,-1e9,-1e9], co=false;
+  M.rows.filter(r=>r.tcs===M.loc&&r.geo&&BD_BOX[r.geo]).forEach(r=>{ const b=BD_BOX[r.geo]; co=true; a=[Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[2],b[2]),Math.max(a[3],b[3])]; });
+  if(!co) return null; const A=BD_BOX.__all; const w=Math.max(a[2]-a[0],1e-4), hh=Math.max(a[3]-a[1],1e-4);
+  return {center:[(a[0]+a[2])/2,(a[1]+a[3])/2], zoom:Math.max(1.15,Math.min(8,0.88*Math.min((A[2]-A[0])/w,(A[3]-A[1])/hh)))};
+}
+function veTopXa(id, xs, M){
+  const muted=cssv('--muted'), text=cssv('--text'), A=axisStyle();
+  chart(id).setOption(base({grid:{left:10,right:56,top:20,bottom:10,containLabel:true},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const r=xs[ps[0].dataIndex]; return `<b>${esc(r.ten)}</b>${r.tcs?` · ${r.tcs}`:''}<br>${fmtPct(r.p)} · thực hiện ${tyDong(r['th'+M.k])}/${tyDong(r['dt'+M.k])} tỷ<br>Còn phải thu ${tyDong(r['con'+M.k])} tỷ`; }},
+    xAxis:{type:'value',axisLabel:{color:muted,formatter:'{value}%'},splitLine:A.splitLine},
+    yAxis:Object.assign({type:'category',data:xs.map(r=>r.ten.replace(/^(Xã|Phường)\s+/,(m)=>m[0]==='X'?'X. ':'P. '))},A,{splitLine:{show:false}}),
+    series:[{type:'bar',barWidth:13,data:xs.map(r=>({value:+(r.p*100).toFixed(1),itemStyle:{color:mauTD(r.m),borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',fontSize:11,color:text,formatter:p=>fmtNum(p.value,1)+'%'},
+      markLine:{symbol:'none',silent:true,lineStyle:{color:cssv('--primary'),type:'dashed',width:2},label:{formatter:(hep()?'TG ':'Tiến độ TG ')+fmtPct(M.tg),color:cssv('--primary')},data:[{xAxis:+(M.tg*100).toFixed(1)}]}}]}),true);
+  const c=CH[id]; if(c){ c.off('click'); c.on('click',p=>{ const r=xs[p.dataIndex]; if(r) chonXa(r.ten); }); }
+}
+/* Chọn một xã, phường (từ ô tìm, bảng, biểu đồ hoặc bản đồ) → hiện chi tiết, tô trên bản đồ */
+function chonXa(ten, tuBanDo){
+  D().ui.xaChon=ten; luuUI(); const M=TT_XA; if(!M) return;
+  const ct=$('#xaChiTiet'); if(ct) ct.innerHTML=chiTietXa(M,ten);
+  const ip=$('#xaTim'); if(ip){ ip.value=''; ip.blur(); } const g=$('#xaGoiY'); if(g) g.classList.add('hidden');
+  if(!tuBanDo){ const r=M.rows.find(x=>x.ten===ten); const c=CH['cXaMap']; if(c&&r&&r.geo){ try{ c.dispatchAction({type:'select',seriesIndex:0,name:r.geo}); }catch(_){} } }
+  if(!tuBanDo||hep()){ const k=document.getElementById('k-xa-ct'); if(k) k.scrollIntoView({behavior:'smooth',block:'start'}); }
+}
 function veXa(M){
   const muted=cssv('--muted'), text=cssv('--text'), A=axisStyle();
+  if(M.loc!==XA_LOC){ XA_LOC=M.loc; XA_VIEW=khungNhinTCS(M); ZOOM_XA=XA_VIEW?XA_VIEW.zoom:1.15; }
   if(banDo()&&document.getElementById('cXaMap')){
     const c=chart('cXaMap'); const chon=D().ui.xaChon;
     c.setOption({animation:ANIM, backgroundColor:'transparent',
-      tooltip:{trigger:'item', confine:true, backgroundColor:cssv('--card-solid'), borderColor:cssv('--border'), textStyle:{color:text,fontSize:12}, formatter:p=>{ const r=M.rows.find(x=>x.geo===p.name); return r?`<b>${esc(r.ten)}</b><br>Dự toán: ${tyDong(r['dt'+M.k])} tỷ · Thực hiện: ${tyDong(r['th'+M.k])} tỷ<br>Tỷ lệ: <b>${fmtPct(r.p)}</b> · ${TEN_TD[r.m]}`:esc(p.name); }},
-      series:[{type:'map', map:'bn99', roam:true, zoom:ZOOM_XA, scaleLimit:{min:0.8,max:15}, selectedMode:'single', aspectScale:0.92,
+      tooltip:{trigger:'item', confine:true, backgroundColor:cssv('--card-solid'), borderColor:cssv('--border'), textStyle:{color:text,fontSize:12}, formatter:p=>{ const r=M.rows.find(x=>x.geo===p.name); return r?`<b>${esc(r.ten)}</b>${r.tcs?` · ${r.tcs}`:''}<br>Dự toán: ${tyDong(r['dt'+M.k])} tỷ · Thực hiện: ${tyDong(r['th'+M.k])} tỷ<br>Tỷ lệ: <b>${fmtPct(r.p)}</b> · ${TEN_TD[r.m]}`:esc(p.name); }},
+      series:[{type:'map', map:'bn99', roam:true, zoom:ZOOM_XA, center:XA_VIEW?XA_VIEW.center:undefined, scaleLimit:{min:0.8,max:15}, selectedMode:'single', aspectScale:0.92,
         label:{show:true, fontSize:hep()?7:9, color:'#fff', textBorderColor:'rgba(0,0,0,.75)', textBorderWidth:2, fontWeight:600, formatter:p=>p.name.replace(/^(Xã|Phường)\s+/,'')},
         labelLayout:{hideOverlap:true},
         itemStyle:{borderColor:'rgba(255,255,255,.85)', borderWidth:0.7, areaColor:cssv('--na')},
         emphasis:{label:{show:true,fontSize:11}, itemStyle:{areaColor:cssv('--primary')}},
         select:{label:{show:true,fontSize:11,color:'#fff'}, itemStyle:{areaColor:cssv('--primary'), borderColor:'#000', borderWidth:1.5}},
-        data:M.rows.filter(r=>r.geo).map(r=>({name:r.geo, value:r.p==null?null:+(r.p*100).toFixed(1), selected:r.ten===chon, itemStyle:{areaColor:mauTD(r.m)}}))}]},true);
-    c.off('click'); c.on('click',p=>{ if(p.seriesType!=='map') return; const r=M.rows.find(x=>x.geo===p.name); if(!r) return; D().ui.xaChon=r.ten; luuUI(); $('#xaChiTiet').innerHTML=chiTietXa(M,r.ten); if(hep()) document.getElementById('k-xa-ct').scrollIntoView({behavior:'smooth',block:'start'}); });
+        data:M.rows.filter(r=>r.geo).map(r=>{ const mo=!!M.loc&&r.tcs!==M.loc; return {name:r.geo, value:r.p==null?null:+(r.p*100).toFixed(1), selected:r.ten===chon, itemStyle:{areaColor:mauTD(r.m), opacity:mo?0.2:1}, label:mo?{show:false}:undefined}; })}]},true);
+    c.off('click'); c.on('click',p=>{ if(p.seriesType!=='map') return; const r=M.rows.find(x=>x.geo===p.name); if(r) chonXa(r.ten,true); });
     c.off('georoam'); c.on('georoam',()=>{ try{ ZOOM_XA=c.getOption().series[0].zoom; }catch(e){} });
   }
-  const xs=[...M.rows].filter(r=>r.p!=null).sort((a,b)=>a.p-b.p).slice(0,10).reverse();
-  chart('cXaThap').setOption(base({grid:{left:10,right:56,top:20,bottom:10,containLabel:true},
-    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const r=xs[ps[0].dataIndex]; return `<b>${esc(r.ten)}</b><br>${fmtPct(r.p)} · còn phải thu ${tyDong(r.conT)} tỷ`; }},
-    xAxis:{type:'value',axisLabel:{color:muted,formatter:'{value}%'},splitLine:A.splitLine},
-    yAxis:Object.assign({type:'category',data:xs.map(r=>r.ten.replace(/^(Xã|Phường)\s+/,(m)=>m[0]==='X'?'X. ':'P. '))},A,{splitLine:{show:false}}),
-    series:[{type:'bar',barWidth:13,data:xs.map(r=>({value:+(r.p*100).toFixed(1),itemStyle:{color:mauTD(r.m),borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',fontSize:11,color:text,formatter:p=>fmtNum(p.value,1)+'%'},
-      markLine:{symbol:'none',silent:true,lineStyle:{color:cssv('--primary'),type:'dashed',width:2},label:{formatter:(hep()?'TG ':'Tiến độ TG ')+fmtPct(M.tg),color:cssv('--primary')},data:[{xAxis:+(M.tg*100).toFixed(1)}]}}]}),true);
+  const tot=M.rows.filter(r=>r.p!=null);
+  veTopXa('cXaThap',[...tot].sort((a,b)=>a.p-b.p).slice(0,10).reverse(),M);
+  veTopXa('cXaCao',[...tot].sort((a,b)=>b.p-a.p).slice(0,10).reverse(),M);
+  if(document.getElementById('cXaTCS')){
+    const ts=M.tcs.filter(t=>t.p!=null).sort((a,b)=>a.p-b.p);
+    chart('cXaTCS').setOption(base({grid:{left:10,right:60,top:20,bottom:10,containLabel:true},
+      tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const t=ts[ps[0].dataIndex]; return `<b>${tenTCS(t.id)}</b> · ${t.so} xã, phường<br>Thực hiện ${tyDong(t['th'+M.k])}/${tyDong(t['dt'+M.k])} tỷ (${fmtPct(t.p)})<br>Đạt tiến độ ${t.dat}/${t.so} · chậm nhiều ${t.cham}<br><i>Bấm để lọc</i>`; }},
+      xAxis:{type:'value',axisLabel:{color:muted,formatter:'{value}%'},splitLine:A.splitLine},
+      yAxis:Object.assign({type:'category',data:ts.map(t=>t.id)},A,{splitLine:{show:false}}),
+      series:[{type:'bar',barWidth:14,data:ts.map(t=>({value:+(t.p*100).toFixed(1),itemStyle:{color:mauTD(t.m),borderRadius:[0,5,5,0],opacity:M.loc&&M.loc!==t.id?0.35:1,borderColor:M.loc===t.id?text:undefined,borderWidth:M.loc===t.id?2:0}})),
+        label:{show:true,position:'right',fontSize:11,color:text,formatter:p=>fmtNum(p.value,1)+'%'},
+        markLine:{symbol:'none',silent:true,lineStyle:{color:cssv('--primary'),type:'dashed',width:2},label:{formatter:(hep()?'TG ':'Tiến độ TG ')+fmtPct(M.tg),color:cssv('--primary')},data:[{xAxis:+(M.tg*100).toFixed(1)}]}}]}),true);
+    const c=CH['cXaTCS']; if(c){ c.off('click'); c.on('click',p=>{ const t=ts[p.dataIndex]; if(!t) return; D().ui.xaTCS=D().ui.xaTCS===t.id?'':t.id; luuUI(); render(); }); }
+  }
 }
 
 /* ---------- Phần 4, 5: Kiểm tra tại trụ sở NNT / CQT ---------- */
@@ -2436,13 +2588,16 @@ function renderKT(phan){
   const k=[], nx=[], cb=[]; const cham=M.rows.filter(r=>!r.na&&(r.m==='bad'||r.m==='warn'));
   if(phan==='ktn'){
     k.push(kpi(M.loai==='luyke'?'Số cuộc đã hoàn thành / nhiệm vụ năm':'Số cuộc thực hiện trong tháng', `${fmtNum(T.daTH)} <small>/ ${fmtNum(T.chiTieu)} cuộc</small>`, M.loai==='luyke'?`Đạt <b>${fmtPct(T.p)}</b> nhiệm vụ · tiến độ TG ${fmtPct(M.tg)}`:`${fmtPct(T.p)} nhiệm vụ năm`, M.loai==='luyke'?T.p:null, M.tg));
-    k.push(kpi('Cuộc theo kế hoạch được phê duyệt', `${fmtNum(T.khTH)} <small>/ ${fmtNum(T.khPD)}</small>`, `Đạt ${fmtPct(T.pKH)} · đột xuất ${fmtNum(T.dotXuat)} · dở dang năm trước ${fmtNum(T.doDang)}`, T.pKH));
+    k.push(kpi('Tỷ lệ hoàn thành kế hoạch được phê duyệt', `${fmtPct(T.pKH)} <small>${fmtNum(T.khTH)}/${fmtNum(T.khPD)} cuộc</small>`, `${M.loai==='luyke'?tagTD(T.mKH)+' tiến độ TG '+fmtPct(M.tg)+' · ':''}đột xuất ${fmtNum(T.dotXuat)} · dở dang năm trước ${fmtNum(T.doDang)}`, T.pKH, M.loai==='luyke'?M.tg:null));
     k.push(kpi('Số tiền xử lý qua kiểm tra', `${tyDong(T.tongTien)} <small>tỷ</small>`, `Truy thu ${tyDong(T.truyThu)} · truy hoàn ${tyDong(T.truyHoan)} · phạt ${tyDong(T.phat)} · chậm nộp ${tyDong(T.chamNop)}`));
     k.push(kpi('Đã nộp NSNN', `${tyDong(T.daNop)} <small>tỷ</small>`, `Đạt <b>${fmtPct(T.pNop)}</b> số phải nộp theo quyết định`, T.pNop));
     k.push(kpi('Bình quân số thu / cuộc', `${tyDong(T.bq,2)} <small>tỷ</small>`, `Giảm khấu trừ ${tyDong(T.giamKT)} tỷ · giảm lỗ ${tyDong(T.giamLo)} tỷ`));
     nx.push(`Kiểm tra tại trụ sở NNT ${ky}: hoàn thành <b>${fmtNum(T.daTH)}</b> cuộc/${fmtNum(T.chiTieu)} cuộc nhiệm vụ năm (<b>${fmtPct(T.p)}</b>${M.loai==='luyke'?`, tiến độ thời gian ${fmtPct(M.tg)}`:''}); theo kế hoạch phê duyệt ${fmtNum(T.khTH)}/${fmtNum(T.khPD)} cuộc (${fmtPct(T.pKH)}).`);
+    { const ok=M.rows.filter(r=>!r.na&&(r.mKH==='good'||r.mKH==='done')), ch=M.rows.filter(r=>!r.na&&(r.mKH==='bad'||r.mKH==='warn')).sort((a,b)=>(a.pKH??0)-(b.pKH??0));
+      nx.push(`Tỷ lệ hoàn thành kế hoạch kiểm tra được phê duyệt (cột 7 = 6/5): <b>${fmtPct(T.pKH)}</b> (${fmtNum(T.khTH)}/${fmtNum(T.khPD)} cuộc)${M.loai==='luyke'&&T.pKH!=null?`, ${T.pKH>=M.tg?'đạt':'<b>thấp hơn</b>'} tiến độ thời gian ${fmtPct(M.tg)} (${fmtDiem(T.pKH-M.tg)}). ${ok.length} đơn vị đạt tiến độ${ch.length?`; chậm: ${ch.map(r=>`${r.id} (${fmtPct(r.pKH)})`).join(', ')}`:''}`:''}.`); }
     nx.push(`Tổng số tiền xử lý <b>${tyDong(T.tongTien)}</b> tỷ đồng (truy thu ${tyDong(T.truyThu)}, phạt ${tyDong(T.phat)}, chậm nộp ${tyDong(T.chamNop)}); đã nộp NSNN ${tyDong(T.daNop)} tỷ (${fmtPct(T.pNop)}); bình quân ${tyDong(T.bq,2)} tỷ/cuộc.${M.ngayB&&T.dTH!=null?` So với ${nbl}: thêm ${fmtSigned(T.dTH)} cuộc, ${tyDong(T.dTien)} tỷ.`:''}`);
     for(const r of M.rows){ if(r.na) continue; if(r.m==='bad') cb.push({lv:'bad',t:`<b>${r.id}</b>: hoàn thành ${fmtNum(r.daTH)}/${fmtNum(r.chiTieu)} cuộc (${fmtPct(r.p)}), thấp hơn tiến độ thời gian.`}); else if(r.m==='warn') cb.push({lv:'warn',t:`<b>${r.id}</b>: hoàn thành ${fmtPct(r.p)} nhiệm vụ, chậm so với tiến độ thời gian.`});
+      if(r.mKH==='bad') cb.push({lv:'bad',t:`<b>${r.id}</b>: hoàn thành kế hoạch được phê duyệt ${fmtNum(r.khTH)}/${fmtNum(r.khPD)} cuộc (${fmtPct(r.pKH)}), thấp hơn tiến độ thời gian ${fmtPct(M.tg)}.`}); else if(r.mKH==='warn') cb.push({lv:'warn',t:`<b>${r.id}</b>: hoàn thành ${fmtPct(r.pKH)} kế hoạch được phê duyệt, chậm so với tiến độ.`});
       if(r.pNop!=null&&r.tongTien>0&&r.pNop<0.5) cb.push({lv:'warn',t:`<b>${r.id}</b>: mới nộp NSNN ${fmtPct(r.pNop)} số tiền xử lý (${tyDong(r.daNop)}/${tyDong(r.tongTien)} tỷ).`});
       if(M.loai==='thang'&&!r.daTH) cb.push({lv:'warn',t:`<b>${r.id}</b>: không có cuộc kiểm tra nào trong tháng.`}); }
   } else {
@@ -2459,8 +2614,10 @@ function renderKT(phan){
   cb.sort((a,b)=>(a.lv==='bad'?0:1)-(b.lv==='bad'?0:1));
   NX[phan]=[...nx.map(s=>s.replace(/<[^>]+>/g,'')),'Cảnh báo:',...cb.map(a=>'- '+a.t.replace(/<[^>]+>/g,''))].join('\n');
   h+=khungKPI('k-'+phan+'-kpi',PHAN[phan].ten+' – chỉ số chính',k.join(''));
-  h+=`<div class="grid g-21">`+the({id:'k-'+phan+'-rank', tieu:phan==='ktn'?'Tỷ lệ hoàn thành nhiệm vụ kiểm tra theo đơn vị':'Tỷ lệ DN đã kiểm tra theo kế hoạch theo đơn vị', phu:`Thanh nhạt: ${nbl} · thanh đậm: ${ky}${M.loai==='luyke'?` · vạch: tiến độ thời gian ${fmtPct(M.tg)}`:''}`, body:`<div id="c${phan}Rank" class="chart tall"></div>`})+
-    the({id:'k-'+phan+'-nx', tieu:'📝 Nhận xét & 🚨 cảnh báo', phu:'Tự động từ số liệu', tools:`<button class="btn sm" data-copy="${phan}">Sao chép</button>`, body:`<div class="comment">${nx.map(s=>`<p>${s}</p>`).join('')}</div><div class="alerts">${canhBaoHTML(cb)}</div>`})+`</div>`;
+  const theRank=the({id:'k-'+phan+'-rank', tieu:phan==='ktn'?'Tỷ lệ hoàn thành nhiệm vụ kiểm tra theo đơn vị':'Tỷ lệ DN đã kiểm tra theo kế hoạch theo đơn vị', phu:`${phan==='ktn'?'Cột (4) = (3) ÷ (1) · ':''}Thanh nhạt: ${nbl} · thanh đậm: ${ky}${M.loai==='luyke'?` · vạch: tiến độ thời gian ${fmtPct(M.tg)}`:''}`, body:`<div id="c${phan}Rank" class="chart tall"></div>`});
+  const theNX=the({id:'k-'+phan+'-nx', tieu:'📝 Nhận xét & 🚨 cảnh báo', phu:'Tự động từ số liệu', tools:`<button class="btn sm" data-copy="${phan}">Sao chép</button>`, body:`<div class="comment">${nx.map(s=>`<p>${s}</p>`).join('')}</div><div class="alerts">${canhBaoHTML(cb)}</div>`});
+  if(phan==='ktn') h+=`<div class="grid g-11">`+theRank+the({id:'k-ktn-kh', tieu:'Tỷ lệ hoàn thành kế hoạch kiểm tra được phê duyệt theo đơn vị', phu:`Cột (7) = (6) ÷ (5): số cuộc đã thực hiện ÷ số cuộc kế hoạch được phê duyệt (sau điều chỉnh) · thanh nhạt: ${nbl}${M.loai==='luyke'?` · vạch: tiến độ thời gian ${fmtPct(M.tg)}`:''}`, body:'<div id="cktnKH" class="chart tall"></div>'})+`</div>`+theNX;
+  else h+=`<div class="grid g-21">`+theRank+theNX+`</div>`;
   h+=`<div class="grid g-11">`+the({id:'k-'+phan+'-c2', tieu:phan==='ktn'?'Số tiền xử lý qua kiểm tra theo đơn vị':'Kết quả xử lý hồ sơ theo đơn vị', phu:phan==='ktn'?'Tỷ đồng: truy thu, truy hoàn, phạt, chậm nộp':'Số hồ sơ: chấp nhận, chờ giải trình, điều chỉnh, chuyển KT tại trụ sở NNT', body:`<div id="c${phan}C2" class="chart tall"></div>`})+
     the({id:'k-'+phan+'-c3', tieu:phan==='ktn'?'Tỷ lệ đã nộp NSNN và bình quân thu/cuộc':'Số thuế tăng thêm và giảm lỗ theo đơn vị', phu:phan==='ktn'?'Cột: % đã nộp NSNN; điểm: bình quân tỷ đồng/cuộc':'Tỷ đồng', body:`<div id="c${phan}C3" class="chart tall"></div>`})+`</div>`;
   // bảng
@@ -2468,12 +2625,12 @@ function renderKT(phan){
   if(phan==='ktn'){
     const n1='Nhiệm vụ được giao', n2='Kế hoạch được phê duyệt', n3='Số tiền xử lý (tỷ đồng)', n4='Đã nộp NSNN';
     cols=[{id:'stt',ten:'STT',co:1},{id:'dv',ten:'Đơn vị',co:1,dv:1},{id:'ct',nhom:n1,ten:'Chỉ tiêu (cuộc)'},{id:'th',nhom:n1,ten:'Đã thực hiện'},{id:'p',nhom:n1,ten:'% TH'},{id:'dth',nhom:n1,ten:`± so với ${nbl}`,an:1},
-      {id:'kh',nhom:n2,ten:'Số cuộc',an:1},{id:'khth',nhom:n2,ten:'Đã thực hiện',an:1},{id:'pkh',nhom:n2,ten:'% TH'},{id:'dd',ten:'Dở dang năm trước',an:1},{id:'dx',ten:'Đột xuất'},
+      {id:'kh',nhom:n2,ten:'Số cuộc',an:1},{id:'khth',nhom:n2,ten:'Đã thực hiện',an:1},{id:'pkh',nhom:n2,ten:'% TH (7=6/5)'},{id:'dd',ten:'Dở dang năm trước',an:1},{id:'dx',ten:'Đột xuất'},
       {id:'tong',nhom:n3,ten:'Tổng cộng'},{id:'tt',nhom:n3,ten:'Truy thu',an:1},{id:'thoan',nhom:n3,ten:'Truy hoàn',an:1},{id:'ph',nhom:n3,ten:'Phạt HC',an:1},{id:'cn',nhom:n3,ten:'Chậm nộp',an:1},
       {id:'nop',nhom:n4,ten:'Số tiền'},{id:'pnop',nhom:n4,ten:'% so QĐ'},{id:'bq',ten:'BQ/cuộc (tỷ)'},{id:'gkt',ten:'Giảm khấu trừ',an:1},{id:'glo',ten:'Giảm lỗ',an:1},{id:'dg',ten:'Đánh giá'}];
     const dong=(r,stt,ten,cls)=>{ if(r.na){ tr.push({o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id),...tdNA(cols.length-2)]}); return; }
       xr.push([stt,ten||r.id,r.chiTieu,r.daTH,r.p,r.dTH,r.khPD,r.khTH,r.pKH,r.doDang,r.dotXuat,r.tongTien/1000,r.truyThu/1000,r.truyHoan/1000,r.phat/1000,r.chamNop/1000,r.daNop/1000,r.pNop,r.bq==null?null:r.bq/1000,r.giamKT/1000,r.giamLo/1000,r.id==='TP'?'':TEN_TD[r.m]]);
-      tr.push({cls,o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id,TEN_DAY[r.id]),tdR(fmtNum(r.chiTieu)),tdR('<b>'+fmtNum(r.daTH)+'</b>'),tdR(fmtPct(r.p),r.id==='TP'?'':clsTD(r.m)),tdR(M.ngayB?muiTen(r.dTH):'–'),tdR(fmtNum(r.khPD)),tdR(fmtNum(r.khTH)),tdR(fmtPct(r.pKH)),tdR(fmtNum(r.doDang)),tdR(fmtNum(r.dotXuat)),
+      tr.push({cls,o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id,TEN_DAY[r.id]),tdR(fmtNum(r.chiTieu)),tdR('<b>'+fmtNum(r.daTH)+'</b>'),tdR(fmtPct(r.p),r.id==='TP'?'':clsTD(r.m)),tdR(M.ngayB?muiTen(r.dTH):'–'),tdR(fmtNum(r.khPD)),tdR(fmtNum(r.khTH)),tdR(fmtPct(r.pKH),r.id==='TP'?'':clsTD(r.mKH)),tdR(fmtNum(r.doDang)),tdR(fmtNum(r.dotXuat)),
         tdR('<b>'+tyDong(r.tongTien)+'</b>'),tdR(tyDong(r.truyThu)),tdR(tyDong(r.truyHoan)),tdR(tyDong(r.phat)),tdR(tyDong(r.chamNop)),tdR(tyDong(r.daNop)),tdR(fmtPct(r.pNop),r.pNop!=null&&r.tongTien>0&&r.pNop<0.5?'x-warn':''),tdR(tyDong(r.bq,2)),tdR(tyDong(r.giamKT)),tdR(tyDong(r.giamLo)),`<td>${r.id==='TP'?'':tagTD(r.m)}</td>`]}); };
     M.rows.forEach((r,i)=>dong(r,i+1)); dong(T,'','TOÀN THUẾ THÀNH PHỐ','total');
   } else {
@@ -2506,6 +2663,15 @@ function veKT(phan,M){
         data:rs.map(r=>r.pB==null?null:+(r.pB*100).toFixed(1))},
       {name:M.loai==='luyke'?'Lũy kế':'Trong tháng',type:'bar',barWidth:11,z:2,data:rs.map(r=>({value:+(r.p*100).toFixed(1),itemStyle:{color:mauTD(r.m),borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',fontSize:11,color:text,formatter:p=>fmtNum(p.value,1)+'%'},markLine:ml}]}),true);
   const rr=M.rows.filter(r=>!r.na);
+  if(phan==='ktn'&&document.getElementById('cktnKH')){
+    const rk=rr.filter(r=>r.pKH!=null).sort((a,b)=>a.pKH-b.pKH); const mk=Math.max(100,...rk.map(r=>r.pKH*100))*1.08;
+    chart('cktnKH').setOption(base({grid:{left:10,right:60,top:52,bottom:10,containLabel:true},
+      tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const r=rk[ps[0].dataIndex]; return `<b>${r.id}</b><br>Kế hoạch được phê duyệt: ${fmtNum(r.khPD)} cuộc<br>Đã thực hiện: ${fmtNum(r.khTH)} cuộc (<b>${fmtPct(r.pKH)}</b>)<br>${TEN_TD[r.mKH]||''}`; }},
+      xAxis:{type:'value',max:Math.ceil(mk/10)*10,axisLabel:{color:muted,formatter:'{value}%'},splitLine:A.splitLine},
+      yAxis:Object.assign({type:'category',data:rk.map(r=>r.id)},A,{splitLine:{show:false}}),
+      series:[{name:M.ngayB?`Đến ${fmtDM(M.ngayB)}`:'Kỳ trước',type:'bar',barWidth:9,barGap:'-10%',itemStyle:{color:grid,borderRadius:[0,4,4,0]},z:1,data:rk.map(r=>r.pKHB==null?null:+(r.pKHB*100).toFixed(1))},
+        {name:'% hoàn thành kế hoạch',type:'bar',barWidth:11,z:2,data:rk.map(r=>({value:+(r.pKH*100).toFixed(1),itemStyle:{color:mauTD(r.mKH),borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',fontSize:11,color:text,formatter:p=>fmtNum(p.value,1)+'%'},markLine:ml}]}),true);
+  }
   if(phan==='ktn'){
     const sx=[...rr].sort((a,b)=>(a.tongTien||0)-(b.tongTien||0)); const ks=[['truyThu','Truy thu','--p2'],['truyHoan','Truy hoàn','--p4'],['phat','Phạt HC','--warn'],['chamNop','Chậm nộp','--bad']];
     chart('cktnC2').setOption(base({grid:{left:10,right:60,top:34,bottom:10,containLabel:true},tooltip:{trigger:'axis',axisPointer:{type:'shadow'},valueFormatter:v=>fmtNum(v,2)+' tỷ'},
@@ -2530,6 +2696,8 @@ function veKT(phan,M){
 }
 
 /* ---------- Phần 6: Công tác nợ ---------- */
+function tagCuc(m){ return m==='good'?tag('good','✔ Đạt'):m==='bad'?tag('bad','✖ Chưa đạt'):''; }
+function lechCuc(v,mt){ if(v==null||!isFinite(v)) return ''; const d=(v-mt)*100; return Math.abs(d)<0.005?'bằng mục tiêu':(d>0?`cao hơn ${fmtNum(d,2)} điểm %`:`thấp hơn ${fmtNum(-d,2)} điểm %`); }
 function renderNo(){
   const el=$('#p-no'); const M=moHinhNo();
   if(!M){ el.innerHTML=oTrong('no'); return; }
@@ -2538,50 +2706,72 @@ function renderNo(){
   const T=M.T, nbl=M.ngayB?fmtDM(M.ngayB):'kỳ trước';
   h+=`<div class="banner info no-export">📌 Đơn vị: <b>tỷ đồng</b>. Kỳ báo cáo tháng ${thangNam(M.n0)}. Chỉ tiêu nợ là mức tối đa đến 31/12/2026 – <b>thấp hơn là tốt</b>. Thu hồi nợ năm trước so với tiến độ thời gian ${fmtPct(M.tg)} (tháng ÷ 12).</div>`;
   const vuot=M.rows.filter(r=>!r.na&&r.rNo>1);
+  const cdc=D().caiDat, coSo=M.rows.filter(r=>!r.na), soDV=coSo.length;
+  const datTT=coSo.filter(r=>r.mCucTT==='good'), datTP=coSo.filter(r=>r.mCucTP==='good');
+  const khTT=coSo.filter(r=>r.mCucTT==='bad').sort((a,b)=>b.noTT-a.noTT), khTP=coSo.filter(r=>r.mCucTP==='bad').sort((a,b)=>b.tpTT-a.tpTT);
   h+=khungKPI('k-no-kpi','Công tác nợ – chỉ số chính',[
     kpi('Tổng nợ hiện tại / chỉ tiêu 31/12/2026', `${tyDong(T.tongNo)} <small>/ ${tyDong(T.ctTongNo)} tỷ</small>`, `Bằng <b style="color:var(${T.rNo>1?'--bad':'--good'})">${fmtPct(T.rNo)}</b> chỉ tiêu${M.ngayB?` · so ${nbl}: ${muiTenNguoc(T.dNo==null?null:T.dNo/1000,1,' tỷ')}`:''}`, T.rNo==null?null:Math.min(1,T.rNo), null),
-    kpi('Tỷ lệ nợ / tổng thu NSNN', `${fmtPct(T.noTT)}`, `Chỉ tiêu ≤ ${fmtPct(T.ctTT)} · tổng thu NSNN năm ${tyDong(T.tongThu)} tỷ`),
+    kpi(`Tổng nợ / tổng thu NSNN <small>(mục tiêu Cục ≤ ${fmtPct(cdc.cucNoTT,0)})</small>`, `${fmtPct(T.noTT,2)}`, `${tagCuc(T.mCucTT)} ${lechCuc(T.noTT,cdc.cucNoTT)} · chỉ tiêu giao ${fmtPct(T.ctTT,2)} · tổng thu ${tyDong(T.tongThu)} tỷ`),
+    kpi(`Nợ thuế, phí / tổng thu NSNN <small>(mục tiêu Cục ≤ ${fmtPct(cdc.cucNoTP,0)})</small>`, `${fmtPct(T.tpTT,2)}`, `${tagCuc(T.mCucTP)} ${lechCuc(T.tpTT,cdc.cucNoTP)} · nợ thuế, phí ${tyDong(T.noTP)} tỷ`),
+    kpi('Đơn vị đạt mục tiêu Cục Thuế giao', `${datTT.length}<small>/${soDV} đơn vị</small>`, `Tổng nợ/tổng thu ≤ ${fmtPct(cdc.cucNoTT,0)} · nợ thuế, phí ≤ ${fmtPct(cdc.cucNoTP,0)}: <b>${datTP.length}/${soDV}</b> đơn vị`),
     kpi('Nợ có khả năng thu', `${tyDong(T.noKN)} <small>tỷ</small>`, `Chỉ tiêu ${tyDong(T.ctNoKN)} tỷ · bằng ${fmtPct(T.rKN)}`),
-    kpi('Nợ thuế, phí', `${tyDong(T.noTP)} <small>tỷ</small>`, `Chỉ tiêu ${tyDong(T.ctNoTP)} tỷ · bằng ${fmtPct(T.rTP)}`),
     kpi('Thu hồi nợ năm trước chuyển sang', `${fmtPct(T.pThuHoi)} <small>${tyDong(T.daThuHoi)} / ${tyDong(T.khThuHoi)} tỷ</small>`, `Trong tháng ${tyDong(T.thuThang)} tỷ · tiến độ TG ${fmtPct(M.tg)}`, T.pThuHoi, M.tg),
     kpi('Đơn vị vượt chỉ tiêu nợ', `${vuot.length}<small>/${M.rows.filter(r=>!r.na).length}</small>`, vuot.slice(0,4).map(r=>r.id).join(', ')||'Không có'),
   ].join(''));
   const nx=[`Kỳ tháng ${thangNam(M.n0)}: tổng nợ <b>${tyDong(T.tongNo)}</b> tỷ đồng, bằng <b>${fmtPct(T.rNo)}</b> chỉ tiêu nợ đến 31/12/2026 (${tyDong(T.ctTongNo)} tỷ); tỷ lệ nợ/tổng thu NSNN ${fmtPct(T.noTT)} (chỉ tiêu ${fmtPct(T.ctTT)}).`,
+    `<b>Kết quả thực hiện chỉ tiêu tiền thuế nợ so với mục tiêu Cục Thuế giao:</b> tổng nợ/tổng thu NSNN <b>${fmtPct(T.noTT,2)}</b> – ${T.mCucTT==='good'?'<b>đạt</b>':'<b>chưa đạt</b>'} mục tiêu ≤ ${fmtPct(cdc.cucNoTT,0)} (${lechCuc(T.noTT,cdc.cucNoTT)}); nợ thuế, phí/tổng thu NSNN <b>${fmtPct(T.tpTT,2)}</b> – ${T.mCucTP==='good'?'<b>đạt</b>':'<b>chưa đạt</b>'} mục tiêu ≤ ${fmtPct(cdc.cucNoTP,0)} (${lechCuc(T.tpTT,cdc.cucNoTP)}).`,
+    `Theo đơn vị: ${datTT.length}/${soDV} đơn vị có tổng nợ/tổng thu ≤ ${fmtPct(cdc.cucNoTT,0)}${khTT.length?`; chưa đạt: ${khTT.map(r=>`${r.id} (${fmtPct(r.noTT,1)})`).join(', ')}`:''}. ${datTP.length}/${soDV} đơn vị có nợ thuế, phí/tổng thu ≤ ${fmtPct(cdc.cucNoTP,0)}${khTP.length?`; chưa đạt: ${khTP.map(r=>`${r.id} (${fmtPct(r.tpTT,1)})`).join(', ')}`:''}.`,
     `Nợ có khả năng thu ${tyDong(T.noKN)} tỷ (chỉ tiêu ${tyDong(T.ctNoKN)} tỷ); nợ thuế, phí ${tyDong(T.noTP)} tỷ (chỉ tiêu ${tyDong(T.ctNoTP)} tỷ).`,
     `Thu hồi nợ năm trước chuyển sang ${tyDong(T.daThuHoi)}/${tyDong(T.khThuHoi)} tỷ, đạt <b>${fmtPct(T.pThuHoi)}</b> kế hoạch (tiến độ thời gian ${fmtPct(M.tg)}); trong tháng thu ${tyDong(T.thuThang)} tỷ.`];
   const cb=[];
+  if(T.mCucTT==='bad') cb.push({lv:'bad',t:`<b>Toàn Thuế TP</b>: tổng nợ/tổng thu NSNN ${fmtPct(T.noTT,2)}, cao hơn mục tiêu Cục Thuế giao (≤ ${fmtPct(cdc.cucNoTT,0)}) ${fmtNum((T.noTT-cdc.cucNoTT)*100,2)} điểm %.`});
+  if(T.mCucTP==='bad') cb.push({lv:'bad',t:`<b>Toàn Thuế TP</b>: nợ thuế, phí/tổng thu NSNN ${fmtPct(T.tpTT,2)}, cao hơn mục tiêu Cục Thuế giao (≤ ${fmtPct(cdc.cucNoTP,0)}).`});
+  for(const r of khTP) cb.push({lv:'bad',t:`<b>${r.id}</b>: nợ thuế, phí/tổng thu ${fmtPct(r.tpTT,2)} (${tyDong(r.noTP)} tỷ), vượt mục tiêu ≤ ${fmtPct(cdc.cucNoTP,0)}.`});
+  if(khTT.length) cb.push({lv:'warn',t:`Tổng nợ/tổng thu vượt mục tiêu ≤ ${fmtPct(cdc.cucNoTT,0)} ở ${khTT.length} đơn vị: ${khTT.map(r=>`<b>${r.id}</b> ${fmtPct(r.noTT,1)}`).join(', ')}.`});
   for(const r of M.rows){ if(r.na) continue;
     if(r.rNo>1.1) cb.push({lv:'bad',t:`<b>${r.id}</b>: tổng nợ ${tyDong(r.tongNo)} tỷ, bằng ${fmtPct(r.rNo)} chỉ tiêu (${tyDong(r.ctTongNo)} tỷ).`}); else if(r.rNo>1) cb.push({lv:'warn',t:`<b>${r.id}</b>: tổng nợ vượt chỉ tiêu (${fmtPct(r.rNo)}).`});
     if(r.mThuHoi==='bad') cb.push({lv:'bad',t:`<b>${r.id}</b>: thu hồi nợ năm trước mới đạt ${fmtPct(r.pThuHoi)} kế hoạch.`}); else if(r.mThuHoi==='warn') cb.push({lv:'warn',t:`<b>${r.id}</b>: thu hồi nợ năm trước ${fmtPct(r.pThuHoi)}, chậm so với tiến độ.`}); }
   cb.sort((a,b)=>(a.lv==='bad'?0:1)-(b.lv==='bad'?0:1));
   NX.no=[...nx.map(s=>s.replace(/<[^>]+>/g,'')),'Cảnh báo:',...cb.map(a=>'- '+a.t.replace(/<[^>]+>/g,''))].join('\n');
-  h+=`<div class="grid g-21">`+the({id:'k-no-rank', tieu:'Tổng nợ hiện tại so với chỉ tiêu nợ đến 31/12/2026', phu:'Tỷ lệ = tổng nợ ÷ chỉ tiêu tổng nợ · vạch 100% = bằng chỉ tiêu (thấp hơn là tốt)', body:'<div id="cNoRank" class="chart tall"></div>'})+
+  h+=`<div class="grid g-21">`+the({id:'k-no-cuc', tieu:'Kết quả thực hiện chỉ tiêu tiền thuế nợ so với mục tiêu Cục Thuế giao', phu:`Cột (15) = (14) ÷ tổng thu: tổng nợ/tổng thu NSNN (mục tiêu ≤ ${fmtPct(cdc.cucNoTT,0)}) · cột (19) = (18) ÷ tổng thu: nợ thuế, phí/tổng thu NSNN (mục tiêu ≤ ${fmtPct(cdc.cucNoTP,0)}) · mỗi đơn vị 2 thanh: trên – tổng nợ/tổng thu (đỏ chưa đạt, xanh đạt); dưới – nợ thuế, phí/tổng thu (vàng chưa đạt, xanh lam đạt) · thấp hơn là tốt`, body:'<div id="cNoCuc" class="chart tall"></div>'})+
     the({id:'k-no-nx', tieu:'📝 Nhận xét & 🚨 cảnh báo', phu:'Tự động từ số liệu', tools:'<button class="btn sm" data-copy="no">Sao chép</button>', body:`<div class="comment">${nx.map(s=>`<p>${s}</p>`).join('')}</div><div class="alerts">${canhBaoHTML(cb)}</div>`})+`</div>`;
-  h+=`<div class="grid g-11">`+the({id:'k-no-thuhoi', tieu:'Thu hồi nợ năm trước chuyển sang theo đơn vị', phu:`% so với kế hoạch · vạch: tiến độ thời gian ${fmtPct(M.tg)}`, body:'<div id="cNoThuHoi" class="chart tall"></div>'})+
-    the({id:'k-no-cc', tieu:'Cơ cấu nợ thuế', phu:'Tỷ đồng', body:'<div id="cNoCC" class="chart tall"></div>'})+`</div>`;
+  h+=`<div class="grid g-11">`+the({id:'k-no-rank', tieu:'Tổng nợ hiện tại so với chỉ tiêu nợ đến 31/12/2026', phu:'Tỷ lệ = tổng nợ ÷ chỉ tiêu tổng nợ · vạch 100% = bằng chỉ tiêu (thấp hơn là tốt)', body:'<div id="cNoRank" class="chart tall"></div>'})+
+    the({id:'k-no-thuhoi', tieu:'Thu hồi nợ năm trước chuyển sang theo đơn vị', phu:`% so với kế hoạch · vạch: tiến độ thời gian ${fmtPct(M.tg)}`, body:'<div id="cNoThuHoi" class="chart tall"></div>'})+`</div>`;
+  { const dgRow=(r,ten,cls)=>r&&!r.na?`<tr class="${cls||''}"><td class="dv">${ten||r.id}</td><td class="r">${tyDong(r.tongThu)}</td><td class="r">${tyDong(r.tongNo)}</td><td class="r ${r.mCucTT==='bad'?'x-bad':'x-good'}">${fmtPct(r.noTT,2)}</td><td>${tagCuc(r.mCucTT)}</td><td class="r">${tyDong(r.noTP)}</td><td class="r ${r.mCucTP==='bad'?'x-bad':'x-good'}">${fmtPct(r.tpTT,2)}</td><td>${tagCuc(r.mCucTP)}</td></tr>`:'';
+    const bang=`<div class="table-wrap"><table class="rpt ke"><thead><tr><th class="dv" rowspan="2">Đơn vị</th><th rowspan="2">Tổng thu NSNN</th><th colspan="3">Tổng nợ (mục tiêu ≤ ${fmtPct(cdc.cucNoTT,0)})</th><th colspan="3">Nợ thuế, phí (mục tiêu ≤ ${fmtPct(cdc.cucNoTP,0)})</th></tr><tr><th>Số tiền</th><th>% tổng thu</th><th>Đánh giá</th><th>Số tiền</th><th>% tổng thu</th><th>Đánh giá</th></tr></thead><tbody>${dgRow(T,'TOÀN THUẾ TP','total')}${dgRow(M.I,'Khối Văn phòng','grp')}${['QLDN1','QLDN2','QLDN3','CNTK'].map(id=>dgRow(M.rows.find(r=>r.id===id))).join('')}${dgRow(M.II,'Khối Thuế cơ sở','grp')}${TCS.map(id=>dgRow(M.rows.find(r=>r.id===id))).join('')}</tbody></table></div>`;
+    h+=`<div class="grid g-11">`+the({id:'k-no-dgcuc', tieu:'Đánh giá kết quả thực hiện chỉ tiêu tiền thuế nợ', phu:`So với mục tiêu Cục Thuế giao · tỷ đồng · kỳ tháng ${thangNam(M.n0)}`, body:bang})+
+      the({id:'k-no-cc', tieu:'Cơ cấu nợ thuế', phu:'Tỷ đồng', body:'<div id="cNoCC" class="chart tall"></div>'})+`</div>`; }
   const n1='Thu hồi nợ năm trước chuyển sang', n2='Chỉ tiêu nợ đến 31/12/2026', n3='Thực hiện (nợ hiện tại)';
   const cols=[{id:'stt',ten:'STT',co:1},{id:'dv',ten:'Đơn vị',co:1,dv:1},{id:'tt',ten:'Tổng thu NSNN 2026'},
     {id:'kh',nhom:n1,ten:'Kế hoạch'},{id:'da',nhom:n1,ten:'Lũy kế'},{id:'p',nhom:n1,ten:'% KH'},{id:'tg',nhom:n1,ten:'Trong tháng',an:1},{id:'ctn',nhom:n1,ten:'Từ chứng từ nộp',an:1},{id:'dcg',nhom:n1,ten:'Từ điều chỉnh giảm',an:1},
     {id:'ctno',nhom:n2,ten:'Tổng nợ'},{id:'ctkn',nhom:n2,ten:'Nợ có KN thu',an:1},{id:'cttp',nhom:n2,ten:'Nợ thuế, phí',an:1},
-    {id:'no',nhom:n3,ten:'Tổng nợ'},{id:'rno',nhom:n3,ten:'So chỉ tiêu'},{id:'nott',nhom:n3,ten:'% tổng thu'},{id:'kn',nhom:n3,ten:'Nợ có KN thu'},{id:'rkn',nhom:n3,ten:'So chỉ tiêu',an:1},{id:'tp',nhom:n3,ten:'Nợ thuế, phí'},{id:'rtp',nhom:n3,ten:'So chỉ tiêu',an:1},
+    {id:'no',nhom:n3,ten:'Tổng nợ'},{id:'rno',nhom:n3,ten:'So chỉ tiêu'},{id:'nott',nhom:n3,ten:'% tổng thu (15)'},{id:'dgtt',nhom:n3,ten:`Mục tiêu Cục ≤ ${fmtPct(D().caiDat.cucNoTT,0)}`},{id:'kn',nhom:n3,ten:'Nợ có KN thu'},{id:'rkn',nhom:n3,ten:'So chỉ tiêu',an:1},{id:'tp',nhom:n3,ten:'Nợ thuế, phí'},{id:'tptt',nhom:n3,ten:'% tổng thu (19)'},{id:'dgtp',nhom:n3,ten:`Mục tiêu Cục ≤ ${fmtPct(D().caiDat.cucNoTP,0)}`},{id:'rtp',nhom:n3,ten:'So chỉ tiêu',an:1},
     {id:'dno',ten:`Nợ tăng/giảm so với ${nbl}`,an:1},{id:'dg',ten:'Đánh giá'}];
   const tr=[], xr=[];
   const dong=(r,stt,ten,cls)=>{ if(r.na){ tr.push({o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id),...tdNA(cols.length-2)]}); return; } const q=v=>v==null?null:v/1000;
-    xr.push([stt,ten||r.id,q(r.tongThu),q(r.khThuHoi),q(r.daThuHoi),r.pThuHoi,q(r.thuThang),q(r.ctNop),q(r.dcGiam),q(r.ctTongNo),q(r.ctNoKN),q(r.ctNoTP),q(r.tongNo),r.rNo,r.noTT,q(r.noKN),r.rKN,q(r.noTP),r.rTP,q(r.dNo),['TP','TONG','I','II'].includes(r.id)?'':(r.mNo==='bad'?'Vượt chỉ tiêu nợ':r.mNo==='warn'?'Vượt nhẹ':'Trong chỉ tiêu')]);
+    xr.push([stt,ten||r.id,q(r.tongThu),q(r.khThuHoi),q(r.daThuHoi),r.pThuHoi,q(r.thuThang),q(r.ctNop),q(r.dcGiam),q(r.ctTongNo),q(r.ctNoKN),q(r.ctNoTP),q(r.tongNo),r.rNo,r.noTT,r.mCucTT==='good'?'Đạt':r.mCucTT==='bad'?'Chưa đạt':'',q(r.noKN),r.rKN,q(r.noTP),r.tpTT,r.mCucTP==='good'?'Đạt':r.mCucTP==='bad'?'Chưa đạt':'',r.rTP,q(r.dNo),['TP','TONG','I','II'].includes(r.id)?'':(r.mNo==='bad'?'Vượt chỉ tiêu nợ':r.mNo==='warn'?'Vượt nhẹ':'Trong chỉ tiêu')]);
     const dg=['TONG','I','II'].includes(r.id)?'':r.mNo==='bad'?tag('bad','Vượt chỉ tiêu nợ'):r.mNo==='warn'?tag('warn','Vượt nhẹ'):tag('good','Trong chỉ tiêu');
     tr.push({cls,o:[`<td class="c">${stt}</td>`,tdDV(ten||r.id,TEN_DAY[r.id]),tdR(tyDong(r.tongThu)),tdR(tyDong(r.khThuHoi)),tdR(tyDong(r.daThuHoi)),tdR(fmtPct(r.pThuHoi),clsTD(r.mThuHoi)),tdR(tyDong(r.thuThang,2)),tdR(tyDong(r.ctNop,2)),tdR(tyDong(r.dcGiam,2)),
-      tdR(tyDong(r.ctTongNo)),tdR(tyDong(r.ctNoKN)),tdR(tyDong(r.ctNoTP)),tdR('<b>'+tyDong(r.tongNo)+'</b>'),tdR(fmtPct(r.rNo),r.mNo==='bad'?'x-bad':r.mNo==='warn'?'x-warn':'x-good'),tdR(fmtPct(r.noTT,1)),tdR(tyDong(r.noKN)),tdR(fmtPct(r.rKN)),tdR(tyDong(r.noTP)),tdR(fmtPct(r.rTP)),tdR(M.ngayB?muiTenNguoc(r.dNo==null?null:r.dNo/1000,1):'–'),`<td>${dg}</td>`]}); };
-  dong(M.I,'I','grp','Khối Văn phòng'); ['QLDN1','QLDN2','QLDN3','CNTK'].forEach((id,i)=>dong(M.rows.find(r=>r.id===id),i+1));
-  dong(M.II,'II','grp','Khối Thuế cơ sở'); TCS.forEach((id,i)=>dong(M.rows.find(r=>r.id===id),i+1));
-  dong(T,'','total','TỔNG CỘNG');
+      tdR(tyDong(r.ctTongNo)),tdR(tyDong(r.ctNoKN)),tdR(tyDong(r.ctNoTP)),tdR('<b>'+tyDong(r.tongNo)+'</b>'),tdR(fmtPct(r.rNo),r.mNo==='bad'?'x-bad':r.mNo==='warn'?'x-warn':'x-good'),tdR(fmtPct(r.noTT,2),r.mCucTT==='bad'?'x-bad':r.mCucTT==='good'?'x-good':''),`<td>${tagCuc(r.mCucTT)}</td>`,tdR(tyDong(r.noKN)),tdR(fmtPct(r.rKN)),tdR(tyDong(r.noTP)),tdR(fmtPct(r.tpTT,2),r.mCucTP==='bad'?'x-bad':r.mCucTP==='good'?'x-good':''),`<td>${tagCuc(r.mCucTP)}</td>`,tdR(fmtPct(r.rTP)),tdR(M.ngayB?muiTenNguoc(r.dNo==null?null:r.dNo/1000,1):'–'),`<td>${dg}</td>`]}); };
+  dong(M.I,'I','Khối Văn phòng','grp'); ['QLDN1','QLDN2','QLDN3','CNTK'].forEach((id,i)=>dong(M.rows.find(r=>r.id===id),i+1));
+  dong(M.II,'II','Khối Thuế cơ sở','grp'); TCS.forEach((id,i)=>dong(M.rows.find(r=>r.id===id),i+1));
+  dong(T,'','TỔNG CỘNG','total');
   datXL('noTbl',{phan:'no', ten:'6_Cong_tac_no', tieuDe:`KẾT QUẢ THỰC HIỆN GIAO CHỈ TIÊU THU NỢ – THÁNG ${thangNam(M.n0)} (TỶ ĐỒNG)`, hdr:cols.map(c=>c.nhom?`${c.nhom} – ${c.ten}`:c.ten), rows:xr,
-    fmt:['','','#,##0.0','#,##0.0','#,##0.0','0.0%','#,##0.00','#,##0.00','#,##0.00','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.0%','#,##0.0','0.0%','#,##0.0','0.0%','#,##0.0','']});
+    fmt:['','','#,##0.0','#,##0.0','#,##0.0','0.0%','#,##0.00','#,##0.00','#,##0.00','#,##0.0','#,##0.0','#,##0.0','#,##0.0','0.0%','0.00%','','#,##0.0','0.0%','#,##0.0','0.00%','','0.0%','#,##0.0','']});
   h+=the({id:'k-no-tbl', tieu:'Biểu kết quả thực hiện giao chỉ tiêu thu nợ', phu:`Kỳ báo cáo tháng ${thangNam(M.n0)} · tỷ đồng · bấm “☰ Cột” để ẩn/hiện cột`, xl:'noTbl', cot:'noTbl', body:bangHTML('noTbl',cols,tr)});
   el.innerHTML=h;
   veNo(M);
 }
 function veNo(M){
-  const A=axisStyle(), muted=cssv('--muted'), text=cssv('--text'), primary=cssv('--primary');
+  const A=axisStyle(), muted=cssv('--muted'), text=cssv('--text'), primary=cssv('--primary'), cdc=D().caiDat;
+  { const rc=[...M.rows.filter(r=>!r.na&&r.noTT!=null).sort((a,b)=>a.noTT-b.noTT)]; if(M.T&&!M.T.na) rc.push(Object.assign({},M.T,{id:'Thuế TP'}));
+    const mlx=(v,t,c,pos)=>({symbol:'none',silent:true,lineStyle:{color:c,type:'dashed',width:2},label:{formatter:t,color:c,position:pos,distance:pos==='start'?22:5,fontWeight:700},data:[{xAxis:+(v*100).toFixed(2)}]});
+    chart('cNoCuc').setOption(base({legend:{show:false},grid:{left:10,right:58,top:30,bottom:34,containLabel:true},
+      tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const r=rc[ps[0].dataIndex]; return `<b>${r.id}</b><br>Tổng nợ/tổng thu: <b>${fmtPct(r.noTT,2)}</b> – ${r.mCucTT==='good'?'đạt':'chưa đạt'} (≤ ${fmtPct(cdc.cucNoTT,0)})<br>Nợ thuế, phí/tổng thu: <b>${fmtPct(r.tpTT,2)}</b> – ${r.mCucTP==='good'?'đạt':'chưa đạt'} (≤ ${fmtPct(cdc.cucNoTP,0)})<br>Tổng nợ ${tyDong(r.tongNo)} tỷ · nợ thuế, phí ${tyDong(r.noTP)} tỷ · tổng thu ${tyDong(r.tongThu)} tỷ`; }},
+      xAxis:{type:'value',axisLabel:{color:muted,formatter:'{value}%'},splitLine:A.splitLine},
+      yAxis:Object.assign({type:'category',data:rc.map(r=>r.id)},A,{splitLine:{show:false}}),
+      series:[{name:'Tổng nợ / tổng thu',type:'bar',barWidth:9,barGap:'15%',data:rc.map(r=>({value:+(r.noTT*100).toFixed(2),itemStyle:{color:r.mCucTT==='bad'?cssv('--bad'):cssv('--good'),borderRadius:[0,4,4,0]}})),label:{show:true,position:'right',fontSize:10,color:text,formatter:p=>fmtNum(p.value,1)+'%'},markLine:mlx(cdc.cucNoTT,`Mục tiêu ${fmtPct(cdc.cucNoTT,0)}`,primary,'end')},
+        {name:'Nợ thuế, phí / tổng thu',type:'bar',barWidth:9,data:rc.map(r=>({value:r.tpTT==null?null:+(r.tpTT*100).toFixed(2),itemStyle:{color:r.mCucTP==='bad'?cssv('--warn'):cssv('--p4'),borderRadius:[0,4,4,0]}})),label:{show:true,position:'right',fontSize:10,color:muted,formatter:p=>p.value==null?'':fmtNum(p.value,1)+'%'},markLine:mlx(cdc.cucNoTP,`Mục tiêu ${fmtPct(cdc.cucNoTP,0)}`,cssv('--p5'),'start')}]}),true); }
   const rs=M.rows.filter(r=>!r.na&&r.rNo!=null).sort((a,b)=>b.rNo-a.rNo).reverse();
   chart('cNoRank').setOption(base({grid:{left:10,right:60,top:24,bottom:10,containLabel:true},
     tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:ps=>{ const r=rs[ps[0].dataIndex]; return `<b>${r.id}</b><br>Tổng nợ ${tyDong(r.tongNo)} tỷ / chỉ tiêu ${tyDong(r.ctTongNo)} tỷ<br>Bằng <b>${fmtPct(r.rNo)}</b> chỉ tiêu · nợ/tổng thu ${fmtPct(r.noTT)}`; }},
@@ -2607,7 +2797,8 @@ function veNo(M){
    ===================================================================== */
 function render(){
   const st=D(); const ph=st.ui.phan;
-  $$('.part-btn').forEach(b=>b.classList.toggle('on',b.dataset.phan===ph));
+  $$('.part-btn').forEach(b=>{ const on=b.dataset.phan===ph; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+  { const tb=$('#tabbar'), b=$(`.part-btn[data-phan="${ph}"]`); if(tb&&b){ tb.style.setProperty('--tabc',`var(${PHAN[ph].mau})`); const l=b.offsetLeft-tb.offsetLeft, r=l+b.offsetWidth; if(l<tb.scrollLeft||r>tb.scrollLeft+tb.clientWidth) tb.scrollLeft=Math.max(0,l-(tb.clientWidth-b.offsetWidth)/2); } }
   $$('.phan').forEach(s=>s.classList.toggle('hidden',s.id!=='p-'+ph));
   // banner
   const bn=$('#sampleBanner');
@@ -2629,6 +2820,8 @@ function render(){
   $('#selSS').innerHTML=`<option value="tuan">Tuần trước (tự động)</option><option value="truoc">Kỳ liền trước</option><option value="thang">Cuối tháng trước</option>`+truoc.map(k=>`<option value="${k}">Ngày ${fmtDate(k)}</option>`).join('');
   const ss=cheSS(ph); $('#selSS').value=['tuan','truoc','thang'].includes(ss)||truoc.includes(ss)?ss:'tuan'; $('#selSS').disabled=!truoc.length;
   try{ ({hl:renderHL,ns:()=>D().ui.tabNS==='X'?renderXa():renderNS(),cd:renderCD,ktn:renderKTN,ktc:renderKTC,no:renderNo})[ph](); }catch(e){ console.error(e); $('#p-'+ph).innerHTML=`<div class="banner warn">Lỗi hiển thị: ${esc(e.message)}</div>`; }
+  // điện thoại: tab con đang chọn luôn nằm trong khung nhìn (hàng tab vuốt ngang)
+  $$('#p-'+ph+' .subtabs').forEach(st=>{ const on=st.querySelector('.subtab.on'); if(!on||st.scrollWidth<=st.clientWidth) return; const a=st.getBoundingClientRect(), b=on.getBoundingClientRect(); if(b.right>a.right||b.left<a.left) st.scrollLeft+=b.left-a.left-8; });
   donRac();
 }
 
@@ -2717,7 +2910,7 @@ function tomTatKhoi(k){
     if(p==='qg') return `${d.ds.length} CQT · toàn quốc ${fmtNum(d.tq.so)}`;
     const s=d.s2||d.s3; const s3=d.s3; if(k.key.startsWith('01')&&d.s2) return p==='q12'?`QLDN1: ${fmtNum(s.dnnn+s.fdi)} · QLDN2: ${fmtNum(s.dnk)} NNT`:`QLDN3: ${fmtNum(s.dn)} NNT`;
     const x=s3||s; return p==='q12'?`QLDN1: ${fmtNum(x.dnnn+x.fdi)} · QLDN2: ${fmtNum(x.dnk)} lượt`:`QLDN3: ${fmtNum(x.dn)} lượt`; }
-  if(k.phan==='ns'&&k.key==='xa'){ const t=sum(d.rows.map(x=>x.thT)), dt=sum(d.rows.map(x=>x.dtT)); return `${d.rows.length} xã, phường · thực hiện ${tyDong(t)}/${tyDong(dt)} tỷ`; }
+  if(k.phan==='ns'&&k.key==='xa'){ const t=sum(d.rows.map(x=>x.thT)), dt=sum(d.rows.map(x=>x.dtT)); const coT=d.rows.filter(x=>x.tcs).length; return `${d.rows.length} xã, phường · thực hiện ${tyDong(t)}/${tyDong(dt)} tỷ · ${coT?`có cột Thuế cơ sở (${coT} xã)`:'không có cột Thuế cơ sở (dùng danh mục gốc)'}`; }
   if(k.phan==='ktn'){ const t=d.tong||{}; return `${Object.keys(d.rows).length} đơn vị · ${fmtNum(t.daTH)} cuộc · ${tyDong(t.tongTien)} tỷ`; }
   if(k.phan==='ktc'){ const t=d.tong||{}; return `${Object.keys(d.rows).length} đơn vị · ${fmtNum(t.hs)} hồ sơ · thuế tăng thêm ${tyDong(t.thueTang)} tỷ`; }
   if(k.phan==='no'){ const t=d.nhom.TONG||{}; return `${Object.keys(d.rows).length} đơn vị · tổng nợ ${tyDong(t.tongNo)} tỷ`; }
@@ -2773,6 +2966,8 @@ function moCaiDat(){
     <div class="form-grid"><label>Chỉ số hài lòng tối thiểu (%)<input type="number" step="0.5" id="sNgCS" value="${+(c.nguongChiSo*100).toFixed(2)}"></label><label>Cảnh báo khi KHL + RKHL ≥ (%)<input type="number" step="0.1" id="sNgKhl" value="${+(c.nguongKhl*100).toFixed(2)}"></label><label>Cảnh báo đỏ khi Rất không HL ≥ (%)<input type="number" step="0.1" id="sNgRkhl" value="${+(c.nguongRkhl*100).toFixed(2)}"></label><label>Chỉ xét đơn vị có ≥ (lượt)<input type="number" step="1" id="sLuotMin" value="${c.luotMin}"></label></div>
     <h4>Ngưỡng tô màu (Phần 1, 2, 4, 5, 6)</h4>
     <div class="form-grid"><label>Thu NSNN: đỏ khi thấp hơn tiến độ thời gian quá (điểm %)<input type="number" step="1" id="sNsCham" value="${+(c.nsCham*100).toFixed(1)}"></label><label>Chiến dịch: đỏ khi thấp hơn BQ toàn TP quá (điểm %)<input type="number" step="1" id="sCdCham" value="${+(c.cdCham*100).toFixed(1)}"></label></div>
+    <h4>Phần 6 – Mục tiêu Cục Thuế giao (tỷ lệ nợ / tổng thu NSNN)</h4>
+    <div class="form-grid"><label>Tổng nợ / tổng thu NSNN không quá (%)<input type="number" step="0.1" id="sCucNoTT" value="${+(c.cucNoTT*100).toFixed(2)}"></label><label>Nợ thuế, phí / tổng thu NSNN không quá (%)<input type="number" step="0.1" id="sCucNoTP" value="${+(c.cucNoTP*100).toFixed(2)}"></label></div>
     <h4>Cỡ mẫu giao (Phụ lục 01) <span class="muted" style="font-weight:400;font-size:12px">${esc(st.nguonPlan||'')}</span></h4>
     <div class="table-wrap"><table class="rpt plan-tbl"><thead><tr><th>Đơn vị</th><th>Tổng cỡ mẫu</th><th>DNNN</th><th>DN FDI</th><th>DN, TC khác</th><th>Hộ, CNKD</th></tr></thead><tbody>${DV_A.map(id=>`<tr><td><b>${id}</b></td>${['tong','dnnn','fdi','dnk','ho'].map(k=>`<td><input type="number" data-plan="${id}|${k}" value="${st.plan[id][k]}"></td>`).join('')}</tr>`).join('')}<tr class="total"><td>Tổng</td><td class="r" id="sPlanSum">${fmtNum(sum(DV_A.map(id=>st.plan[id].tong)))}</td><td colspan="4"></td></tr></tbody></table></div>
     <div style="margin-top:8px"><button class="btn sm" id="sPlanReset">↺ Khôi phục Phụ lục 01 gốc (8.028)</button></div>
@@ -2794,7 +2989,7 @@ function luuCaiDat(){
   const st=D(); const c=st.caiDat; const g=id=>$('#'+id).value; const n=id=>Number($('#'+id).value);
   const d=[g('sBatDau'),g('sMoc50'),g('sMoc100'),g('sKetThuc')];
   if(d.some(x=>!x)||!(d[0]<d[1]&&d[1]<d[2]&&d[2]<=d[3])){ toast('Các mốc phải theo thứ tự: bắt đầu < 50% < 100% ≤ kết thúc.','err'); return; }
-  Object.assign(c,{batDau:d[0],moc50:d[1],moc100:d[2],ketThuc:d[3],spiTot:n('sSpiTot'),spiCham:n('sSpiCham'),nguongChiSo:n('sNgCS')/100,nguongKhl:n('sNgKhl')/100,nguongRkhl:n('sNgRkhl')/100,luotMin:n('sLuotMin'),nsCham:n('sNsCham')/100,cdCham:n('sCdCham')/100});
+  Object.assign(c,{batDau:d[0],moc50:d[1],moc100:d[2],ketThuc:d[3],spiTot:n('sSpiTot'),spiCham:n('sSpiCham'),nguongChiSo:n('sNgCS')/100,nguongKhl:n('sNgKhl')/100,nguongRkhl:n('sNgRkhl')/100,luotMin:n('sLuotMin'),nsCham:n('sNsCham')/100,cdCham:n('sCdCham')/100,cucNoTT:n('sCucNoTT')/100,cucNoTP:n('sCucNoTP')/100});
   let doiPlan=false; $$('[data-plan]').forEach(i=>{ const [id,k]=i.dataset.plan.split('|'); const v=Math.max(0,Number(i.value)||0); if(st.plan[id][k]!==v){ st.plan[id][k]=v; doiPlan=true; } });
   if(doiPlan) st.nguonPlan='Sửa tay trong Cài đặt ngày '+fmtDate(todayIso());
   luu(); $('#mSettings').classList.add('hidden'); render(); toast(SAMPLE?'Đã áp dụng cho dữ liệu đang xem (không lưu).':'Đã lưu cài đặt.','ok');
@@ -2827,15 +3022,19 @@ function noiDungCanCu(){
   <h4>Phần 1B – Dự toán 99 xã, phường</h4>
   <ul><li>Biểu “Tên xã phường – Dự toán giao 2026 – Thực hiện năm 2026” (tổng số, thuế phí, tiền SDĐ; đơn vị tỷ đồng). Tỷ lệ = thực hiện ÷ dự toán; so với tiến độ thời gian (số ngày đã qua ÷ số ngày cả năm).</li>
   <li>Bản đồ tô màu theo tỷ lệ: xanh đậm đạt/vượt dự toán; xanh đạt tiến độ; vàng chậm; đỏ chậm hơn ngưỡng (mặc định 10 điểm %). Bấm vào xã, phường để xem chi tiết. Ranh giới: tinhthanhpho.com (CC BY 4.0), đã rút gọn đường biên để nhẹ khi xem trên điện thoại.</li>
-  <li>Biểu không ghi ngày số liệu – nhập ngày ở màn hình Nhập số liệu.</li></ul>
+  <li>Mẫu thống nhất (nút “📄 Tải mẫu biểu nhập”): TT · Tên xã phường · <b>Thuế cơ sở</b> · Dự toán (tổng số, thuế phí, tiền SDĐ) · Thực hiện (3 cột) · Tỷ lệ %. Cột Thuế cơ sở ghi “TCS 5” hoặc “Thuế cơ sở 5”. Biểu cũ không có cột này thì dùng danh mục gốc 99 xã, phường – Thuế cơ sở gói sẵn trong app.</li>
+  <li>Lọc theo Thuế cơ sở: bản đồ chỉ tô đậm các xã, phường của Thuế cơ sở đó và tự phóng to; hiện danh sách xã, phường kèm tỷ lệ thực hiện; tổng hợp Thuế cơ sở = cộng dự toán, thực hiện của các xã rồi chia (không lấy bình quân tỷ lệ).</li>
+  <li>Ngày số liệu: ghi ở dòng 2 của mẫu (“Số liệu đến ngày: dd/mm/yyyy”); nếu trống thì nhập ngày ở màn hình Nhập số liệu.</li></ul>
   <h4>Phần 4 – Kiểm tra tại trụ sở NNT</h4>
   <ul><li>Biểu 10 (trong tháng) và Biểu 11 (lũy kế): chỉ tiêu nhiệm vụ, số cuộc đã thực hiện, kế hoạch phê duyệt, cuộc đột xuất, số tiền truy thu – truy hoàn – phạt – chậm nộp, đã nộp NSNN, giảm khấu trừ, giảm lỗ.</li>
-  <li>% hoàn thành lũy kế so với tiến độ thời gian theo tháng (tháng ÷ 12). Bình quân/cuộc = tổng số tiền xử lý ÷ số cuộc. Cảnh báo khi tỷ lệ đã nộp NSNN dưới 50%.</li></ul>
+  <li>% hoàn thành lũy kế so với tiến độ thời gian theo tháng (tháng ÷ 12). Bình quân/cuộc = tổng số tiền xử lý ÷ số cuộc. Cảnh báo khi tỷ lệ đã nộp NSNN dưới 50%.</li>
+  <li>Tỷ lệ hoàn thành kế hoạch được phê duyệt = cột (7) = (6) ÷ (5): số cuộc theo kế hoạch đã thực hiện ÷ số cuộc kế hoạch được phê duyệt (sau điều chỉnh); đánh giá so với tiến độ thời gian theo tháng như trên.</li></ul>
   <h4>Phần 5 – Kiểm tra tại trụ sở CQT</h4>
   <ul><li>Biểu 8 (trong tháng) và Biểu 9 (lũy kế): DN phải/đã kiểm tra theo kế hoạch; hồ sơ đã kiểm tra (chấp nhận, chờ giải trình, điều chỉnh, chuyển kiểm tra tại trụ sở NNT); số thuế tăng thêm, giảm khấu trừ, giảm lỗ, chậm nộp, phạt.</li></ul>
   <h4>Phần 6 – Công tác nợ</h4>
   <ul><li>Phụ lục I “Kết quả thực hiện giao chỉ tiêu thu nợ”: thu hồi nợ năm trước chuyển sang (kế hoạch, lũy kế, trong tháng), chỉ tiêu nợ đến 31/12/2026 và nợ hiện tại (tổng nợ, nợ có khả năng thu, nợ thuế phí).</li>
-  <li>Nợ hiện tại ÷ chỉ tiêu: ≤ 100% trong chỉ tiêu; 100–110% vượt nhẹ; > 110% vượt chỉ tiêu (đỏ). Thu hồi nợ năm trước so với tiến độ thời gian theo tháng.</li></ul>
+  <li>Nợ hiện tại ÷ chỉ tiêu: ≤ 100% trong chỉ tiêu; 100–110% vượt nhẹ; > 110% vượt chỉ tiêu (đỏ). Thu hồi nợ năm trước so với tiến độ thời gian theo tháng.</li>
+  <li>Kết quả thực hiện chỉ tiêu tiền thuế nợ so với mục tiêu Cục Thuế giao (sửa trong ⚙): tổng nợ/tổng thu NSNN – cột (15) = (14)/TT – không quá 8%; nợ thuế, phí/tổng thu NSNN – cột (19) = (18)/TT – không quá 5%. Không vượt là “Đạt”. Tỷ lệ lấy đúng số trong biểu.</li></ul>
   <h4>Nhận diện file (không phụ thuộc tên file)</h4>
   <ul><li>Khảo sát: biểu có “Tên cơ quan thuế” (Tổng quan TCS hoặc Toàn quốc – có dòng “Toàn quốc”), biểu có mục [1]…[3.2.2] (QLDN). Mẫu nhận theo dòng “Mẫu số: 0X-1/DLKS-TH” hoặc tiêu đề (“sự phục vụ”, “hỗ trợ”, “thủ tục hành chính”, “kiểm tra thuế”, “khiếu nại”). Nhóm QLDN theo dòng “Cơ quan thuế: Thành phố Bắc Ninh” (QLDN1-2) / “Tỉnh Bắc Giang” (QLDN3).</li>
   <li>Tên gợi ý (dự phòng): <code>01_TCS</code>, <code>01_QLDN12</code>, <code>01_QLDN3</code>, <code>01_TOANQUOC</code> … <code>05_TOANQUOC</code>.</li>
@@ -3218,13 +3417,16 @@ function ganSuKien(){
   $('#selKy').onchange=e=>{ D().ui.ky[D().ui.phan]=e.target.value; luuUI(); render(); };
   $('#selSS').onchange=e=>{ D().ui.ss[D().ui.phan]=e.target.value; luuUI(); render(); };
   // Các nút trong nội dung (ủy quyền sự kiện)
+  $('main').addEventListener('change',e=>{ if(e.target.id==='selXaTCS'){ D().ui.xaTCS=e.target.value; luuUI(); render(); } });
   $('main').addEventListener('click',e=>{
     const bn=e.target.closest('.banner.info'); if(bn&&!e.target.closest('button')){ bn.classList.toggle('mo'); return; }   // điện thoại: chạm để mở/thu gọn ghi chú
     const b=e.target.closest('button'); if(!b) return; const ui=D().ui;
     if(b.dataset.tabns){ ui.tabNS=b.dataset.tabns; luuUI(); render(); return; }
     if(b.dataset.ktloai){ if(b.disabled) return; ui.ktLoai=ui.ktLoai||{}; ui.ktLoai[b.dataset.ktphan]=b.dataset.ktloai; luuUI(); render(); return; }
-    if(b.dataset.xa){ ui.xaChon=b.dataset.xa; luuUI(); if(TT_XA){ $('#xaChiTiet').innerHTML=chiTietXa(TT_XA,b.dataset.xa); const r=TT_XA.rows.find(x=>x.ten===b.dataset.xa); const c=CH['cXaMap']; if(c&&r&&r.geo){ try{ c.dispatchAction({type:'select',seriesIndex:0,name:r.geo}); }catch(_){} } document.getElementById('k-xa-ct').scrollIntoView({behavior:'smooth',block:'start'}); } return; }
-    if(b.dataset.bd){ const c=CH['cXaMap']; if(!c) return; if(b.dataset.bd==='reset'){ ZOOM_XA=1.15; veXa(TT_XA); } else { ZOOM_XA=Math.max(0.8,Math.min(15,ZOOM_XA*(b.dataset.bd==='in'?1.4:1/1.4))); c.setOption({series:[{zoom:ZOOM_XA}]}); } return; }
+    if(b.dataset.xa){ chonXa(b.dataset.xa); return; }
+    if('xatcs' in b.dataset){ ui.xaTCS=b.dataset.xatcs; luuUI(); render(); return; }
+    if(b.hasAttribute('data-mauxa')){ taiMauXa(); return; }
+    if(b.dataset.bd){ const c=CH['cXaMap']; if(!c) return; if(b.dataset.bd==='reset'){ ZOOM_XA=1.15; XA_VIEW=null; veXa(TT_XA); } else { ZOOM_XA=Math.max(0.8,Math.min(15,ZOOM_XA*(b.dataset.bd==='in'?1.4:1/1.4))); c.setOption({series:[{zoom:ZOOM_XA}]}); } return; }
     if(b.dataset.tab){ ui.tab=b.dataset.tab; luuUI(); render(); }
     else if(b.dataset.mau){ ui.mauB=b.dataset.mau; luuUI(); render(); }
     else if(b.dataset.ds){ ui.ds=b.dataset.ds; luuUI(); render(); }
