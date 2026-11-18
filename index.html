@@ -402,6 +402,15 @@ body.o-home .tb-group.tg-ngay{display:none}
 @media (max-height:520px) and (orientation:landscape){.vong .tam{display:none}.home-dau h2{font-size:16px}}
 @media (prefers-reduced-motion:reduce){.vong .r2,.vong .r3,.vong .tam svg,.o-ch .icon,.dh *{animation:none!important}}
 
+a.part-btn{text-decoration:none}
+.home-nut a{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;border:1px solid rgba(148,163,184,.6);background:rgba(51,65,85,.55);color:#e6f3ff;border-radius:11px;padding:9px 14px;font-weight:700;font-size:13px;text-decoration:none;box-shadow:0 0 18px rgba(148,163,184,.2) inset}
+.home-nut a:hover{background:rgba(71,85,105,.75)}
+.home-nut a .do{color:#ff8a94}.home-nut a .vang{color:#ffc857}.home-nut a small{font-weight:500;color:#a9c7e8}
+body.khong-vbd .vbd,body.khong-vbd .home-nut a,body.khong-vbd .sheet-phan a{display:none!important}
+.sheet-phan .ds a{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;border-radius:14px;border:1px solid rgba(148,163,184,.45);background:rgba(51,65,85,.5);color:#e6f3ff;font-size:11.5px;font-weight:600;line-height:1.25;text-decoration:none;text-align:center}
+.sheet-phan .ds a svg{width:40px;height:40px}
+.sheet-phan .ds a b{color:#ff8a94;font-weight:700}
+@media (max-width:640px) and (orientation:portrait),(max-width:520px){.home-nut a{width:100%;justify-content:center;box-sizing:border-box}}
 /* Nút chuyển phần nhanh (khi đang ở trong một phần) */
 .fab{position:fixed;right:16px;bottom:18px;z-index:120;width:54px;height:54px;border-radius:50%;border:0;cursor:pointer;color:#fff;font-size:22px;display:grid;place-items:center;
   background:radial-gradient(circle at 30% 30%,#38bdf8,#1d4ed8 70%);box-shadow:0 10px 26px rgba(29,78,216,.45),0 0 0 4px rgba(56,189,248,.25)}
@@ -620,7 +629,7 @@ body.exporting .no-export{display:none!important}
   <button class="part-btn" role="tab" data-phan="ktn" style="--pc:var(--p4)" title="Nhiệm vụ, kế hoạch phê duyệt, số tiền xử lý, đã nộp NSNN"><span class="pn">4</span><span class="tdai">Kiểm tra tại trụ sở NNT</span><span class="tngan">KT trụ sở NNT</span></button>
   <button class="part-btn" role="tab" data-phan="ktc" style="--pc:var(--p5)" title="DN đã kiểm tra theo kế hoạch, xử lý hồ sơ, thuế tăng thêm"><span class="pn">5</span><span class="tdai">Kiểm tra tại trụ sở CQT</span><span class="tngan">KT trụ sở CQT</span></button>
   <button class="part-btn" role="tab" data-phan="no" style="--pc:var(--p6)" title="Tổng nợ so chỉ tiêu, nợ/tổng thu so mục tiêu Cục Thuế, thu hồi nợ"><span class="pn">6</span><span class="tdai">Công tác nợ thuế</span><span class="tngan">Nợ thuế</span></button>
-  <a class="part-btn" href="van-ban-den.html" style="--pc:#475569" title="Văn bản đến theo ngày: tóm tắt, nhiệm vụ và hạn, việc phải làm, nội dung phải báo cáo, tệp văn bản"><span class="pn">📥</span><span class="tdai">Văn bản đến</span><span class="tngan">Văn bản đến</span></a>
+  <a class="part-btn vbd" id="tabVBD" href="van-ban-den.html" style="--pc:#475569" title="Văn bản đến theo ngày: tóm tắt, nhiệm vụ và hạn, việc phải làm, nội dung phải báo cáo, tệp văn bản"><span class="pn">📥</span><span class="tdai">Văn bản đến</span><span class="tngan">Văn bản đến</span></a>
 </div></nav>
 
 <main class="container">
@@ -3090,6 +3099,7 @@ const ICON={
     <path d="M51 3l11 19H40z" fill="#fde047" stroke="#fff7ae" stroke-width="1"/><rect x="49.8" y="9" width="2.6" height="7" rx="1.2" fill="#7c2d12"/><circle cx="51.1" cy="19" r="1.5" fill="#7c2d12"/></svg>`,
   home:`<svg viewBox="0 0 64 64" aria-hidden="true"><defs>${GR('iHo','#7dd3fc','#1d4ed8')}</defs><path d="M8 30L32 9l24 21v24a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3z" fill="url(#iHo)" stroke="#e0f2fe" stroke-width="2"/><rect x="26" y="36" width="12" height="21" rx="2" fill="#e0f2fe"/></svg>`,
   map:`<svg viewBox="0 0 64 64" aria-hidden="true"><defs>${GR('iMp','#6ee7b7','#0e7490')}</defs><path d="M4 16l18-8 20 8 18-8v40l-18 8-20-8-18 8z" fill="url(#iMp)" stroke="#ccfbf1" stroke-width="1.5"/><path d="M22 8v40M42 16v40" stroke="#ccfbf1" stroke-width="1.5" opacity=".7"/><path d="M32 18c-6 0-10 4.5-10 10 0 7 10 18 10 18s10-11 10-18c0-5.5-4-10-10-10z" fill="#ff4d5e" stroke="#fff" stroke-width="2"/><circle cx="32" cy="28" r="3.6" fill="#fff"/></svg>`,
+  vbd:`<svg viewBox="0 0 64 64" aria-hidden="true"><defs>${GR('iVb','#cbd5e1','#475569')}</defs><rect x="14" y="5" width="36" height="30" rx="3" fill="#f8fafc"/><rect x="20" y="12" width="24" height="3" rx="1.5" fill="#94a3b8"/><rect x="20" y="19" width="18" height="3" rx="1.5" fill="#cbd5e1"/><path d="M4 34h16l4 8h16l4-8h16v20a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" fill="url(#iVb)" stroke="#e2e8f0" stroke-width="1.5"/><path d="M32 20v14m-6-6l6 6 6-6" stroke="#2563eb" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   luoi:`<svg viewBox="0 0 24 24" aria-hidden="true" fill="#fff"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" opacity=".7"/></svg>`,
 };
 /* Khối nhà 2.5D ở giữa trang chủ (vẽ bằng hình chiếu đẳng cự) */
@@ -3129,14 +3139,42 @@ function tomTat(p){
   }catch(e){ console.warn('tomTat',p,e); }
   return null;
 }
+/* ---------- Văn bản đến (trang riêng van-ban-den.html, dữ liệu van-ban-den.mahoa.json do tác vụ GitHub Actions ghi) ---------- */
+const CO_VBD=/^https?:$/.test(location.protocol);   // chỉ có khi mở qua trang web (GitHub Pages); mở file trên máy thì ẩn
+const VBD={dl:null, dang:false, luc:0, mkThu:''};
+function homNayVN(){ try{ return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); }catch(e){ return todayIso(); } }
+function tomTatVBD(d){   // cùng cách tính hạn với trang Văn bản đến
+  const hom=homNayVN(); let quaHan=0, sap=0, khan=0;
+  for(const v of d.van_ban||[]){ if(v.mat) continue; if(/khẩn|hỏa tốc/i.test(v.do_khan||'')) khan++; if(v.trang_thai==='Hoàn thành') continue;
+    const hs=[v.han,...(v.nhiem_vu||[]).map(n=>n.han)].filter(Boolean).sort(); if(!hs.length) continue; const c=diffDays(hom,hs[0]); if(c<0) quaHan++; else if(c<=3) sap++; }
+  const homNayN=((d.theo_ngay||[]).find(n=>n.ngay===hom)||{}).so_luong||0;
+  return {tong:d.tong_so||(d.van_ban||[]).length, quaHan, sap, khan, homNay:homNayN, capNhat:d.cap_nhat_luc||null};
+}
+async function taiVBD(){
+  if(!CO_VBD||VBD.dang) return; const ds=[TT.mkXem, docLS(XEM_KEY), BM().mkXem].filter(Boolean); const mkThu=ds.join('\u0001');
+  if(VBD.dl&&Date.now()-VBD.luc<5*60000) return; if(!VBD.dl&&mkThu===VBD.mkThu&&Date.now()-VBD.luc<5*60000) return;
+  VBD.dang=true; VBD.luc=Date.now(); VBD.mkThu=mkThu;
+  try{
+    const r=await fetch('van-ban-den.mahoa.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) return;
+    const o=await r.json(); let d=null;
+    if(Array.isArray(o.van_ban)) d=o; else for(const mk of ds){ try{ d=JSON.parse(await giaiMa(o,mk)); break; }catch(e){} }
+    if(d&&Array.isArray(d.van_ban)){ VBD.dl=tomTatVBD(d); if(D().ui.phan==='home') renderHome(); }
+  }catch(e){ console.warn('Văn bản đến:',e); }
+  finally{ VBD.dang=false; }
+}
+function nutVBD(){
+  const t=VBD.dl;
+  return `<a href="van-ban-den.html" title="Mở danh sách văn bản đến">📥 Văn bản đến${t?` <small>·</small> <b>${fmtNum(t.tong)}</b> <small>văn bản${t.homNay?`, hôm nay ${t.homNay}`:''}</small>${t.quaHan?` <small>·</small> <b class="do">${t.quaHan} quá hạn</b>`:''}${t.sap?` <small>·</small> <b class="vang">${t.sap} sắp hạn</b>`:''}`:''}</a>`;
+}
 function renderHome(){
+  if(CO_VBD) setTimeout(taiVBD,0);
   const el=$('#p-home'); const VT=[[27,16],[73,16],[88,50],[73,84],[27,84],[12,50]];   // theo chiều kim đồng hồ
   const ds=DS_PHAN.map(p=>({p,t:tomTat(p)}));
   let coXa=false; try{ const X=moHinhXa(); coXa=!!(X&&!X.khong); }catch(e){}
   const tt=SAMPLE&&SAMPLE===TT.st;
   el.innerHTML=`<div class="home"><div class="home-dau"><div><small>CỤC THUẾ · THUẾ THÀNH PHỐ BẮC NINH</small><h2>Báo cáo tiến độ phục vụ chỉ đạo, điều hành</h2>
       <p>Chạm vào một biểu tượng để mở chức năng. Mỗi ô ghi chỉ số chính của số liệu mới nhất.</p>${tt?`<div class="dh-dong"><i></i>Số liệu trực tuyến · file cập nhật ${gioDrive(TT.file&&TT.file.modifiedTime)}</div>`:''}</div>
-      <div class="home-nut">${coXa?`<button data-dh>🗺 Màn hình điều hành 99 xã, phường</button>`:''}</div></div>
+      <div class="home-nut">${coXa?`<button data-dh>🗺 Màn hình điều hành 99 xã, phường</button>`:''}${CO_VBD?nutVBD():''}</div></div>
     <div class="vong"><div class="ring r4"></div><div class="ring r2"></div><div class="ring r1"></div><div class="ring r3"></div><div class="tam">${svgThanhPho()}<b>6 CHỨC NĂNG</b></div>
     ${ds.map(({p,t},i)=>`<button class="o-ch" data-go="${p}" style="left:${VT[i][0]}%;top:${VT[i][1]}%;--i:${i};--pc:var(${PHAN[p].mau});--gc:${t?rgbaHex(DH_MAU[t.m]||DH_MAU.info,.55):'rgba(56,189,248,.45)'}" title="Mở Phần ${PHAN[p].so}. ${PHAN[p].ten}">
       <span class="de"><span class="icon">${ICON[p]}</span></span>
@@ -3153,7 +3191,7 @@ function moBangPhan(){
   w.innerHTML=`<div class="sh" role="dialog" aria-label="Chuyển phần"><h4>CHUYỂN NHANH SANG PHẦN</h4><div class="ds">
     <button data-go="home" class="${ph==='home'?'on':''}">${ICON.home}<span>Trang chủ</span></button>
     ${DS_PHAN.map(p=>`<button data-go="${p}" class="${ph===p?'on':''}">${ICON[p]}<span>${PHAN[p].so}. ${TEN_GON[p]}</span></button>`).join('')}
-    <button data-dh>${ICON.map}<span>Điều hành 99 xã</span></button></div></div>`;
+    <button data-dh>${ICON.map}<span>Điều hành 99 xã</span></button>${CO_VBD?`<a href="van-ban-den.html">${ICON.vbd}<span>Văn bản đến${VBD.dl&&VBD.dl.quaHan?`<br><b>${VBD.dl.quaHan} quá hạn</b>`:''}</span></a>`:''}</div></div>`;
   w.addEventListener('click',e=>{ const b=e.target.closest('button'); if(e.target===w){ w.remove(); return; } if(!b) return; if(b.dataset.go) diToiPhan(b.dataset.go); else if(b.hasAttribute('data-dh')){ w.remove(); moDH(); } });
   document.body.appendChild(w);
 }
@@ -4045,12 +4083,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   HTML_GOC='<!DOCTYPE html>\n'+document.documentElement.outerHTML;   // chụp trước khi vẽ giao diện (dùng tạo bản chia sẻ)
   S.ui.phan='home'; if(CHIA_SE) CHIA_SE.ui.phan='home';   // mở app: hiện Trang chủ (6 chức năng)
   let th='light'; try{ th=localStorage.getItem(THEME_KEY)||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); }catch(e){}
-  setTheme(th); ganSuKien();
+  setTheme(th); ganSuKien(); if(!CO_VBD) document.body.classList.add('khong-vbd');
   try{ render(); }catch(e){ console.error(e); toast('Lỗi hiển thị: '+esc(e.message),'err'); }
   batDauTrucTuyen(true).catch(e=>console.warn(e));   // nếu có cấu hình Google Drive: tự đọc số liệu trực tuyến
 });
 /* Dùng cho kiểm thử tự động */
-window.App={moDH, dongDH, renderHome, tomTat, thuGon, DH, docXa, docKTN, docKTC, docNo, moHinhXa, moHinhKT, moHinhNo, banDo, maHoa, giaiMa, bamMK, BM, canQT, TT, taiTuDrive, batDauTrucTuyen, maTuLink, xuatChoDrive, xuLyFiles, luuNhap, moNhap, render, moHinhA, moHinhB, moHinhNS, moHinhCD, phanTichFile, maDonVi, maKhoan, chiSoTuMuc, PEND, XLK, get S(){return S;}, get D(){return D();}, set SAMPLE(v){SAMPLE=v;}};
+window.App={VBD, taiVBD, tomTatVBD, moDH, dongDH, renderHome, tomTat, thuGon, DH, docXa, docKTN, docKTC, docNo, moHinhXa, moHinhKT, moHinhNo, banDo, maHoa, giaiMa, bamMK, BM, canQT, TT, taiTuDrive, batDauTrucTuyen, maTuLink, xuatChoDrive, xuLyFiles, luuNhap, moNhap, render, moHinhA, moHinhB, moHinhNS, moHinhCD, phanTichFile, maDonVi, maKhoan, chiSoTuMuc, PEND, XLK, get S(){return S;}, get D(){return D();}, set SAMPLE(v){SAMPLE=v;}};
 </script>
 </body>
 </html>
