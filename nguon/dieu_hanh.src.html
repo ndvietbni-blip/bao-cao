@@ -3576,7 +3576,7 @@ function dsHop(){
   dsLichHopSheet().forEach(r=>{ const so=gtc(r,'Văn bản họp'), ngay=ganNgay(gtc(r,'Ngày họp')); if(!ngay) return; const idS=gtc(r,'Mã cuộc họp')||khoa(so||gtc(r,'Nội dung cuộc họp').slice(0,40),ngay);
     let o=m.get(idS); if(!o){ const so0=(so.match(/^\d+/)||[''])[0]; o=[...m.values()].find(x=>x.ngay===ngay&&so0&&(x.so.match(/^\d+/)||[''])[0]===so0); }
     const gioTxt=gtc(r,'Giờ họp'); const sh={so, ngay, gio:ganGio(gioTxt), gioTxt, dd:gtc(r,'Địa điểm'), noiDung:gtc(r,'Nội dung cuộc họp'), noiMoi:gtc(r,'Nơi phát hành'), ngayVB:ganNgay(gtc(r,'Ngày văn bản'))||'', gm:gtc(r,'Link Giấy mời'), thanhPhanSheet:gtc(r,'Thành phần tham gia'),
-      sheet:{ld:gtc(r,'Lãnh đạo chủ trì'), dv:gtc(r,'Phòng chủ trì'), ph:gtc(r,'Thành phần tham gia'), tt:gtc(r,'Trạng thái'), cd:gtc(r,'Chỉ đạo'), nguoi:gtc(r,'Người phân công'), luc:gtc(r,'Cập nhật lúc'), xn:gtc(r,'Đã xác nhận tham gia')}};
+      sheet:{ld:gtc(r,'Lãnh đạo dự (app)','Lãnh đạo chủ trì'), dv:gtc(r,'Đơn vị chuẩn bị (app)','Phòng chủ trì'), ph:gtc(r,'Thành phần tham gia'), tt:gtc(r,'Trạng thái'), cd:gtc(r,'Chỉ đạo'), nguoi:gtc(r,'Người phân công'), luc:gtc(r,'Cập nhật lúc'), xn:gtc(r,'Đã xác nhận tham gia')}};
     if(o){ for(const k of ['dd','gm','noiMoi','ngayVB']) if(!o[k]&&sh[k]) o[k]=sh[k]; if(!o.gio&&sh.gio){ o.gio=sh.gio; o.gioTxt=sh.gioTxt; } if(!o.noiDung) o.noiDung=sh.noiDung; o.sheet=sh.sheet; o.nguon.push('sheet'); }
     else m.set(idS,Object.assign({id:idS, tomTat:'', ctHop:'', thanhPhan:'', nguon:['sheet']},sh)); });
   const may=pcMay();
@@ -3686,9 +3686,9 @@ async function luuPhanCong(){
   const tb=$('#lh [data-pcthongbao]');
   if(cfgDB()){ if(tb) tb.textContent='Đang đồng bộ Google Sheet…';
     try{ const ldTen=pc.ld.map(t=>{ const o=dsLanhDao().find(x=>x.ten===t); return o?nhanLD(o):'Đ/c: '+t; }).join('; ');
-      await goiDB('hop',{ma_hop:h.id, van_ban:h.so, ngay_van_ban:h.ngayVB?fmtDate(h.ngayVB):'', noi_phat_hanh:h.noiMoi, noi_dung:h.noiDung, gio:h.gioTxt||h.gio, ngay:fmtDate(h.ngay), dia_diem:h.dd, lanh_dao:ldTen, phong_chu_tri:pc.dv, thanh_phan:pc.ph.join('; '), trang_thai:pc.tt, chi_dao:pc.cd, link_gm:h.gm, nguoi, luc:pc.luc});
-      pc.dongBo=true; luuPcMay(h.id,pc); toast('✔ Đã lưu phân công và ghi vào Google Sheet (trang LichHop).','ok'); docDB(true); }
-    catch(e){ toast('Đã lưu trên máy này nhưng <b>chưa ghi được Google Sheet</b>: '+esc(e.message)+'. Bấm Lưu lại khi có mạng.','warn',9000); } }
+      const kq=await goiDB('hop',{ma_hop:h.id, van_ban:h.so, ngay_van_ban:h.ngayVB?fmtDate(h.ngayVB):'', noi_phat_hanh:h.noiMoi, noi_dung:h.noiDung, gio:h.gioTxt||h.gio, ngay:fmtDate(h.ngay), dia_diem:h.dd, lanh_dao:ldTen, phong_chu_tri:pc.dv, thanh_phan:pc.ph.join('; '), trang_thai:pc.tt, chi_dao:pc.cd, link_gm:h.gm, nguoi, luc:pc.luc});
+      pc.dongBo=true; luuPcMay(h.id,pc); toast('✔ Đã lưu phân công và ghi vào Google Sheet (trang LichHop).'+((kq.canh_bao||[]).length?'<br><small>Lưu ý: '+kq.canh_bao.map(esc).join('<br>')+'</small>':''),(kq.canh_bao||[]).length?'warn':'ok',(kq.canh_bao||[]).length?10000:4500); docDB(true); }
+    catch(e){ toast('Đã lưu trên máy này nhưng <b>chưa ghi được Google Sheet</b>: '+esc(e.message)+'. Khắc phục xong bấm Lưu lại.','warn',12000); } }
   else toast('Đã lưu phân công trên máy này. (Chưa cấu hình đồng bộ Google Sheet – xem ⚙ Cài đặt.)','ok',6000);
   veLH(); capNutHop();
 }

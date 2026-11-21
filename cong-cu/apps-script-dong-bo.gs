@@ -9,6 +9,7 @@
  *  3. Triển khai → Tùy chọn triển khai mới → Loại: Ứng dụng web → Thực thi với tư cách: Tôi;
  *     Người có quyền truy cập: Bất kỳ ai → Triển khai → cho phép quyền → sao chép URL (kết thúc bằng /exec).
  *  4. Trong app: ⚙ Cài đặt → Đồng bộ Google Sheet → dán URL và MA_BI_MAT → Thử kết nối → Tạo file cau_hinh.json.
+ * Cột có danh sách thả xuống (VD Lãnh đạo chủ trì, Phòng chủ trì): tự chọn mục khớp; bản đầy đủ ghi ở cột “… (app)”.
  * Mã bí mật chỉ nằm trong cau_hinh.json đã khóa bằng mật khẩu xem – người không có mật khẩu xem không gọi được.
  */
 const TRANG = { LD: 'LĐ', HOP: 'LichHop', CD: 'Chidao' };
@@ -60,9 +61,32 @@ function cot(s, ten, them) {
   if (i < 0 && them) { i = h.length; s.getRange(1, i + 1).setValue(ten); }
   return i < 0 ? -1 : i + 1;
 }
+/* Ô có danh sách thả xuống (chỉ nhận giá trị trong danh sách): tìm mục khớp nhất; không khớp thì trả null */
+function dsThaXuong(o) {
+  const dv = o.getDataValidation(); if (!dv) return null;
+  const T = SpreadsheetApp.DataValidationCriteria, loai = dv.getCriteriaType();
+  if (loai === T.VALUE_IN_LIST) return { ds: dv.getCriteriaValues()[0].map(String), chat: !dv.getAllowInvalid() };
+  if (loai === T.VALUE_IN_RANGE) return { ds: [].concat.apply([], dv.getCriteriaValues()[0].getValues()).map(String).filter(String), chat: !dv.getAllowInvalid() };
+  return null;
+}
+const khoaDV = s => boDau(s).replace(/^đ\/c:?|^d\/c:?/, '').replace(/\b(phong|so|thue|tinh|thanh pho)\b/g, '').replace(/[^a-z0-9]/g, '');
+const tenNguoi = s => boDau(String(s).replace(/^\s*đ\/c:?\s*/i, '').split(/\s*[-–]\s*/)[0]).replace(/[^a-z ]/g, '').trim();
+function khopMuc(ds, gt, laNguoi) {
+  if (ds.indexOf(gt) >= 0) return gt;
+  if (laNguoi) { const t = tenNguoi(gt); return ds.find(x => t && tenNguoi(x) === t) || null; }
+  const k = khoaDV(gt); if (!k) return null;
+  return ds.find(x => khoaDV(x) === k) || ds.find(x => { const kx = khoaDV(x); return kx.length > 2 && (kx.indexOf(k) >= 0 || k.indexOf(kx) >= 0); }) || null;
+}
+/* Ghi một ô; ô có danh sách thả xuống thì ghi mục khớp (không khớp thì giữ nguyên ô và báo lại) */
+function ghiO(s, hang, cot, gt, canhBao, laNguoi) {
+  const o = s.getRange(hang, cot); let v = gt == null ? '' : String(gt);
+  const tx = dsThaXuong(o);
+  if (tx && tx.chat && v) { const m = khopMuc(tx.ds, v, laNguoi); if (m == null) { canhBao.push(s.getRange(1, cot).getValue() + ': "' + v + '" không có trong danh sách thả xuống – giữ nguyên ô.'); return false; } v = m; }
+  try { o.setValue(tx && tx.chat ? v : an(v)); return true; } catch (x) { canhBao.push(s.getRange(1, cot).getValue() + ': ' + x.message); return false; }
+}
 function ghiHop(d, nguoi) {
   const s = trang(TRANG.HOP);
-  ['Mã cuộc họp', 'Chỉ đạo', 'Người phân công', 'Cập nhật lúc'].forEach(t => cot(s, t, true));
+  ['Mã cuộc họp', 'Lãnh đạo dự (app)', 'Đơn vị chuẩn bị (app)', 'Chỉ đạo', 'Người phân công', 'Cập nhật lúc'].forEach(t => cot(s, t, true));
   const C = t => cot(s, t, true);
   const n = s.getLastRow(); const v = n > 1 ? s.getRange(2, 1, n - 1, s.getLastColumn()).getValues() : [];
   const cMa = C('Mã cuộc họp'), cVB = C('Văn bản họp'), cNgay = C('Ngày họp');
@@ -72,19 +96,25 @@ function ghiHop(d, nguoi) {
   let hang;
   if (dong < 0) { hang = Math.max(2, n + 1); const cStt = cot(s, 'Số thứ tự', false); if (cStt > 0) s.getRange(hang, cStt).setValue(v.length + 1); }
   else hang = dong + 2;
-  const neuTrong = (t, gt) => { const c = C(t); const r = s.getRange(hang, c); if (!String(r.getValue()) && gt) r.setValue(an(gt)); };
-  const dat = (t, gt) => s.getRange(hang, C(t)).setValue(an(gt));
+  const canhBao = [];
+  const neuTrong = (t, gt) => { const c = C(t); if (!String(s.getRange(hang, c).getValue()) && gt) ghiO(s, hang, c, gt, canhBao); };
+  const dat = (t, gt, laNguoi) => ghiO(s, hang, C(t), gt, canhBao, laNguoi);
+  const dsLD = String(d.lanh_dao || '').split(/\s*;\s*/).filter(String);
   neuTrong('Văn bản họp', d.van_ban); neuTrong('Ngày văn bản', d.ngay_van_ban); neuTrong('Nơi phát hành', d.noi_phat_hanh); neuTrong('Nội dung cuộc họp', d.noi_dung);
   neuTrong('Giờ họp', d.gio); neuTrong('Ngày họp', d.ngay); neuTrong('Địa điểm', d.dia_diem); neuTrong('Link Giấy mời', d.link_gm);
-  dat('Mã cuộc họp', d.ma_hop); dat('Lãnh đạo chủ trì', d.lanh_dao); dat('Phòng chủ trì', d.phong_chu_tri); dat('Thành phần tham gia', d.thanh_phan);
+  dat('Mã cuộc họp', d.ma_hop);
+  // Cột có danh sách thả xuống chỉ nhận 1 lãnh đạo, 1 phòng: ghi người/đơn vị đầu tiên khớp danh sách; bản đầy đủ ghi ở cột “(app)”
+  dat('Lãnh đạo dự (app)', d.lanh_dao); dat('Đơn vị chuẩn bị (app)', d.phong_chu_tri);
+  if (dsLD.length) dat('Lãnh đạo chủ trì', dsLD[0], true); else dat('Lãnh đạo chủ trì', '');
+  dat('Phòng chủ trì', d.phong_chu_tri); dat('Thành phần tham gia', d.thanh_phan);
   dat('Trạng thái', d.trang_thai); dat('Chỉ đạo', d.chi_dao); dat('Người phân công', d.nguoi || nguoi); dat('Cập nhật lúc', d.luc || new Date().toISOString());
-  return { ok: true, hang: hang };
+  return { ok: true, hang: hang, canh_bao: canhBao };
 }
 function ghiChiDao(d, nguoi) {
   const s = trang(TRANG.CD);
   ['stt', 'Lãnh đạo chỉ đạo', 'Văn bản\\bài báo gốc', 'Nội dung chỉ đạo', 'Đơn vị chủ trì', 'Đơn vị phối hợp', 'Hạn thực hiện', 'Link đính kèm', 'Đơn vị đã tiếp nhận', 'Đơn vị đã hoàn thành', 'Báo cáo kết quả', 'Thời gian giao', 'Phụ trách'].forEach(t => cot(s, t, true));
-  const hang = s.getLastRow() + 1; const dat = (t, gt) => s.getRange(hang, cot(s, t, true)).setValue(an(gt));
+  const hang = s.getLastRow() + 1; const canhBao = []; const dat = (t, gt) => ghiO(s, hang, cot(s, t, true), gt, canhBao);
   dat('stt', d.stt); dat('Lãnh đạo chỉ đạo', d.lanh_dao); dat('Văn bản\\bài báo gốc', d.goc); dat('Nội dung chỉ đạo', d.noi_dung); dat('Đơn vị chủ trì', d.chu_tri);
   dat('Đơn vị phối hợp', d.phoi_hop); dat('Hạn thực hiện', d.han); dat('Link đính kèm', d.link); dat('Thời gian giao', d.thoi_gian); dat('Phụ trách', d.phu_trach || nguoi);
-  return { ok: true, hang: hang };
+  return { ok: true, hang: hang, canh_bao: canhBao };
 }
