@@ -26,7 +26,8 @@
 
 ## 3. Việc còn lại (người dùng làm trên GitHub)
 - [ ] Làm theo `huong-dan/HUONG_DAN_DONG_BO_SHEET.md`: secret `SHEET_TIN_TUC_ID`; cài Apps Script, đặt `MA_BI_MAT`; nhập vào ⚙ Cài đặt, tạo lại `cau_hinh.json`.
-- [ ] Tác vụ AI đánh giá tin: đề xuất tạo **tác vụ riêng** “Đánh giá tin thuế” (không sửa tác vụ viết bài), chạy 3 lần/ngày; cần nối Google Sheets (qua Composio) để tác vụ được ghi trang DanhGia. Chờ người dùng đồng ý.
+- [x] 21/11/2026: đã nối Google Sheets (Composio), tạo trang **DanhGia**, tạo tác vụ đã lên lịch riêng **“Đánh giá tin thuế (Phần 9 – Thông tin truyền thông)”** chạy 7h42, 12h42, 16h42.
+- [ ] Người dùng gắn connector **Composio** cho tác vụ “Đánh giá tin thuế” trên claude.ai (tạo từ phiên code nên chưa mang theo connector), rồi bấm chạy thử.
 - [ ] Đóng yêu cầu gộp số 1 (nhánh `claude/cool-pasteur-yjowui`), **không Merge**: bản cũ.
 - [ ] Bước 7 trong `huong-dan/HUONG_DAN_TRUC_TUYEN.md`: để Sổ theo dõi báo sang ngay khi có văn bản mới.
 - [ ] Ghi lịch gia hạn mã `VANBAN_TOKEN`. Đổi mật khẩu xem thì đổi cả secret `MAT_KHAU_XEM`.
