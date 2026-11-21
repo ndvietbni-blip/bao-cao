@@ -1,0 +1,44 @@
+name: Lấy tin tức
+
+# Đọc Google Sheet "Bản tin nhanh" (tin, đánh giá của tác vụ AI, lãnh đạo, lịch họp, chỉ đạo),
+# khóa bằng mật khẩu xem, ghi tin-tuc.mahoa.json để Phần 9 – Thông tin truyền thông và Lịch họp của app đọc.
+# Cần 2 secret: SHEET_TIN_TUC_ID (mã Sheet, đoạn giữa /d/ và /edit trong link) và MAT_KHAU_XEM (đã có).
+on:
+  schedule:
+    - cron: '17 */2 * * *'   # 2 giờ một lần
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lay-tin-tuc
+  cancel-in-progress: false
+
+jobs:
+  lay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Đọc Sheet, khóa bản tin
+        env:
+          SHEET_TIN_TUC_ID: ${{ secrets.SHEET_TIN_TUC_ID }}
+          MAT_KHAU_XEM: ${{ secrets.MAT_KHAU_XEM }}
+        run: node cong-cu/lay-tin-tuc.mjs tin-tuc.mahoa.json
+
+      - name: Lưu vào kho nếu có thay đổi
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tin-tuc.mahoa.json
+          if git diff --cached --quiet; then echo "Không có thay đổi."; exit 0; fi
+          git commit -m "Cập nhật bản tin"
+          for i in 1 2 3 4; do git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push && exit 0; sleep $((i*3)); done
+          exit 1

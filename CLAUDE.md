@@ -21,9 +21,10 @@ nguon/ban_do_99_xa.json     bản đồ 99 xã, phường (tinhthanhpho.com, CC 
 dong_goi.py                 đóng gói ra index.html, van-ban-den.html
 thu-vien/                   danh sách thư viện (package.json, package-lock.json)
 huong-dan/                  hướng dẫn sử dụng, cài đặt; huong-dan/tac-vu/ là tệp tác vụ mẫu
-.github/workflows/          dong-goi.yml (tự đóng gói), lay-van-ban-den.yml (lấy văn bản đến)
+.github/workflows/          dong-goi.yml (tự đóng gói), lay-van-ban-den.yml (lấy văn bản đến), lay-tin-tuc.yml (bản tin)
+cong-cu/                    ma-hoa-van-ban-den.mjs, lay-tin-tuc.mjs (đọc Sheet, khóa), apps-script-dong-bo.gs (dán vào Apps Script của Sheet)
 index.html, van-ban-den.html   KẾT QUẢ ĐÓNG GÓI – không sửa tay
-cau_hinh.json, van-ban-den.mahoa.json   tệp đã khóa – không sửa, không xóa
+cau_hinh.json, van-ban-den.mahoa.json, tin-tuc.mahoa.json   tệp đã khóa – không sửa, không xóa
 ```
 - Đóng gói để thử: `cd thu-vien && npm ci --ignore-scripts && cd .. && python dong_goi.py`.
 - Trên GitHub, `dong-goi.yml` tự đóng gói khi `nguon/`, `dong_goi.py` hoặc thư viện đổi.
@@ -37,6 +38,7 @@ cau_hinh.json, van-ban-den.mahoa.json   tệp đã khóa – không sửa, khôn
 
 ## Luồng dữ liệu
 - **Số liệu:** nhập Excel trên app → Xuất file cho Drive (đã khóa) → mọi máy đọc từ Drive, tự kiểm tra 5 phút/lần.
+- **Bản tin, lịch họp, chỉ đạo:** Google Sheet "Bản tin nhanh" (Sheet1, DanhGia, LĐ, LichHop, Chidao) → `lay-tin-tuc.yml` khóa thành `tin-tuc.mahoa.json`. App ghi phân công, chỉ đạo qua Apps Script (địa chỉ + mã trong `cau_hinh.json` đã khóa). Không đưa mã Sheet, link Sheet vào kho.
 - **Văn bản đến:** kho riêng tư `theo-doi-van-ban` tạo `xuat/van-ban-den.json` → tác vụ `lay-van-ban-den.yml` lấy về, khóa thành `van-ban-den.mahoa.json` → trang tự kiểm tra 2 phút/lần.
 
 ## Quy tắc nghiệp vụ đã chốt

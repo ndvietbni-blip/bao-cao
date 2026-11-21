@@ -12,13 +12,21 @@
 - **Phần 5.** Kiểm tra tại trụ sở CQT.
 - **Phần 6.** Công tác nợ, đánh giá theo mục tiêu Cục Thuế (8%, 5%).
 - **Phần 7.** Tổng hợp đơn vị: sơ đồ bộ máy, chi tiết đơn vị, nhiệm vụ từ văn bản đến, lịch tuần.
+- **Thanh Tab:** 10 tab một hàng (7 Tổng hợp đơn vị, 8 Văn bản đến, 9 Truyền thông), không đủ chỗ tự dùng tên ngắn.
+- **Lịch họp:** nút 🗓 ở Trang chủ và thanh trên (chấm đỏ = cuộc họp mới, nhấp nháy khi còn ≤ 2 giờ); gộp họp từ văn bản đến + trang LichHop; phân công lãnh đạo dự (Trưởng, Phó Trưởng trang LĐ), đơn vị chủ trì chuẩn bị, phối hợp, chỉ đạo nhanh; ảnh thông báo gửi Zalo/mail; .ics.
+- **Phần 9. Thông tin truyền thông:** tin từ Sheet "Bản tin nhanh" (tác vụ `lay-tin-tuc.yml` 2 giờ/lần, đã khóa); điểm tin, thống kê, lọc; đánh giá của tác vụ AI (trang DanhGia) hoặc phân loại sơ bộ theo từ khóa; nút Chỉ đạo → trang Chidao; ảnh Phiếu chỉ đạo, ảnh Điểm tin.
+- **Đồng bộ Google Sheet** qua Apps Script (`cong-cu/apps-script-dong-bo.gs`): ghi LichHop, Chidao; chưa cài thì lưu trên máy. Phần 7 hiện chỉ đạo, cuộc họp giao đơn vị.
 - **Văn bản đến:** thẻ số bấm để lọc, Danh sách, Điều hành nhanh, Báo cáo nhanh, Hôm nay cần làm, Lịch họp (có tệp .ics), Lịch hạn, Ma trận ưu tiên, Theo đơn vị, Thống kê; tự kiểm tra 2 phút/lần, báo văn bản mới.
 - Chung: xuất Ảnh, PDF, Excel, bản chia sẻ, sao lưu; thu gọn nội dung dài; giao diện điện thoại; đọc số liệu trực tuyến từ Google Drive.
 
 ## 2. Nhật ký
 - 21/11/2026: **Chuyển mã nguồn về kho này** làm nguồn gốc duy nhất cho mọi máy. Thêm `dong_goi.py`, tác vụ tự đóng gói `dong-goi.yml`, `CLAUDE.md`, `TIEN_DO.md`, `.nojekyll`. Từ nay không tải `index.html`, `van-ban-den.html` lên bằng tay.
 
+- 21/11/2026: Sửa thanh Tab; thêm Lịch họp (phân công, chỉ đạo, ảnh chia sẻ), Phần 9 Thông tin truyền thông, đồng bộ Google Sheet, tác vụ Lấy tin tức, hướng dẫn `HUONG_DAN_DONG_BO_SHEET.md`, `tac-vu/danh-gia-tin-tuc.md`. Tên cơ quan giữ "Thuế thành phố Bắc Ninh" (người dùng chốt); danh sách lãnh đạo phó lấy chức vụ "Phó Trưởng…" ở trang LĐ.
+
 ## 3. Việc còn lại (người dùng làm trên GitHub)
+- [ ] Làm theo `huong-dan/HUONG_DAN_DONG_BO_SHEET.md`: secret `SHEET_TIN_TUC_ID`; cài Apps Script, đặt `MA_BI_MAT`; nhập vào ⚙ Cài đặt, tạo lại `cau_hinh.json`.
+- [ ] Dán `huong-dan/tac-vu/danh-gia-tin-tuc.md` vào tác vụ đã lên lịch thu thập tin.
 - [ ] Đóng yêu cầu gộp số 1 (nhánh `claude/cool-pasteur-yjowui`), **không Merge**: bản cũ.
 - [ ] Bước 7 trong `huong-dan/HUONG_DAN_TRUC_TUYEN.md`: để Sổ theo dõi báo sang ngay khi có văn bản mới.
 - [ ] Ghi lịch gia hạn mã `VANBAN_TOKEN`. Đổi mật khẩu xem thì đổi cả secret `MAT_KHAU_XEM`.
