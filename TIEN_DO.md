@@ -22,11 +22,11 @@
 ## 2. Nhật ký
 - 21/11/2026: **Chuyển mã nguồn về kho này** làm nguồn gốc duy nhất cho mọi máy. Thêm `dong_goi.py`, tác vụ tự đóng gói `dong-goi.yml`, `CLAUDE.md`, `TIEN_DO.md`, `.nojekyll`. Từ nay không tải `index.html`, `van-ban-den.html` lên bằng tay.
 
-- 21/11/2026: Sửa thanh Tab; thêm Lịch họp (phân công, chỉ đạo, ảnh chia sẻ), Phần 9 Thông tin truyền thông, đồng bộ Google Sheet, tác vụ Lấy tin tức, hướng dẫn `HUONG_DAN_DONG_BO_SHEET.md`, `tac-vu/danh-gia-tin-tuc.md`. Tên cơ quan giữ "Thuế thành phố Bắc Ninh" (người dùng chốt); danh sách lãnh đạo phó lấy chức vụ "Phó Trưởng…" ở trang LĐ.
+- 21/11/2026: Sửa thanh Tab; thêm Lịch họp (phân công, chỉ đạo, ảnh chia sẻ), Phần 9 Thông tin truyền thông, đồng bộ Google Sheet, tác vụ Lấy tin tức, hướng dẫn `HUONG_DAN_DONG_BO_SHEET.md`, `tac-vu/danh-gia-tin-tuc.md`. Tên cơ quan giữ "Thuế thành phố Bắc Ninh" (người dùng chốt lại 21/11/2026); danh sách lãnh đạo phó lấy chức vụ "Phó Trưởng…" ở trang LĐ.
 
 ## 3. Việc còn lại (người dùng làm trên GitHub)
 - [ ] Làm theo `huong-dan/HUONG_DAN_DONG_BO_SHEET.md`: secret `SHEET_TIN_TUC_ID`; cài Apps Script, đặt `MA_BI_MAT`; nhập vào ⚙ Cài đặt, tạo lại `cau_hinh.json`.
-- [ ] Dán `huong-dan/tac-vu/danh-gia-tin-tuc.md` vào tác vụ đã lên lịch thu thập tin.
+- [ ] Tác vụ AI đánh giá tin: đề xuất tạo **tác vụ riêng** “Đánh giá tin thuế” (không sửa tác vụ viết bài), chạy 3 lần/ngày; cần nối Google Sheets (qua Composio) để tác vụ được ghi trang DanhGia. Chờ người dùng đồng ý.
 - [ ] Đóng yêu cầu gộp số 1 (nhánh `claude/cool-pasteur-yjowui`), **không Merge**: bản cũ.
 - [ ] Bước 7 trong `huong-dan/HUONG_DAN_TRUC_TUYEN.md`: để Sổ theo dõi báo sang ngay khi có văn bản mới.
 - [ ] Ghi lịch gia hạn mã `VANBAN_TOKEN`. Đổi mật khẩu xem thì đổi cả secret `MAT_KHAU_XEM`.
