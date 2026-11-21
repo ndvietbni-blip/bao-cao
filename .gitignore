@@ -1,0 +1,6 @@
+thu-vien/node_modules/
+__pycache__/
+*.pyc
+.env
+*.xlsx
+*.xls

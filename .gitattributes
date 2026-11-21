@@ -1,0 +1,8 @@
+index.html text eol=lf
+van-ban-den.html text eol=lf
+nguon/** text eol=lf
+huong-dan/** text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+thu-vien/*.json text eol=lf
+.github/workflows/dong-goi.yml text eol=lf

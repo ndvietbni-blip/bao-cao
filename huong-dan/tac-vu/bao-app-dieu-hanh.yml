@@ -1,0 +1,42 @@
+name: Báo app điều hành có văn bản mới
+
+# ĐẶT TẠI KHO RIÊNG TƯ theo-doi-van-ban (ndvietbni-blip/theo-doi-van-ban): .github/workflows/bao-app-dieu-hanh.yml
+#
+# Mỗi khi tệp xuat/van-ban-den.json thay đổi trên nhánh main (sau lần quét theo lịch, quét thủ công hoặc quét gấp),
+# tác vụ này gọi ngay tác vụ "Lấy văn bản đến" của kho trang báo cáo (tpbacninh-baocao/bao-cao). Khoảng 1–3 phút sau,
+# trang "Văn bản đến" của app điều hành có văn bản mới (trang tự kiểm tra 2 phút/lần).
+#
+# Không gửi dữ liệu văn bản đi đâu: chỉ gửi một lời gọi "chạy đi". Kho trang báo cáo tự lấy và tự khóa dữ liệu.
+# Cần secret BAOCAO_DISPATCH_TOKEN: mã truy cập chi tiết (fine-grained) CHỈ cho kho tpbacninh-baocao/bao-cao,
+# quyền duy nhất "Actions: Read and write".
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'xuat/van-ban-den.json'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: bao-app-dieu-hanh
+  cancel-in-progress: true
+
+jobs:
+  bao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Gọi tác vụ "Lấy văn bản đến" của kho trang báo cáo
+        env:
+          TOKEN: ${{ secrets.BAOCAO_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$TOKEN" || { echo "Chưa đặt secret BAOCAO_DISPATCH_TOKEN"; exit 1; }
+          curl --fail-with-body --silent --show-error --retry 3 -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/tpbacninh-baocao/bao-cao/actions/workflows/lay-van-ban-den.yml/dispatches" \
+            -d '{"ref":"main"}'
+          echo "Đã báo kho trang báo cáo lấy văn bản đến ngay."

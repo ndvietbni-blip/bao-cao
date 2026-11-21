@@ -1,0 +1,61 @@
+name: Lấy văn bản đến
+
+# ĐẶT TẠI KHO TRANG BÁO CÁO (tpbacninh-baocao/bao-cao): .github/workflows/lay-van-ban-den.yml (thay tệp cũ)
+#
+# Lấy tệp văn bản đến từ kho riêng tư theo-doi-van-ban (đọc bằng mã chỉ đọc VANBAN_TOKEN), khóa bằng mật khẩu xem
+# (MAT_KHAU_XEM), rồi ghi van-ban-den.mahoa.json vào kho này để trang "Văn bản đến" đọc.
+#
+# Chạy khi nào:
+#   1. NGAY LẬP TỨC: kho theo-doi-van-ban gọi sang mỗi khi tệp xuat/van-ban-den.json thay đổi (quét theo lịch
+#      9:40, 12:40, 16:40, 23:40 hoặc quét thủ công, quét gấp) – xem tệp bao-app-dieu-hanh.yml ở kho đó.
+#   2. Quản trị bấm "Run workflow" (mục Actions) khi cần lấy ngay.
+#   3. Lưới an toàn nếu lời gọi bị lỡ: 15 phút sau mỗi lần quét theo lịch, và mỗi giờ trong giờ làm việc.
+#      (GitHub có thể chạy lịch muộn vài phút đến vài chục phút khi đông.)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 2,5,9,16 * * *'   # 09:55, 12:55, 16:55, 23:55 giờ Việt Nam (15 phút sau mỗi lần quét)
+    - cron: '25 0-14 * * 1-5'     # mỗi giờ, phút 25, từ 07:25 đến 21:25 giờ Việt Nam, thứ Hai – thứ Sáu
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lay-van-ban-den
+  cancel-in-progress: false
+
+jobs:
+  lay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tải văn bản đến từ kho riêng tư
+        env:
+          VANBAN_TOKEN: ${{ secrets.VANBAN_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$VANBAN_TOKEN" || { echo "Chưa đặt secret VANBAN_TOKEN"; exit 1; }
+          curl --fail --silent --show-error --location --retry 3 \
+            -H "Authorization: Bearer $VANBAN_TOKEN" \
+            -H "Accept: application/vnd.github.raw+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -o "$RUNNER_TEMP/van-ban-den.json" \
+            "https://api.github.com/repos/ndvietbni-blip/theo-doi-van-ban/contents/xuat/van-ban-den.json?ref=main"
+
+      - name: Mã hóa
+        env:
+          MAT_KHAU_XEM: ${{ secrets.MAT_KHAU_XEM }}
+        run: node cong-cu/ma-hoa-van-ban-den.mjs "$RUNNER_TEMP/van-ban-den.json" van-ban-den.mahoa.json
+
+      - name: Lưu vào kho nếu có thay đổi
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add van-ban-den.mahoa.json
+          if git diff --cached --quiet; then echo "Không có thay đổi."; exit 0; fi
+          git commit -m "Cập nhật văn bản đến"
+          for i in 1 2 3 4; do git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push && exit 0; sleep $((i*3)); done
+          exit 1
